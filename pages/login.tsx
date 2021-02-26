@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCurrentUser } from '@/hooks/index';
+import { useCurrentUser } from '/hooks/index';
 
 const LoginPage = () => {
   const router = useRouter();
