@@ -1,0 +1,45 @@
+{
+  "name": "thisweeksplays.com",
+  "version": "1.0.0",
+  "description": " ",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tdotholla/twp2.git"
+  },
+  "author": "Kiel Byrne (https://kielbyrne.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tdotholla/twp2/issues"
+  },
+  "homepage": "https://github.com/tdotholla/twp2#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^3.2.0",
+    "dotenv": "^8.2.0",
+    "express-session": "^1.17.1",
+    "mongodb": "^3.6.3",
+    "nanoid": "^3.1.18",
+    "next": "^10.0.3",
+    "next-connect": "^0.9.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "swr": "^0.3.9",
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5"
+  }
+}
