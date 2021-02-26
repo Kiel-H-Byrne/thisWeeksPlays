@@ -2,9 +2,9 @@ import nc from 'next-connect';
 import isEmail from 'validator/lib/isEmail';
 import normalizeEmail from 'validator/lib/normalizeEmail';
 import bcrypt from 'bcryptjs';
-import { all } from '@/middlewares/index';
-import { extractUser } from '@/lib/api-helpers';
-import { insertUser, findUserByEmail } from '@/db/index';
+import { all } from '/middlewares/index';
+import { extractUser } from '/lib/api-helpers';
+import { insertUser, findUserByEmail } from '/db/index';
 
 const handler = nc();
 

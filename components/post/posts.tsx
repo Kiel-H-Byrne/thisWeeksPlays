@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSWRInfinite } from 'swr';
 import Link from 'next/link';
-import { useUser } from '@/hooks/index';
-import fetcher from '@/lib/fetch';
-import { defaultProfilePicture } from '@/lib/default';
+import { useUser } from '/hooks/index';
+import fetcher from '/lib/fetch';
+import { defaultProfilePicture } from '/lib/default';
 
 function Post({ post }) {
   const user = useUser(post.creatorId);

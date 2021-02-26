@@ -1,6 +1,6 @@
 import nc from 'next-connect';
-import { all } from '@/middlewares/index';
-import { getPosts, insertPost } from '@/db/index';
+import { all } from '/middlewares/index';
+import { getPosts, insertPost } from '/db/index';
 
 const handler = nc();
 

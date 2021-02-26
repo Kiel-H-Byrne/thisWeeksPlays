@@ -1,7 +1,7 @@
 import nc from 'next-connect';
-import { all } from '@/middlewares/index';
-import { findUserById } from '@/db/index';
-import { extractUser } from '@/lib/api-helpers';
+import { all } from '/middlewares/index';
+import { findUserById } from '/db/index';
+import { extractUser } from '/lib/api-helpers';
 
 const handler = nc();
 
