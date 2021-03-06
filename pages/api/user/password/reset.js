@@ -1,10 +1,10 @@
 import bcrypt from 'bcryptjs';
 import nc from 'next-connect';
-import { sendMail } from '/lib/mail';
-import { database } from '/middlewares/index';
+import { sendMail } from '@/lib/mail';
+import { database } from '@/middlewares/index';
 import {
   findUserByEmail, updateUserById, findAndDeleteTokenByIdAndType, insertToken,
-} from '/db/index';
+} from '@/db/index';
 
 const handler = nc();
 

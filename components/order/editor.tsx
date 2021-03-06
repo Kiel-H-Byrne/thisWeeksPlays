@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useCurrentUser } from '/hooks/index';
+import { useCurrentUser } from '@/hooks/index';
 
 export default function PostEditor() {
   const [user] = useCurrentUser();
