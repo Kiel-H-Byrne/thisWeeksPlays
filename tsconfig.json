@@ -6,7 +6,10 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "lib": ["dom", "es2017"],
+    "lib": [
+      "dom",
+      "es2017"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -16,8 +19,23 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext"
+    "target": "esnext",
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"],
+      "@/middlewares/*": ["middlewares/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/interfaces/*": ["interfaces/*"],
+      "@/db/*": ["db/*"]
+    }
   },
-  "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx", "next.config.js"]
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "next.config.js"
+  ],
 }

@@ -1,43 +1,24 @@
-import React from 'react';
-import { useCurrentUser } from '/hooks/index';
-import PostEditor from '/components/post/editor';
-import Posts from '/components/post/posts';
+import React from "react";
+import { useCurrentUser } from "@/hooks/index";
+import Layout from "@/components/layout";
+import { Heading, HStack } from "@chakra-ui/react";
+import FormModalButton from "@/components/FormModalButton";
+import { InstrumentPlays } from "@/components/InstrumentPlays";
+import { Instruments } from "@/interfaces/util";
 
 const IndexPage = () => {
   const [user] = useCurrentUser();
 
   return (
-    <>
-      <style jsx>
-        {`
-          p {
-            text-align: center;
-            color: #888;
-          }
-          h3 {
-            color: #555;
-          }
-        `}
-      </style>
-      <div style={{ marginBottom: '2rem' }}>
-        <h2>
-          Hello,
-          {' '}
-          {user ? user.name : 'stranger'}
-          !
-        </h2>
-        <p>Have a wonderful day.</p>
-      </div>
-      <div>
-        <h3>
-          All posts from the Web
-          {' '}
-          <span role="img" aria-label="Earth">🌎</span>
-        </h3>
-        <PostEditor />
-        <Posts />
-      </div>
-    </>
+    <Layout title="Top5Plays.com">
+      <Heading>Top 5 Plays 👋</Heading>
+      <FormModalButton />
+
+      <HStack spacing={16}>
+        <InstrumentPlays instrument={Instruments.Stocks} />
+        <InstrumentPlays instrument={Instruments.Options} />
+      </HStack>
+    </Layout>
   );
 };
 

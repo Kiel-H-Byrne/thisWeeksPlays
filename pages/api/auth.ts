@@ -1,7 +1,7 @@
 import nc from 'next-connect';
-import { all } from '/middlewares/index';
+import { all } from '@/middlewares/index';
 import passport from 'middlewares/passport';
-import { extractUser } from '/lib/api-helpers';
+import { extractUser } from '@/lib/api-helpers';
 
 const handler = nc();
 

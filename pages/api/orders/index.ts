@@ -1,6 +1,6 @@
 import nc from 'next-connect';
-import { all } from '/middlewares/index';
-import { getPosts, insertPost } from '/db/index';
+import { all } from '@/middlewares/index';
+import { getOrders, insertOrder } from '@/db/index';
 
 const handler = nc();
 
@@ -9,35 +9,35 @@ handler.use(all);
 const maxAge = 1 * 24 * 60 * 60;
 
 handler.get(async (req, res) => {
-  const posts = await getPosts(
+  const orders = await getOrders(
     req.db,
     req.query.from ? new Date(req.query.from) : undefined,
     req.query.by,
     req.query.limit ? parseInt(req.query.limit, 10) : undefined,
   );
 
-  if (req.query.from && posts.length > 0) {
+  if (req.query.from && orders.length > 0) {
     // This is safe to cache because from defines
-    //  a concrete range of posts
+    //  a concrete range of orders
     res.setHeader('cache-control', `public, max-age=${maxAge}`);
   }
 
-  res.send({ posts });
+  res.send({ orders });
 });
 
-handler.post(async (req, res) => {
+handler.order(async (req, res) => {
   if (!req.user) {
     return res.status(401).send('unauthenticated');
   }
 
   if (!req.body.content) return res.status(400).send('You must write something');
 
-  const post = await insertPost(req.db, {
+  const order = await insertOrder(req.db, {
     content: req.body.content,
     creatorId: req.user._id,
   });
 
-  return res.json({ post });
+  return res.json({ order });
 });
 
 export default handler;

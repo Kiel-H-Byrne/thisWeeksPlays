@@ -1,10 +1,10 @@
 import { nanoid } from 'nanoid';
 
-export async function getPosts(db, from = new Date(), by, limit) {
+export async function getOrders(db, from = new Date(), by, limit) {
   return db
-    .collection('posts')
+    .collection('orders')
     .find({
-      // Pagination: Fetch posts from before the input date or fetch from newest
+      // Pagination: Fetch orders from before the input date or fetch from newest
       ...(from && {
         createdAt: {
           $lte: from,
@@ -17,8 +17,8 @@ export async function getPosts(db, from = new Date(), by, limit) {
     .toArray();
 }
 
-export async function insertPost(db, { content, creatorId }) {
-  return db.collection('posts').insertOne({
+export async function insertOrder(db, { content, creatorId }) {
+  return db.collection('orders').insertOne({
     _id: nanoid(12),
     content,
     creatorId,

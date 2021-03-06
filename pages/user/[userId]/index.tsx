@@ -2,12 +2,12 @@ import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Error from 'next/error';
-import { all } from '/middlewares/index';
-import { useCurrentUser } from '/hooks/index';
-import Posts from '/components/post/posts';
-import { extractUser } from '/lib/api-helpers';
-import { findUserById } from '/db/index';
-import { defaultProfilePicture } from '/lib/default';
+import { all } from '@/middlewares/index';
+import { useCurrentUser } from '@/hooks/index';
+import Orders from '@/components/order/orders';
+import { extractUser } from '@/lib/api-helpers';
+import { findUserById } from '@/db/index';
+import { defaultProfilePicture } from '@/lib/default';
 
 export default function UserPage({ user }) {
   if (!user) return <Error statusCode={404} />;
@@ -71,8 +71,8 @@ export default function UserPage({ user }) {
         </section>
       </div>
       <div>
-        <h3>My posts</h3>
-        <Posts creatorId={user._id} />
+        <h3>My orders</h3>
+        <Orders creatorId={user._id} />
       </div>
     </>
   );
