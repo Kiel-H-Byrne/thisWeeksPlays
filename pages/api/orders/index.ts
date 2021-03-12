@@ -25,17 +25,15 @@ handler.get(async (req, res) => {
   res.send({ orders });
 });
 
-handler.order(async (req, res) => {
-  if (!req.user) {
-    return res.status(401).send('unauthenticated');
-  }
+handler.post(async (req, res) => {
+  // if (!req.user) {
+  //   return res.status(401).send('unauthenticated');
+  // }
 
-  if (!req.body.content) return res.status(400).send('You must write something');
+  if (!req.body.data) return res.status(400).send('You must write something');
 
-  const order = await insertOrder(req.db, {
-    content: req.body.content,
-    creatorId: req.user._id,
-  });
+  const submission = {...req.body.data, creatorId: req.user._id}
+  const order = await insertOrder(req.db, submission);
 
   return res.json({ order });
 });

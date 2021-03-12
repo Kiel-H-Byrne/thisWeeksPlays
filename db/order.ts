@@ -17,11 +17,10 @@ export async function getOrders(db, from = new Date(), by, limit) {
     .toArray();
 }
 
-export async function insertOrder(db, { content, creatorId }) {
+export async function insertOrder(db, data) {
   return db.collection('orders').insertOne({
     _id: nanoid(12),
-    content,
-    creatorId,
+    ...data,
     createdAt: new Date(),
   }).then(({ ops }) => ops[0]);
 }
