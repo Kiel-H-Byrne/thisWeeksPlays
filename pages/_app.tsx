@@ -7,7 +7,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
       <Head>
-        <title>Next.js + MongoDB App</title>
+        <title>Top 5 Plays</title>
       </Head>
       <Component {...pageProps} />
     </ChakraProvider>

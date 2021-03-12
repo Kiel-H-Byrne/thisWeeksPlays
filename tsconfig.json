@@ -21,6 +21,7 @@
     "strict": true,
     "target": "esnext",
     "baseUrl": ".",
+    "noImplicitAny": false,
     "paths": {
       "@/components/*": ["components/*"],
       "@/lib/*": ["lib/*"],
