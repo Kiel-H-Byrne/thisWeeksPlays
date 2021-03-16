@@ -123,3 +123,18 @@ export const samplePlays: Order[] = [
     reasoning: Reasons.Community
   },
 ];
+
+export const MoreInformation: { [name: string]: string } = {
+  ticker: "",
+  sentiment: "",
+  instrument: "",
+  entryPrice: "",
+  targetAmount: "",
+  "exit-strategy": "",
+  reasoning: "",
+  "is-watching": "",
+  isShort: "",
+  orderAmount: "",
+  riskAmount: "",
+  screenShot: "",
+};

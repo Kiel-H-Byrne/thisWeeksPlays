@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   FormControl,
   FormErrorMessage,
@@ -9,8 +8,8 @@ import {
   Switch,
 } from "@chakra-ui/react";
 // import { Field, Form, Formik } from "formik";
-import React, { useCallback, useEffect, useState } from "react";
-import { Formik, Field, ErrorMessage, Form, FormikHelpers } from "formik";
+import React, { useState } from "react";
+import { Formik, Field, Form, FormikHelpers } from "formik";
 import {
   Order,
   Instruments,
@@ -19,11 +18,10 @@ import {
   Sentiment,
 } from "../interfaces";
 import axios from "axios";
-import { CUIAutoComplete } from "chakra-ui-autocomplete";
-import { MyAutocomplete } from "./MyAutocomplete";
+import { AutoCompleteField } from "./MyAutocomplete";
+import { InfoPopover } from "./form/InfoPopover";
 
 const initialData: Order = {
-  id: "", //any
   ticker: "", //string
   sentiment: Sentiment.Neutral, //keyof typeof Sentiment
   instrument: Instruments.Crypto, //ValueOf<Instruments>
@@ -47,7 +45,7 @@ const initialData: Order = {
 export const InputForm = () => {
   const [step, setStep] = useState(0);
 
-  function validateName(value: string) {
+  const validateName = (value: string) => {
     let error;
     if (!value) {
       error = "Name is required";
@@ -55,23 +53,40 @@ export const InputForm = () => {
       error = "Jeez! You're not a fan 😱";
     }
     return error;
-  }
+  };
+
+  const validateAll = (values) => {};
+
+  const submitForm = async (
+    values,
+    meta
+    //  : Promise<{values: Order; meta: FormikHelpers<Order>}>
+  ) => {
+    meta.setSubmitting(true);
+    console.log(values);
+    setTimeout(async () => {
+      console.log(JSON.stringify(values, null, 2));
+      await axios
+        .post("/api/orders", {
+          data: values,
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response.data);
+          }
+        });
+      meta.setSubmitting(false);
+    }, 400);
+  };
 
   return (
     <div>
       <Formik
         initialValues={initialData}
-        validate={(values: Order) => {}}
-        onSubmit={ async (values: Order, { setSubmitting }: FormikHelpers<Order>) => {
-          await axios.post("/api/orders", {
-            data: values,
-          });
-
-          setTimeout(() => {
-            console.log(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+        validate={(values: Order) => {
+          validateAll(values);
         }}
+        onSubmit={(values, meta) => submitForm(values, meta)}
       >
         {({ isSubmitting, values }) => (
           <Form>
@@ -95,22 +110,11 @@ export const InputForm = () => {
                 </FormControl>
               )}
             </Field>
-            <Field name="ticker">
-              {({ field, form }) => (
-                <FormControl
-                  id="ticker-control"
-                  isRequired
-                  isInvalid={form.errors.ticker && form.touched.ticker}
-                >
-                  <FormLabel htmlFor="ticker" placeholder="TCKR">
-                    Ticker
-                  </FormLabel>
-                  <MyAutocomplete {...field} id="ticker" placeholder="TCKR" 
-                  items={() => [{}]}/>
-                  <FormErrorMessage>{form.errors.ticker}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
+            <Field
+              name="ticker"
+              component={AutoCompleteField}
+              placeholder="Ticker Symbol"
+            />
             <Field name="sentiment">
               {({ field, form }) => (
                 <FormControl
@@ -215,13 +219,16 @@ export const InputForm = () => {
                   }
                 >
                   <FormLabel htmlFor="exitStrategy" placeholder="Exit Strategy">
-                    Exit Strategy
+                    Exit Strategy <InfoPopover name="exitStrategy" />
                   </FormLabel>
                   <Input
                     {...field}
                     id="exitStrategy"
                     placeholder="Exit Strategy"
                   />
+                  Take Profit: x (dollars/percent switch) Stop Loss: x
+                  (dollars/percent switch)
+                  {/* value should be object {TP: $3 SL: $20} */}
                   <FormErrorMessage>
                     {form.errors.exitStrategy}
                   </FormErrorMessage>
@@ -282,9 +289,7 @@ export const InputForm = () => {
             >
               Submit
             </Button>
-            <Button mt={4}>
-              Clear
-            </Button>
+            <Button mt={4}>Clear</Button>
           </Form>
         )}
       </Formik>

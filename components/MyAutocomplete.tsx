@@ -1,6 +1,7 @@
-import { Input } from "@chakra-ui/react";
+import { FormControl, FormErrorMessage, FormLabel, Input } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState } from "react";
+import { useField } from "formik";
+import React, { useEffect, useState } from "react";
 
 interface Props {}
 
@@ -10,42 +11,56 @@ const matchName = (name, keyword) => {
   return name == keyword && keyLen != 0;
 };
 
-const SearchBar = ({ results, setKeyword, keyword }) => {
-  const onSearch = async (text) => {
+
+export const AutoCompleteField = () => {
+  const [field, meta, helpers] = useField("ticker");
+  const [results, setResults] = useState([])
+  
+  // useEffect(() => {
+  //   // console.log(meta)
+
+  // }, [meta.value])
+  const getSymbolSet = async (text) => {
     let data;
     try {
       data = await axios({
         url: `https://ticker-2e1ica8b9.now.sh/keyword/${text}`,
       });
-      
     } catch (error) {
-      console.log(error.message);
+      helpers.setError(error.message)
     }
-    setResult(data)
+    data && setResults(data.data)
+  }
+
+  field.onChange = (e) => {
+    getSymbolSet(e.target.value);
+    helpers.setValue(e.target.value);
   };
 
+  const setInputValue = (symbol) => {
+    helpers.setValue(symbol)
+    setResults([])
+  }
+  
   return (
-    <Input
-      placeholder="Search"
-      value={keyword}
-      onChange={(e) => onSearch(e.target.value)}
-    />
+    <FormControl
+      id="ticker-control"
+      isRequired
+      isInvalid={!!meta.error && meta.touched}
+    >
+      <FormLabel htmlFor="ticker">Ticker</FormLabel>
+      <Input
+        {...field}
+        placeholder="TCKR"
+      />
+      <div className="result-set">
+        {results.map(({ symbol }, index) => (
+          <div key={index} onClick={() => setInputValue(symbol)}>
+            {symbol}
+          </div>
+        ))}
+      </div>
+      <FormErrorMessage>{meta.error}</FormErrorMessage>
+    </FormControl>
   );
-};
-
-const SearchPreview = ({symbol, setResult}) => {
-return (
-  <div onClick={() => setResult(symbol)}>{symbol}</div>
-)};
-
-export const MyAutocomplete = (props: Props) => {
-  const [results, setResults] = useState([])
-  const [keyword, setKeyword] = useState('')
-
-  return <div>
-    <SearchBar setResult={setResults} results={results} keyword={keyword}/>
-    {results.map(({symbol}, index) => {
-      return (<SearchPreview key={index} setResult={setResults} symbol={symbol}/>)
-    })}
-  </div>;
 };

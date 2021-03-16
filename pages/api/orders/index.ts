@@ -25,14 +25,14 @@ handler.get(async (req, res) => {
   res.send({ orders });
 });
 
-handler.post(async (req, res) => {
+handler.post(async (req: Request | any, res: Response | any) => {
   // if (!req.user) {
   //   return res.status(401).send('unauthenticated');
   // }
+  console.log(req.user)
 
   if (!req.body.data) return res.status(400).send('You must write something');
-
-  const submission = {...req.body.data, creatorId: req.user._id}
+  const submission = {...req.body.data, creatorId: req.user?._id | "anonymousUser"}
   const order = await insertOrder(req.db, submission);
 
   return res.json({ order });
