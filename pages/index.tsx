@@ -1,10 +1,9 @@
 import React from "react";
-import { useCurrentUser } from "@/hooks/index";
 import Layout from "@/components/layout";
 import { Heading, HStack } from "@chakra-ui/react";
 import FormModalButton from "@/components/FormModalButton";
 import { InstrumentPlays } from "@/components/InstrumentPlays";
-import { Instruments } from "@/interfaces/util";
+import { Instruments } from "../types";
 
 const IndexPage = () => {
   const [user] = useCurrentUser();

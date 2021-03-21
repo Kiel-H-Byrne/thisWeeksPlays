@@ -12,6 +12,7 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import { CommentCard } from "./CommentCard";
+import VerifyField from "./form/VerifyField";
 enum AVLABELS {
   OPEN = "1. open",
   HIGH = "2. high",
@@ -29,7 +30,7 @@ const PlayCard = ({ playData }: Props) => {
   const [timeData, setTimeData] = useState({ label: "", value: [] });
   const [metaData, setMetaData] = useState({ meta: [] });
   const [winning, setWinning ] = useState(true)
-  console.log(playData);
+  // console.log(playData);
   useEffect(async () => {
     let tickerData;
     try {
@@ -52,7 +53,14 @@ const PlayCard = ({ playData }: Props) => {
 
   return (
     // <Link href="/plays/[id]" as={`/plays/${data.id}`}>
-    <Box p={5} shadow="md" borderWidth="3px" borderColor={ winning ? "green.600": "red"} borderRadius={"3%"}>
+    <Box
+      p={5}
+      shadow="md"
+      borderWidth="3px"
+      borderColor={winning ? "green.600" : "red"}
+      borderRadius={"3%"}
+      width={250}
+    >
       <Heading>
         {playData.ticker}{" "}
         {timeData.value && Object.keys(timeData.value).length
@@ -60,20 +68,25 @@ const PlayCard = ({ playData }: Props) => {
           : ""}
       </Heading>
       <UnorderedList>
-        <ListItem>Entry Price: {playData.entryPrice}</ListItem>
+        <ListItem>Entry Price: ${playData.entryPrice}</ListItem>
         <ListItem>Reasoning: {playData.reasoning} </ListItem>
-        <ListItem>Price Target: {playData.targetAmount} </ListItem>
+        <ListItem>Price Target: ${playData.targetAmount} </ListItem>
         <ListItem>Exit Strategy: {playData.exitStrategy} </ListItem>
         {playData.isShort ? <ListItem>Shorting 📉</ListItem> : <></>}
       </UnorderedList>
       <div id="action-bar">
-      <Link href="/users/[name]" as={`/users/${playData.userName}`}>
-        <a>@{playData.userName}</a>
-      </Link>
-      : {playData.submitDate.toLocaleDateString()}
-      <div id="up-down-vote">
-        <VerifyField orderID={playData._id}/>
-      </div>
+        <Link href="/users/[name]" as={`/users/${playData.userName}`}>
+          <a>@{playData.userName}</a>
+        </Link>
+        : {playData.submitDate.toLocaleDateString()}
+        <div id="up-down-vote">
+          <VerifyField
+            orderId={playData._id}
+            userId={playData.uid}
+            upVotes={playData.upVotes}
+            downVotes={playData.downVotes}
+          />
+        </div>
       </div>
       <Divider width="100%" />
       <span>Comments</span>

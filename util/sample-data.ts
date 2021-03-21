@@ -1,4 +1,4 @@
-import { User, Order, Sentiment, Instruments, Reasons, OptionStrategies } from "@/interfaces/index";
+import { User, Order, Sentiment, Instruments, Reasons, OptionStrategies } from "../types";
 
 /** Dummy user data. */
 export const sampleUserData: User[] = [
@@ -26,8 +26,8 @@ export const samplePlays: Order[] = [
     userName: "234234jalkdjf",
     uid: "234234jalkdjf",
     submitDate: new Date(),
-    upVotes: 30,
-    downVotes: 3,
+    upVotes: ["sigFried", "R0Y","TheBlackBengal"],
+    downVotes: ["TheWhiteBengal", "ThatGUyFriday"],
   },
   {
     _id: 202,
@@ -45,8 +45,8 @@ export const samplePlays: Order[] = [
     userName: "234234jalkdjf",
     uid: "234234jalkdjf",
     submitDate: new Date(),
-    upVotes: 30,
-    downVotes: 3,
+    upVotes: [], //array of usernames who upvoted
+    downVotes: [] //array of usernaes who downvoted
   },
   {
     _id: 203,
@@ -61,8 +61,8 @@ export const samplePlays: Order[] = [
     userName: "234234jalkdjf",
     uid: "234234jalkdjf",
     submitDate: new Date(),
-    upVotes: 30,
-    downVotes: 3,
+    upVotes: [],
+    downVotes: [],
     entryPrice: 450,
     isShort: false,
     orderAmount: 6,
@@ -77,8 +77,8 @@ export const samplePlays: Order[] = [
     userName: "234234jalkdjf",
     uid: "234234jalkdjf",
     submitDate: new Date(),
-    upVotes: 30,
-    downVotes: 3,
+    upVotes: [],
+    downVotes: [],
     entryPrice: 0,
     isShort: false,
     orderAmount: 0,
@@ -95,8 +95,8 @@ export const samplePlays: Order[] = [
     userName: "234234jalkdjf",
     uid: "234234jalkdjf",
     submitDate: new Date(),
-    upVotes: 30,
-    downVotes: 3,
+    upVotes: [],
+    downVotes: [],
     entryPrice: 0,
     isShort: false,
     orderAmount: 0,
@@ -113,8 +113,8 @@ export const samplePlays: Order[] = [
     userName: "234234jalkdjf",
     uid: "234234jalkdjf",
     submitDate: new Date(),
-    upVotes: 30,
-    downVotes: 3,
+    upVotes: [],
+    downVotes: [],
     entryPrice: 0,
     isShort: false,
     orderAmount: 0,

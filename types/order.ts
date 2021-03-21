@@ -15,8 +15,8 @@ export type Order = {
   targetAmount: number;
   exitStrategy?: string;
   submitDate: Date;
-  upVotes: number;
-  downVotes: number;
+  upVotes: string[]; //array of usernames
+  downVotes: string[]; //array of usernames
   reasoning: keyof typeof Reasons;
   isWatching: boolean;
   isShort: boolean;
