@@ -7,7 +7,7 @@ import {
 } from "./util";
 
 export type Order = {
-  id: any;
+  _id: any;
   ticker: string;
   sentiment: keyof typeof Sentiment;
   instrument: ValueOf<Instruments>;

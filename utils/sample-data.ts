@@ -2,15 +2,15 @@ import { User, Order, Sentiment, Instruments, Reasons, OptionStrategies } from "
 
 /** Dummy user data. */
 export const sampleUserData: User[] = [
-  { id: 101, name: "Alice" },
-  { id: 102, name: "Bob" },
-  { id: 103, name: "Caroline" },
-  { id: 104, name: "Dave" },
+  { _id: 101, name: "Alice" },
+  { _id: 102, name: "Bob" },
+  { _id: 103, name: "Caroline" },
+  { _id: 104, name: "Dave" },
 ];
 
 export const samplePlays: Order[] = [
   {
-    id: 201,
+    _id: 201,
     sentiment: Sentiment.Bullish,
     ticker: "IBUY",
     instrument: Instruments.Stocks,
@@ -30,7 +30,7 @@ export const samplePlays: Order[] = [
     downVotes: 3,
   },
   {
-    id: 202,
+    _id: 202,
     sentiment: Sentiment.Bullish,
     ticker: "IDEX",
     instrument: Instruments.Stocks,
@@ -49,7 +49,7 @@ export const samplePlays: Order[] = [
     downVotes: 3,
   },
   {
-    id: 203,
+    _id: 203,
     sentiment: Sentiment.Bullish,
     ticker: "TSLA",
     instrument: Instruments.Options,
@@ -69,7 +69,7 @@ export const samplePlays: Order[] = [
     riskAmount: 0,
   },
   {
-    id: 204,
+    _id: 204,
     sentiment: Sentiment.Bullish,
     ticker: "ZB",
     instrument: Instruments.Futures,
@@ -87,7 +87,7 @@ export const samplePlays: Order[] = [
     reasoning: Reasons.News,
   },
   {
-    id: 205,
+    _id: 205,
     sentiment: Sentiment.Bullish,
     ticker: "BTC/USD",
     instrument: Instruments.ForEx,
@@ -105,7 +105,7 @@ export const samplePlays: Order[] = [
     targetAmount: 3000
   },
   {
-    id: 206,
+    _id: 206,
     sentiment: Sentiment.Bullish,
     ticker: "DOGE",
     instrument: Instruments.Crypto,
