@@ -11,12 +11,6 @@ import React, { useEffect, useState } from "react";
 
 interface Props {}
 
-const matchName = (name, keyword) => {
-  let keyLen = keyword.length;
-  name = name.toLowerCase().substring(0, keyLen);
-  return name == keyword && keyLen != 0;
-};
-
 export const AutoCompleteField = () => {
   const [field, meta, helpers] = useField("ticker");
   const [symbolData, setSymbolData] = useState({ meta: [], time: [] });
