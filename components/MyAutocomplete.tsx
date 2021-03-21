@@ -1,4 +1,10 @@
-import { FormControl, FormErrorMessage, FormLabel, Heading, Input } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Heading,
+  Input,
+} from "@chakra-ui/react";
 import axios from "axios";
 import { useField } from "formik";
 import React, { useEffect, useState } from "react";
@@ -11,11 +17,10 @@ const matchName = (name, keyword) => {
   return name == keyword && keyLen != 0;
 };
 
-
 export const AutoCompleteField = () => {
   const [field, meta, helpers] = useField("ticker");
-  const [symbolData, setSymbolData] = useState({meta: [], time: []})
-  const [results, setResults] = useState([])
+  const [symbolData, setSymbolData] = useState({ meta: [], time: [] });
+  const [results, setResults] = useState([]);
   const getSymbolSet = async (text) => {
     let data;
     try {
@@ -23,34 +28,20 @@ export const AutoCompleteField = () => {
         url: `https://ticker-2e1ica8b9.now.sh/keyword/${text}`,
       });
     } catch (error) {
-      helpers.setError(error.message)
+      helpers.setError(error.message);
     }
-    data && setResults(data.data)
-  }
-  const getSymbolData = async (symbol) => {
-    
-    let data;
-    try {
-      data = await axios({
-        url: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=${process.env.ALPHAVANTAGE_KEY}`,
-      });
-      data = Object.entries(data.data);
-    } catch (error) {
-      helpers.setError(error.message)
-    }
-    data && setSymbolData({meta: data[0], time: data[1]})
-  }
+    data && setResults(data.data);
+  };
+
   field.onChange = (e) => {
     getSymbolSet(e.target.value);
     helpers.setValue(e.target.value);
   };
 
   const setInputValue = (symbol) => {
-    helpers.setValue(symbol)
-    getSymbolData(symbol)
-    setResults([])
-  }
-  console.log(symbolData.time[1][0].close)
+    helpers.setValue(symbol);
+    setResults([]);
+  };
   return (
     <FormControl
       id="ticker-control"
@@ -59,9 +50,7 @@ export const AutoCompleteField = () => {
     >
       <FormLabel htmlFor="ticker">Ticker</FormLabel>
       <Input {...field} placeholder="TCKR" />
-      {symbolData.time.length ? (
-        <Heading> ${symbolData.time[1][0]["close"]} </Heading>
-      ) : null}
+
       <div className="result-set">
         {results &&
           results.map(({ symbol }, index) => (

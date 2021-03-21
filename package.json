@@ -37,6 +37,7 @@
     "mongodb": "^3.6.3",
     "nanoid": "^3.1.18",
     "next": "^10.0.3",
+    "next-auth": "^3.13.2",
     "next-connect": "^0.9.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "@types/mongodb": "^3.6.7",
+    "@types/next-auth": "^3.7.2",
     "@types/node": "^12.12.21",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Order } from "../interfaces";
 import {
   Box,
+  Divider,
   Heading,
   ListItem,
   Textarea,
@@ -65,12 +66,18 @@ const PlayCard = ({ playData }: Props) => {
         <ListItem>Exit Strategy: {playData.exitStrategy} </ListItem>
         {playData.isShort ? <ListItem>Shorting 📉</ListItem> : <></>}
       </UnorderedList>
+      <div id="action-bar">
       <Link href="/users/[name]" as={`/users/${playData.userName}`}>
         <a>@{playData.userName}</a>
       </Link>
-      <hr />
-      <Textarea rows={2} />
+      : {playData.submitDate.toLocaleDateString()}
+      <div id="up-down-vote">
+        <VerifyField orderID={playData._id}/>
+      </div>
+      </div>
+      <Divider width="100%" />
       <span>Comments</span>
+      <Textarea rows={2} />
       {comments
         ? Object.values(comments).map((props) => (
             <ul>
