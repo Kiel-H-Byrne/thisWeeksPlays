@@ -15,9 +15,9 @@ export const InstrumentPlays = ({ instrument }: Props) => {
       <Heading>Top 5 {instrument} Plays:</Heading>
       <Stack spacing={8}>
         {plays.map((data) => {
-          
+          console.log(data)
           return data.instrument === instrument ? (
-            <PlayCard data={data} key={data.id} />
+            <PlayCard playData={data} key={data.id} />
           ) : null;
         })}
       </Stack>

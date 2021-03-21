@@ -17,6 +17,9 @@ const IndexPage = () => {
       <HStack spacing={16}>
         <InstrumentPlays instrument={Instruments.Stocks} />
         <InstrumentPlays instrument={Instruments.Options} />
+        <InstrumentPlays instrument={Instruments.ForEx} />
+        <InstrumentPlays instrument={Instruments.Futures} />
+        <InstrumentPlays instrument={Instruments.Crypto} />
       </HStack>
     </Layout>
   );
