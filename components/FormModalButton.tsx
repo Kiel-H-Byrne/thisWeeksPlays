@@ -19,7 +19,7 @@ const FormModalButton = () => {
   };
   return (
     <>
-      <Button onClick={() => toggleModalOpen()}>Open Modal</Button>
+      <Button onClick={() => toggleModalOpen()}>Submit Your Play</Button>
 
       <Modal
         closeOnOverlayClick={true}

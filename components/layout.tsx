@@ -3,6 +3,7 @@ import Link from "next/link";
 import Head from "next/head";
 import { Box, Container, Flex, Grid, MenuIcon } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
+import MyAvatar from "./MyAvatar";
 
 type Props = {
   children?: ReactNode;
@@ -51,6 +52,7 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
             <a href="/api/users">
               <Box bg="blue.500">Users API</Box>
             </a>
+            <MyAvatar />
           </Grid>
         </Flex>
       </header>

@@ -14,20 +14,22 @@ export const samplePlays: Order[] = [
     sentiment: Sentiment.Bullish,
     ticker: "IBUY",
     instrument: Instruments.Stocks,
-    isWatching: true,
+    isWatching: false,
     entryPrice: 215,
-    targetAmount: 0,
+    targetAmount: 230,
     reasoning: Reasons.News,
     exitStrategy: "",
     isShort: false,
     orderAmount: 100,
-    riskAmount: 100,
     screenShot: "https://picsum.photos/150/300",
     userName: "234234jalkdjf",
     uid: "234234jalkdjf",
     submitDate: new Date(),
     upVotes: ["sigFried", "R0Y","TheBlackBengal"],
     downVotes: ["TheWhiteBengal", "ThatGUyFriday"],
+    get riskAmount() : number {
+     return this.orderAmount * this.entryPrice
+   }
   },
   {
     _id: 202,
@@ -36,25 +38,27 @@ export const samplePlays: Order[] = [
     instrument: Instruments.Stocks,
     isWatching: true,
     entryPrice: 4.50,
-    targetAmount: 7,
-    reasoning: Reasons.News,
+    targetAmount: 1.5,
+    reasoning: Reasons.Technicals,
     exitStrategy: "buy back at 17% drop or anywhere below 2.50",
-    isShort: false,
+    isShort: true,
     orderAmount: 100,
-    riskAmount: -1,
-    userName: "234234jalkdjf",
+    userName: "BoyJorje",
     uid: "234234jalkdjf",
-    submitDate: new Date(),
     upVotes: [], //array of usernames who upvoted
-    downVotes: [] //array of usernaes who downvoted
+    downVotes: [], //array of usernaes who downvoted,
+    submitDate: new Date(),
+    get riskAmount() : number {
+      return this.orderAmount * this.entryPrice
+    }
   },
   {
     _id: 203,
     sentiment: Sentiment.Bullish,
     ticker: "TSLA",
     instrument: Instruments.Options,
-    isWatching: true,
-    targetAmount: -1,
+    isWatching: false,
+    targetAmount: 700,
     reasoning: Reasons.News,
     exitStrategy: "exit at 60% or 3/10 risk ratio",
     optionsStrategy: OptionStrategies.CREDIT_CALL,
@@ -66,14 +70,17 @@ export const samplePlays: Order[] = [
     entryPrice: 450,
     isShort: false,
     orderAmount: 6,
-    riskAmount: 0,
+    get riskAmount() : number {
+      return this.orderAmount * this.entryPrice
+    }
+    
   },
   {
     _id: 204,
     sentiment: Sentiment.Bullish,
     ticker: "ZB",
     instrument: Instruments.Futures,
-    isWatching: true,
+    isWatching: false,
     userName: "234234jalkdjf",
     uid: "234234jalkdjf",
     submitDate: new Date(),
@@ -82,16 +89,18 @@ export const samplePlays: Order[] = [
     entryPrice: 0,
     isShort: false,
     orderAmount: 0,
-    riskAmount: 0,
     targetAmount: -1,
     reasoning: Reasons.News,
+    get riskAmount() : number {
+     return this.orderAmount * this.entryPrice
+   }
   },
   {
     _id: 205,
     sentiment: Sentiment.Bullish,
     ticker: "BTC/USD",
     instrument: Instruments.ForEx,
-    isWatching: true,
+    isWatching: false,
     userName: "234234jalkdjf",
     uid: "234234jalkdjf",
     submitDate: new Date(),
@@ -100,9 +109,11 @@ export const samplePlays: Order[] = [
     entryPrice: 0,
     isShort: false,
     orderAmount: 0,
-    riskAmount: 0,
     reasoning: Reasons.Technicals,
-    targetAmount: 3000
+    targetAmount: 3000,
+    get riskAmount() : number {
+     return this.orderAmount * this.entryPrice
+   }
   },
   {
     _id: 206,
@@ -118,9 +129,11 @@ export const samplePlays: Order[] = [
     entryPrice: 0,
     isShort: false,
     orderAmount: 0,
-    riskAmount: 0,
     targetAmount: 10,
-    reasoning: Reasons.Community
+    reasoning: Reasons.Community,
+    get riskAmount() : number {
+     return this.orderAmount * this.entryPrice
+   }
   },
 ];
 
