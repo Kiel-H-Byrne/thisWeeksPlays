@@ -55,7 +55,7 @@ const VerifyField = ({ orderId, userId, upVotes, downVotes }: Props) => {
         </span>
         <span className="vote-count">{upVoteCount() } Verified</span>
         <span className="downVote">
-          <ArrowUpIcon classNae={in_downvoted() ? `deverified` : `deverify`} />
+          <ArrowUpIcon className={in_downvoted() ? `deverified` : `deverify`} />
         </span>
       </div>
       {/* <FormErrorMessage>{meta.error}</FormErrorMessage> */}

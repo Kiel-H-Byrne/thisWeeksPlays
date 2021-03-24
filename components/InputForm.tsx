@@ -16,7 +16,7 @@ import {
   OptionStrategies,
   Reasons,
   Sentiment,
-} from "../interfaces";
+} from "../types";
 import axios from "axios";
 import { AutoCompleteField } from "./MyAutocomplete";
 import { InfoPopover } from "./form/InfoPopover";
@@ -264,7 +264,7 @@ export const InputForm = () => {
                   }
                 >
                   <FormLabel htmlFor="targetAmount" placeholder="Target Amount">
-                    Target Amount
+                    At what price do you see this hitting within two months?
                   </FormLabel>
                   <Input
                     type="number"

@@ -4,20 +4,17 @@ import Providers from 'next-auth/providers'
 export default NextAuth({
   providers: [
     // OAuth authentication providers
-    Providers.Apple({
-      clientId: process.env.APPLE_ID,
-      clientSecret: process.env.APPLE_SECRET
-    }),
     Providers.Google({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET
+      clientId: process.env.GOOGLE_ID!,
+      clientSecret: process.env.GOOGLE_SECRET!
     }),
     // Sign in with passwordless email link
-    Providers.Email({
-      server: process.env.MAIL_SERVER,
-      from: '<no-reply@example.com>'
-    }),
+    // Providers.Email({
+    //   server: process.env.MAIL_SERVER,
+    //   from: '<no-reply@example.com>'
+    // }),
   ],
   // SQL or MongoDB database (or leave empty)
-  database: process.env.DATABASE_URL
+  database: process.env.DATABASE_URL,
+  debug: false
 })
