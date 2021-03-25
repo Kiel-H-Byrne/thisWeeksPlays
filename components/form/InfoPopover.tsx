@@ -1,3 +1,4 @@
+import React from "react";
 import { InfoOutlineIcon } from "@chakra-ui/icons";
 import {
   IconButton,
@@ -9,8 +10,7 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/react";
-import React from "react";
-import { MoreInformation } from "../../util";
+import { MoreInformation } from "@/util/index";
 
 export const InfoPopover = ({ name }: { name: string }) => {
   return (

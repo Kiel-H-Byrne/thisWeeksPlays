@@ -4,7 +4,7 @@ import {
   OptionStrategies,
   Reasons,
   ValueOf,
-} from "../types";
+} from "@/types/index";
 
 export type Order = {
   _id: any;

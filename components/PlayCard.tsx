@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 
-import { Order } from "../types";
+import { Order } from "@/types/index";
 import {
   Box,
   Divider,
@@ -32,7 +32,6 @@ const PlayCard = ({ playData }: Props) => {
   const [metaData, setMetaData] = useState({ meta: [] });
   const [winning, setWinning] = useState(true);
   const [lastPrice, setLastPrice] = useState(null);
-  console.log(playData);
   const {
     userName,
     ticker,

@@ -29,6 +29,7 @@ handler.post(async (req: Request | any, res: Response | any) => {
   // if (!req.user) {
   //   return res.status(401).send('unauthenticated');
   // }
+  console.log("rez user")
   console.log(req.user)
 
   if (!req.body.data) return res.status(400).send('You must write something');

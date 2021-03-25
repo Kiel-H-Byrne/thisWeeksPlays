@@ -1,8 +1,8 @@
-import { User, Order, Sentiment, Instruments, Reasons, OptionStrategies } from "../types";
+import { User, Order, Sentiment, Instruments, Reasons, OptionStrategies } from "@/types/index";
 
 /** Dummy user data. */
 export const sampleUserData: User[] = [
-  { _id: 101, name: "Alice" },
+  { _id: 101, name: "Alice", orders: [],  },
   { _id: 102, name: "Bob" },
   { _id: 103, name: "Caroline" },
   { _id: 104, name: "Dave" },

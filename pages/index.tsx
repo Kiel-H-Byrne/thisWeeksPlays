@@ -1,9 +1,9 @@
 import React from "react";
-import Layout from "../components/layout";
+import Layout from "@/components/layout";
 import { Heading, HStack, Text } from "@chakra-ui/react";
-import FormModalButton from "../components/FormModalButton";
-import { InstrumentPlays } from "../components/InstrumentPlays";
-import { Instruments } from "../types";
+import FormModalButton from "@/components/FormModalButton";
+import { InstrumentPlays } from "@/components/InstrumentPlays";
+import { Instruments } from "@/types/index";
 
 const IndexPage = () => {
   return (

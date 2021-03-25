@@ -24,6 +24,16 @@
     "target": "esnext",
     "baseUrl": ".",
     "noImplicitAny": false,
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"],
+      "@/middlewares/*": ["middlewares/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/interfaces/*": ["interfaces/*"],
+      "@/db/*": ["db/*"],
+      "@/types/*": ["types/*"],
+      "@/util/*": ["util/*"]
+    }
   },
   "exclude": [
     "node_modules"
