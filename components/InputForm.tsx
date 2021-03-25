@@ -1,25 +1,29 @@
 import {
   Button,
+  ButtonGroup,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
+  Radio,
+  RadioGroup,
   Select,
   Switch,
 } from "@chakra-ui/react";
 // import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
-import { Formik, Field, Form, FormikHelpers } from "formik";
+import { Formik, Field, Form, FormikHelpers, FieldArray, FastField } from "formik";
 import {
   Order,
   Instruments,
   OptionStrategies,
   Reasons,
   Sentiment,
-} from "../types";
+} from "@/types/index";
 import axios from "axios";
 import { AutoCompleteField } from "./MyAutocomplete";
 import { InfoPopover } from "./form/InfoPopover";
+import { ChevronDownIcon, ChevronUpIcon, MinusIcon } from "@chakra-ui/icons";
 
 const initialData: Order = {
   ticker: "", //string
@@ -29,8 +33,8 @@ const initialData: Order = {
   targetAmount: 0, //number
   exitStrategy: "", //string
   submitDate: new Date(), //Date
-  upVotes: 0, //number
-  downVotes: 0, //number
+  upVotes: [], //array of userIds
+  downVotes: [], //array of userIds
   reasoning: Reasons.News, //keyof typeof Reasons
   isWatching: false, //boolean
   isShort: false, //boolean
@@ -63,16 +67,14 @@ export const InputForm = () => {
     //  : Promise<{values: Order; meta: FormikHelpers<Order>}>
   ) => {
     meta.setSubmitting(true);
-    console.log(values);
     setTimeout(async () => {
-      console.log(JSON.stringify(values, null, 2));
       await axios
         .post("/api/orders", {
           data: values,
         })
         .catch((error) => {
           if (error.response) {
-            console.log(error.response.data);
+            console.log(error.response.statusText);
           }
         });
       meta.setSubmitting(false);
@@ -123,15 +125,15 @@ export const InputForm = () => {
                   isInvalid={form.errors.sentiment && form.touched.sentiment}
                 >
                   <FormLabel htmlFor="sentiment" placeholder="Sentiment">
-                    Sentiment
+                    Think it's going Up or Down? 
                   </FormLabel>
-                  <Select {...field} id="sentiment" placeholder="Sentiment">
+                  <RadioGroup {...field} id="sentiment" onChange={(v) => form.setValues({sentiment: v})}>
                     {Object.keys(Sentiment).map((sentiment) => (
-                      <option key={`select-option_${sentiment}`}>
+                      <Radio key={`select-option_${sentiment}`} value={sentiment} >
                         {sentiment}
-                      </option>
+                      </Radio>
                     ))}
-                  </Select>
+                  </RadioGroup>
                   <FormErrorMessage>{form.errors.sentiment}</FormErrorMessage>
                 </FormControl>
               )}

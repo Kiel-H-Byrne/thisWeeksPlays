@@ -18,11 +18,6 @@ const MyAvatar = () => {
     setAnchorEl(null);
   };
 
-  if (session) {
-    console.log("both on server and client?");
-    console.log(session.user);
-  }
-
   return (
     /* {if logged in, profile foto else avatar } */
     !loading && session ? (

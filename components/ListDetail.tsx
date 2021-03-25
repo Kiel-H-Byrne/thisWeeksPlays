@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { User } from '../types'
+import { User } from '@/types'
 
 type ListDetailProps = {
   item: User
