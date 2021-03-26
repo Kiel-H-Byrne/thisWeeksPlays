@@ -27,7 +27,7 @@ type Props = {
 };
 
 const PlayCard = ({ playData }: Props) => {
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState([{_id: "234234234", orderId: 204, message: "some type of comment"}]);
   const [timeData, setTimeData] = useState({ label: "", value: [] });
   const [metaData, setMetaData] = useState({ meta: [] });
   const [winning, setWinning] = useState(true);
