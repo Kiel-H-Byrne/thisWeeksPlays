@@ -14,14 +14,17 @@ export const CommentCard = ({ uuid, message }: Props) => {
     <div key={uuid} className={""}>
       <Grid container direction="row" alignItems="center">
         <Grid item xs={2} md={1}>
-
-          {session ? <MyAvatar /> : <img
-            alt="image"
-            src={`https://avatars.dicebear.com/api/bottts/${uuid}.svg`}
-            className={""}
-            height="43px"
-            width="43px"
-          />}
+          {session && !loading ? (
+            <MyAvatar />
+          ) : (
+            <img
+              alt="image"
+              src={`https://avatars.dicebear.com/api/bottts/${uuid}.svg`}
+              className={""}
+              height="43px"
+              width="43px"
+            />
+          )}
         </Grid>
         <Grid item xs={10} md={11}>
           <span>{message}</span>

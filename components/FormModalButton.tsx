@@ -32,7 +32,7 @@ const FormModalButton = () => {
         size={"xl"}
       >
         <ModalOverlay />
-        {session ? (
+        {session && !loading ? (
           <ModalContent>
             <ModalHeader>Submit your Play</ModalHeader>
             <ModalBody pb={6}>

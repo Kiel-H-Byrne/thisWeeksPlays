@@ -1,7 +1,5 @@
-import useSWR from "swr";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Box, Heading, Stack } from "@chakra-ui/react";
-import fetcher from "@/lib/fetch";
 import { Instruments } from "@/types/index";
 import { samplePlays } from "@/util/index";
 import PlayCard from "./PlayCard";
@@ -21,8 +19,8 @@ export const InstrumentPlays = ({ instrument }: Props) => {
   //   } else {
   //     console.log("no data")
   //   }
-    // const plays = data || samplePlays;
-    const plays =  samplePlays;
+  // const plays = data || samplePlays;
+  const plays = samplePlays;
   return (
     <Box>
       <Heading>Top 5 {instrument} Plays:</Heading>
