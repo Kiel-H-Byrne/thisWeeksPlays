@@ -1,13 +1,10 @@
 import nc from 'next-connect';
 import bcrypt from 'bcryptjs';
-import { all } from '@/middlewares/index';
 import { extractUser } from '@/lib/api-helpers';
 import { insertUser, findUserByEmail } from '@/db/index';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = nc();
-
-handler.use(all);
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const { name, password } = req.body;

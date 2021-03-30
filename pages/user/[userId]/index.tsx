@@ -2,7 +2,6 @@ import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Error from 'next/error';
-import { all } from '@/middlewares/index';
 import { useCurrentUser } from '@/hooks/index';
 import Orders from '@/components/order/orders';
 import { extractUser } from '@/lib/api-helpers';
@@ -79,7 +78,7 @@ export default function UserPage({ user }) {
 }
 
 export async function getServerSideProps(context) {
-  await all.run(context.req, context.res);
+  // await all.run(context.req, context.res);
   const user = extractUser(await findUserById(context.req.db, context.params.userId));
   if (!user) context.res.statusCode = 404;
   return { props: { user } };

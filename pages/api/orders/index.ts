@@ -1,12 +1,9 @@
 import nc from 'next-connect';
-import { all } from '@/middlewares/index';
 import { getOrders, insertOrder } from '@/db/index';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ObjectId } from 'mongodb';
 
 const handler = nc();
-
-handler.use(all);
 
 const maxAge = 1 * 24 * 60 * 60;
 
