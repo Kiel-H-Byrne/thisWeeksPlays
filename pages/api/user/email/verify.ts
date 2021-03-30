@@ -1,13 +1,14 @@
 import nc from 'next-connect';
-import { sendMail } from '@/lib/mail';
 import { all } from '@/middlewares/index';
 import { insertToken } from '@/db/index';
+import { NextAuthRequest } from 'next-auth';
+import { NextApiResponse } from 'next';
 
 const handler = nc();
 
 handler.use(all);
 
-handler.post(async (req, res) => {
+handler.post(async (req: any, res: any) => {
   if (!req.user) { res.json(401).send('you need to be authenticated'); return; }
 
   const token = await insertToken(req.db, {
@@ -27,7 +28,7 @@ handler.post(async (req, res) => {
       </div>
       `,
   };
-  await sendMail(msg);
+  // await sendMail(msg);
   res.end('ok');
 });
 
