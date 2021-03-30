@@ -45,7 +45,7 @@ function Order({ order }) {
 
 const PAGE_SIZE = 10;
 
-export function useOrderPages({ creatorId } = {}) {
+export function useOrderPages({ creatorId }) {
   return useSWRInfinite((index, previousPageData) => {
     // reached the end
     if (previousPageData && previousPageData.orders.length === 0) return null;

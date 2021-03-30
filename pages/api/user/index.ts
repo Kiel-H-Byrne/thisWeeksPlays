@@ -23,12 +23,12 @@ const handler = nc();
 
 handler.use(all);
 
-handler.get(async (req, res) => {
+// handler.get(async (req, res) => {
   // Filter out password
-  if (!req.user) return res.json({ user: null });
-  const { password, ...u } = req.user;
-  res.json({ user: u });
-});
+  // if (!req.user) return res.json({ user: null });
+  // const { password, ...u } = req.user;
+  // res.json({ user: u });
+// });
 
 // handler.patch(upload.single('profilePicture'), async (req, res) => {
 //   if (!req.user) {
