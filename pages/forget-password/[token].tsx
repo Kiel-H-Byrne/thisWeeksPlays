@@ -2,7 +2,6 @@ import React from 'react';
 import Head from 'next/head';
 import nc from 'next-connect';
 import Router from 'next/router';
-import { database } from '@/middlewares/index';
 import { findTokenByIdAndType } from '@/db/index';
 
 const ResetPasswordTokenPage = ({ valid, token }) => {
@@ -56,15 +55,15 @@ const ResetPasswordTokenPage = ({ valid, token }) => {
   );
 };
 
-export async function getServerSideProps(ctx) {
-  const handler = nc();
-  handler.use(database);
-  await handler.run(ctx.req, ctx.res);
-  const { token } = ctx.query;
+// export async function getServerSideProps(ctx) {
+//   const handler = nc();
+//   // handler.use(database);
+//   // await handler.run(ctx.req, ctx.res);
+//   // const { token } = ctx.query;
 
-  const tokenDoc = await findTokenByIdAndType(ctx.req.db, ctx.query.token, 'passwordReset');
+//   // const tokenDoc = await findTokenByIdAndType(ctx.req.db, ctx.query.token, 'passwordReset');
 
-  return { props: { token, valid: !!tokenDoc } };
-}
+//   // return { props: { token, valid: !!tokenDoc } };
+// }
 
 export default ResetPasswordTokenPage;
