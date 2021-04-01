@@ -3,9 +3,9 @@ import { User, Order, Sentiment, Instruments, Reasons, OptionStrategies } from "
 /** Dummy user data. */
 export const sampleUserData: User[] = [
   { _id: 101, name: "Alice", orders: [],  },
-  { _id: 102, name: "Bob" },
-  { _id: 103, name: "Caroline" },
-  { _id: 104, name: "Dave" },
+  { _id: 102, name: "Bob", orders: [] },
+  { _id: 103, name: "Caroline", orders: [] },
+  { _id: 104, name: "Dave", orders: [] },
 ];
 
 export const samplePlays: Order[] = [

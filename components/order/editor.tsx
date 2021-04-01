@@ -4,7 +4,7 @@ import { useCurrentUser } from '@/hooks/index';
 export default function PostEditor() {
   const [user] = useCurrentUser();
 
-  const [msg, setMsg] = useState(null);
+  const [msg, setMsg] = useState("");
 
   if (!user) {
     return (
@@ -28,7 +28,7 @@ export default function PostEditor() {
     });
     if (res.ok) {
       setMsg('Posted!');
-      setTimeout(() => setMsg(null), 5000);
+      setTimeout(() => setMsg(""), 5000);
     }
   }
 
