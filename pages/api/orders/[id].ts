@@ -1,6 +1,6 @@
 export default function userHandler(req, res) {
   const {
-    query: { id, listing },
+    query: { id },
     method,
   } = req
   switch (method) {

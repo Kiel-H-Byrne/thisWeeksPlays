@@ -7,11 +7,11 @@ const handler = nc();
 
 handler.use(all);
 
-handler.post(passport.authenticate('local'), (req, res) => {
+handler.post(passport.authenticate('local'), (req: any, res: any) => {
   res.json({ user: extractUser(req.user) });
 });
 
-handler.delete((req, res) => {
+handler.delete((req: any, res: any) => {
   req.logOut();
   res.status(204).end();
 });

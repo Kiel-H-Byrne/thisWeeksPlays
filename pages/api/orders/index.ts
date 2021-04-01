@@ -8,7 +8,7 @@ handler.use(all);
 
 const maxAge = 1 * 24 * 60 * 60;
 
-handler.get(async (req, res) => {
+handler.get(async (req: any, res: any) => {
   const orders = await getOrders(
     req.db,
     req.query.from ? new Date(req.query.from) : undefined,
@@ -33,7 +33,7 @@ handler.post(async (req: Request | any, res: Response | any) => {
   console.log(req.user)
 
   if (!req.body.data) return res.status(400).send('You must write something');
-  const submission = {...req.body.data, creatorId: req.user?._id | "anonymousUser"}
+  const submission = {...req.body.data, creatorId: req.user?._id || "anonymousUser"}
   const order = await insertOrder(req.db, submission);
 
   return res.json({ order });
