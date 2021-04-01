@@ -1,7 +1,6 @@
 import React from "react";
 import { InfoOutlineIcon } from "@chakra-ui/icons";
 import {
-  IconButton,
   Popover,
   PopoverArrow,
   PopoverBody,

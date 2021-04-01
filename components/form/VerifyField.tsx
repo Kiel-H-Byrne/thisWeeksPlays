@@ -1,11 +1,5 @@
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
-import {
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-} from "@chakra-ui/react";
-import { useField } from "formik";
+import { FormControl } from "@chakra-ui/react";
 import React from "react";
 
 interface Props {
@@ -15,7 +9,7 @@ interface Props {
   downVotes: string[];
 }
 
-const VerifyField = ({ orderId, userId, upVotes, downVotes }: Props) => {
+const VerifyField = ({ userId, upVotes, downVotes }: Props) => {
   // const [field, meta, helpers] = useField("verify");
   // field.onChange = (e) => {
   // getSymbolSet(e.target.value);
@@ -53,7 +47,7 @@ const VerifyField = ({ orderId, userId, upVotes, downVotes }: Props) => {
         <span className="upVote">
           <ArrowDownIcon className={in_upvoted() ? `verified` : `verify`} />
         </span>
-        <span className="vote-count">{upVoteCount() } Verified</span>
+        <span className="vote-count">{upVoteCount()} Verified</span>
         <span className="downVote">
           <ArrowUpIcon className={in_downvoted() ? `deverified` : `deverify`} />
         </span>

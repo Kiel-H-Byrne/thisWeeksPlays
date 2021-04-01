@@ -1,7 +1,6 @@
-import useSWR from "swr";
-import React, { useEffect, useState } from "react";
+// import useSWR from "swr";
+import React from "react";
 import { Box, Heading, Stack } from "@chakra-ui/react";
-import fetcher from "@/lib/fetch";
 import { Instruments } from "@/types/index";
 import { samplePlays } from "@/util/index";
 import PlayCard from "./PlayCard";
