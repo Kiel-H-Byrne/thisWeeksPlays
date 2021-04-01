@@ -2,8 +2,6 @@ import nc from 'next-connect';
 // import multer from 'multer';
 // import { v2 as cloudinary } from 'cloudinary';
 import { all } from '@/middlewares/index';
-import { updateUserById } from '@/db/index';
-import { extractUser } from '@/lib/api-helpers';
 
 // const upload = multer({ dest: '/tmp' });
 const handler = nc();
@@ -23,7 +21,7 @@ const handler = nc();
 
 handler.use(all);
 
-handler.get(async (req, res) => {
+handler.get(async (req: any, res: any) => {
   // Filter out password
   if (!req.user) return res.json({ user: null });
   const { password, ...u } = req.user;

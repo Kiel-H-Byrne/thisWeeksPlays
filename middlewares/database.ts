@@ -6,7 +6,8 @@ import { MongoClient } from 'mongodb';
  * during API Route usage.
  * https://github.com/vercel/next.js/pull/17666
  */
-global.mongo = global.mongo || {};
+let GLOBAL: any = global
+GLOBAL.mongo = GLOBAL.mongo || {};
 
 let indexesCreated = false;
 export async function createIndexes(db) {
@@ -19,17 +20,17 @@ export async function createIndexes(db) {
   ]);
   indexesCreated = true;
 }
-
+//@ts-ignore
 export default async function database(req, res, next) {
-  if (!global.mongo.client) {
-    global.mongo.client = new MongoClient(process.env.MONGODB_URI, {
+  if (!GLOBAL.mongo.client) {
+    GLOBAL.mongo.client = process.env.MONGODB_URI && new MongoClient(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    await global.mongo.client.connect();
+    await GLOBAL.mongo.client.connect();
   }
-  req.dbClient = global.mongo.client;
-  req.db = global.mongo.client.db(process.env.DB_NAME);
+  req.dbClient = GLOBAL.mongo.client;
+  req.db = GLOBAL.mongo.client.db(process.env.DB_NAME);
   if (!indexesCreated) await createIndexes(req.db);
   return next();
 }

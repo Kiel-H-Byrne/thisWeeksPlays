@@ -2,21 +2,12 @@ import * as React from "react";
 import {
   useSession, signIn, signOut
 } from 'next-auth/client'
-import { Avatar, Box, Button, ButtonGroup, Grid, Image, ListIcon, ListItem, Menu, MenuItem, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, typography } from "@chakra-ui/react";
-import { CheckCircleIcon, InfoIcon } from "@chakra-ui/icons";
+import { Avatar, Button, Grid, Image, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger } from "@chakra-ui/react";
+import { CheckCircleIcon } from "@chakra-ui/icons";
 
 
 const MyAvatar = () => {
   const [session, loading] = useSession();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return (
     /* {if logged in, profile foto else avatar } */
@@ -29,7 +20,7 @@ const MyAvatar = () => {
             />
         </PopoverTrigger>
         <PopoverContent>
-          <PopoverHeader fontWeight="semibold">Login/Share</PopoverHeader>
+          <PopoverHeader fontWeight="semibold">Log Out/Share</PopoverHeader>
           <PopoverArrow />
           <PopoverCloseButton />
           <PopoverBody>
