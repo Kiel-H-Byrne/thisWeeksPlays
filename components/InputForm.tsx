@@ -1,6 +1,5 @@
 import {
   Button,
-  ButtonGroup,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -12,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 // import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
-import { Formik, Field, Form, FormikHelpers, FieldArray, FastField } from "formik";
+import { Formik, Field, Form } from "formik";
 import {
   Order,
   Instruments,
@@ -23,9 +22,9 @@ import {
 import axios from "axios";
 import { AutoCompleteField } from "./MyAutocomplete";
 import { InfoPopover } from "./form/InfoPopover";
-import { ChevronDownIcon, ChevronUpIcon, MinusIcon } from "@chakra-ui/icons";
 
 const initialData: Order = {
+  _id: "",
   ticker: "", //string
   sentiment: Sentiment.Neutral, //keyof typeof Sentiment
   instrument: Instruments.Crypto, //ValueOf<Instruments>
@@ -47,19 +46,21 @@ const initialData: Order = {
 };
 
 export const InputForm = () => {
-  const [step, setStep] = useState(0);
+  // const [step, setStep] = useState(0);
 
-  const validateName = (value: string) => {
-    let error;
-    if (!value) {
-      error = "Name is required";
-    } else if (value.toLowerCase() !== "naruto") {
-      error = "Jeez! You're not a fan 😱";
-    }
-    return error;
+  // const validateName = (value: string) => {
+  //   let error;
+  //   if (!value) {
+  //     error = "Name is required";
+  //   } else if (value.toLowerCase() !== "naruto") {
+  //     error = "Jeez! You're not a fan 😱";
+  //   }
+  //   return error;
+  // };
+
+  const validateAll = (values) => {
+    console.log(values);
   };
-
-  const validateAll = (values) => {};
 
   const submitForm = async (
     values,
@@ -125,11 +126,18 @@ export const InputForm = () => {
                   isInvalid={form.errors.sentiment && form.touched.sentiment}
                 >
                   <FormLabel htmlFor="sentiment" placeholder="Sentiment">
-                    Think it's going Up or Down? 
+                    Think it's going Up or Down?
                   </FormLabel>
-                  <RadioGroup {...field} id="sentiment" onChange={(v) => form.setValues({sentiment: v})}>
+                  <RadioGroup
+                    {...field}
+                    id="sentiment"
+                    onChange={(v) => form.setValues({ sentiment: v })}
+                  >
                     {Object.keys(Sentiment).map((sentiment) => (
-                      <Radio key={`select-option_${sentiment}`} value={sentiment} >
+                      <Radio
+                        key={`select-option_${sentiment}`}
+                        value={sentiment}
+                      >
                         {sentiment}
                       </Radio>
                     ))}

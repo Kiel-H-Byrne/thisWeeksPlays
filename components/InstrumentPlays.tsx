@@ -20,8 +20,8 @@ export const InstrumentPlays = ({ instrument }: Props) => {
   //   } else {
   //     console.log("no data")
   //   }
-    // const plays = data || samplePlays;
-    const plays =  samplePlays;
+  // const plays = data || samplePlays;
+  const plays = samplePlays;
   return (
     <Box>
       <Heading>Top 5 {instrument} Plays:</Heading>
