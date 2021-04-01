@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 // This project uses SendGrid as a email service
 // but you can switch to any dedicated email service
 // like Mailgun

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { User } from '@/types'
+import { User } from '@/types/index'
 
 type Props = {
   items: User[]
@@ -8,6 +8,7 @@ type Props = {
 const List = ({ items }: Props) => (
   <ul>
     {items.map((item) => (
+      //@ts-ignore
         <li data={item} key={item.id}/>
     ))}
   </ul>

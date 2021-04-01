@@ -6,11 +6,8 @@ import { Order } from "@/types/index";
 import {
   Box,
   Divider,
-  Heading,
-  ListItem,
   Text,
   Textarea,
-  UnorderedList,
 } from "@chakra-ui/react";
 import { CommentCard } from "./CommentCard";
 import VerifyField from "./form/VerifyField";
@@ -27,8 +24,9 @@ type Props = {
 };
 
 const PlayCard = ({ playData }: Props) => {
-  const [comments, setComments] = useState([{_id: "234234234", orderId: 204, message: "some type of comment"}]);
+  const [comments, setComments] = useState([{_id: "234234234", uid: 103, orderId: 204, message: "some type of comment"}]);
   const [timeData, setTimeData] = useState({ label: "", value: [] });
+  //@ts-ignore
   const [metaData, setMetaData] = useState({ meta: [] });
   const [winning, setWinning] = useState(true);
   const [lastPrice, setLastPrice] = useState(null);
@@ -41,33 +39,43 @@ const PlayCard = ({ playData }: Props) => {
     targetAmount,
     reasoning,
     isShort,
-    submitDate,
     _id,
     uid,
     upVotes,
     downVotes,
   } = playData;
 
-  useEffect(async () => {
-    let tickerData;
-    try {
-      tickerData = await axios({
-        url: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&apikey=${process.env.ALPHAVANTAGE_KEY}`,
-      });
-      tickerData = Object.entries(tickerData.data);
-      setMetaData({ meta: tickerData[0][1] });
-      setTimeData({ label: tickerData[1][0], value: tickerData[1][1] });
+  useEffect(() => {
+    const getTickerData = async () => {
+      let tickerData;
+      try {
+        tickerData = await axios({
+          url: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&apikey=${process.env.ALPHAVANTAGE_KEY}`,
+        });
+        tickerData = Object.entries(tickerData.data);
+        setMetaData({ meta: tickerData[0][1] });
+        setTimeData({ label: tickerData[1][0], value: tickerData[1][1] });
 
-      let closePrice = Object.values(timeData.value)[0][AVLABELS.CLOSE];
-      setLastPrice(closePrice);
-      if (closePrice <= entryPrice && !isShort) {
-        setWinning(false);
+        let closePrice = Object.values(timeData.value)[0][AVLABELS.CLOSE];
+        setLastPrice(closePrice);
+        if (closePrice <= entryPrice && !isShort) {
+          setWinning(false);
+        }
+      } catch (error) {
+        // helpers.setError(error.message)
       }
-    } catch (error) {
-      // helpers.setError(error.message)
-    }
+    };
+    const getComments = () => setComments([]);
+
+    getTickerData()
+    getComments();
+
   }, [lastPrice]);
 
+  const submitComment = (e) => {
+    let msg = e.target.value
+    console.log(msg)
+  }
   return (
     // <Link href="/plays/[id]" as={`/plays/${data.id}`}>
     <Box
@@ -75,7 +83,7 @@ const PlayCard = ({ playData }: Props) => {
       shadow="md"
       borderWidth="3px"
       borderColor={
-        winning === "null" ? "inherit" : winning ? "green.600" : "red"
+        winning === null ? "inherit" : winning ? "green.600" : "red"
       }
       borderRadius={"3%"}
       width={250}
@@ -106,7 +114,7 @@ const PlayCard = ({ playData }: Props) => {
 
       <Divider width="100%" />
       <span>Comments</span>
-      <Textarea rows={2} />
+      <Textarea rows={2} onSubmit={submitComment}/>
       {comments
         ? Object.values(comments).map((props) => (
             <ul>

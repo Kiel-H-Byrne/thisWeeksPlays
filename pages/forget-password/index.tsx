@@ -18,7 +18,7 @@ const ForgetPasswordPage = () => {
     });
 
     if (res.status === 200) {
-      setMsg({ message: 'An email has been sent to your mailbox' });
+      setMsg({ message: 'An email has been sent to your mailbox',isError: false });
     } else {
       setMsg({ message: await res.text(), isError: true });
     }

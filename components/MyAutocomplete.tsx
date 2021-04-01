@@ -2,18 +2,17 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Heading,
   Input,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useField } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-interface Props {}
+// interface Props {}
 
 export const AutoCompleteField = () => {
   const [field, meta, helpers] = useField("ticker");
-  const [symbolData, setSymbolData] = useState({ meta: [], time: [] });
+  // const [symbolData, setSymbolData] = useState({ meta: [], time: [] });
   const [results, setResults] = useState([]);
   const getSymbolSet = async (text) => {
     let data;
