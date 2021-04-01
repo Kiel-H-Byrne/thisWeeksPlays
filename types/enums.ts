@@ -29,8 +29,8 @@ export enum Instruments {
   Stocks = "Stocks",
   Options = "Options",
   Futures = "Futures",
-  ForEx = "Foreign Exchange",
-  Crypto = "Crypto Currencies",
+  ForEx = "ForEx",
+  Crypto = "Crypto",
 }
 
 export enum Reasons {

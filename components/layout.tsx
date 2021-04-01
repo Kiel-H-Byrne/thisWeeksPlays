@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import { Box, Container, Flex, Grid, MenuIcon } from "@chakra-ui/react";
+import { Box, Flex, Grid, MenuIcon } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import MyAvatar from "./MyAvatar";
 
@@ -12,7 +12,9 @@ type Props = {
 
 const Layout = ({ children, title = "This is the default title" }: Props) => {
   const [show, setShow] = useState(true);
-  const toggleMenu = () => {};
+  const toggleMenu = () => {
+    setShow(!show)
+  };
 
   return (
     <div>

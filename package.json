@@ -4,9 +4,9 @@
   "description": " ",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "tsc -b && next dev",
+    "build": "tsc -b && next build",
+    "start": "tsc -b && next start",
     "lint": "eslint ./"
   },
   "repository": {

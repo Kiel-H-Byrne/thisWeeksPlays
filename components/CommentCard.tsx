@@ -4,14 +4,14 @@ import React from "react";
 import MyAvatar from "./MyAvatar";
 
 interface Props {
-  uuid: string;
+  uid: number;
   message: string;
 }
-export const CommentCard = ({ uuid, message }: Props) => {
+export const CommentCard = ({ uid, message }: Props) => {
   const [session, loading] = useSession();
 
   return (
-    <div key={uuid} className={""}>
+    <div key={uid} className={""}>
       <Grid container direction="row" alignItems="center">
         <Grid item xs={2} md={1}>
           {session && !loading ? (
@@ -19,7 +19,7 @@ export const CommentCard = ({ uuid, message }: Props) => {
           ) : (
             <img
               alt="image"
-              src={`https://avatars.dicebear.com/api/bottts/${uuid}.svg`}
+              src={`https://avatars.dicebear.com/api/bottts/${uid}.svg`}
               className={""}
               height="43px"
               width="43px"
