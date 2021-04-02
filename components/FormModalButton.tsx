@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { InputForm } from "../components/InputForm";
+import MyAvatar from './MyAvatar';
 
 
 const FormModalButton = () => {
@@ -20,7 +21,7 @@ const FormModalButton = () => {
   return (
     <>
       <Button onClick={() => toggleModalOpen()}>Open Modal</Button>
-
+      <MyAvatar />
       <Modal
         closeOnOverlayClick={true}
         isOpen={open}

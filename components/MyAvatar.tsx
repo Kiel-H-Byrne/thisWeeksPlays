@@ -1,11 +1,11 @@
 import * as React from "react";
 import {
-  useSession, signIn, signOut
+  useSession, signIn, signOut, signin
 } from 'next-auth/client'
 import { ButtonGroup, ListIcon, ListItem, Menu, MenuItem, typography } from "@chakra-ui/react";
-import { InfoIcon } from "@chakra-ui/icons";
+import { ExternalLinkIcon, InfoIcon } from "@chakra-ui/icons";
 
-
+const classes = {}
 const MyAvatar = () => {
   
   const [ session, loading ] = useSession()
@@ -90,15 +90,13 @@ const MyAvatar = () => {
             </a>
           </ListItem>
         </MenuItem>
-        {/* <MenuItem
-          onClick={() => (isAuthenticated ? logout() : loginWithPopup())}
+        <MenuItem
+          onClick={() => (session ? signOut() : signin())}
         >
-          <ListItemIcon>
-            <ExitToAppTwoTone />
-          </ListItemIcon>
-          <ListItemText primary={isAuthenticated ? "Sign Out" : "Sign In"} />
+            <ExternalLinkIcon />
+          <ListItem >{session ? "Sign Out" : "Sign In"} </ListItem>
         </MenuItem>
-         */}
+        
         <MenuItem>
           <InfoIcon />
           <ListItem primary="About" />

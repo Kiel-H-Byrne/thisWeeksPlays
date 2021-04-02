@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/react";
 import React from "react";
-import { MoreInformation } from "utils/sample-data";
+import { MoreInformation } from "../../util";
 
 export const InfoPopover = ({ name }: { name: string }) => {
   return (

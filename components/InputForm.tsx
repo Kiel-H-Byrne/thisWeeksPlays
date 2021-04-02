@@ -16,7 +16,7 @@ import {
   OptionStrategies,
   Reasons,
   Sentiment,
-} from "../interfaces";
+} from "@/interfaces/index";
 import axios from "axios";
 import { AutoCompleteField } from "./MyAutocomplete";
 import { InfoPopover } from "./form/InfoPopover";

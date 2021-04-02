@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { User } from '../interfaces'
+import { User } from '@/interfaces/index'
 
 type Props = {
   items: User[]

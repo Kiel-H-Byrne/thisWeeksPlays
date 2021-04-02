@@ -1,6 +1,6 @@
 import { Box, Heading, Stack,  } from '@chakra-ui/react';
 import React from 'react'
-import { Instruments } from "../types";
+import { Instruments } from "@/interfaces/index";
 import { samplePlays } from "../util"
 import PlayCard from './PlayCard';
 

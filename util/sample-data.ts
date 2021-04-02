@@ -1,4 +1,4 @@
-import { User, Order, Sentiment, Instruments, Reasons, OptionStrategies } from "../types";
+import { User, Order, Sentiment, Instruments, Reasons, OptionStrategies } from "@/interfaces/index";
 
 /** Dummy user data. */
 export const sampleUserData: User[] = [

@@ -3,8 +3,8 @@ import Layout from "@/components/layout";
 import { Heading, HStack } from "@chakra-ui/react";
 import FormModalButton from "@/components/FormModalButton";
 import { InstrumentPlays } from "@/components/InstrumentPlays";
-import { Instruments } from "../types";
-
+import { Instruments } from "@/interfaces/index";
+import { useCurrentUser } from '@/hooks/index'
 const IndexPage = () => {
   const [user] = useCurrentUser();
 

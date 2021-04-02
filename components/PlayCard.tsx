@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 
-import { Order } from "../interfaces";
+import { Order } from "@/interfaces/index";
 import {
   Box,
   Divider,
