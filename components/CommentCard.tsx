@@ -10,7 +10,7 @@ export const CommentCard = ({ uid, userName, message }: Comment) => {
 
   return (
     <Box key={uid as any} className={""} style={{ display: "inline-flex" }}>
-      {session && !loading ? (
+      {!loading && session ? (
         <MyAvatar />
       ) : (
         <img

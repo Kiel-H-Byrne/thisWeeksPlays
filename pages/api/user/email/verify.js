@@ -1,5 +1,4 @@
 import nc from 'next-connect';
-import { sendMail } from '@/lib/mail';
 import { all } from '@/middlewares/index';
 import { insertToken } from '@/db/index';
 
@@ -27,7 +26,7 @@ handler.post(async (req, res) => {
       </div>
       `,
   };
-  await sendMail(msg);
+  // await sendMail(msg);
   res.end('ok');
 });
 

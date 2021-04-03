@@ -1,6 +1,5 @@
 import bcrypt from 'bcryptjs';
 import nc from 'next-connect';
-import { sendMail } from '@/lib/mail';
 import { database } from '@/middlewares/index';
 import {
   findUserByEmail, updateUserById, findAndDeleteTokenByIdAndType, insertToken,
@@ -34,7 +33,7 @@ handler.post(async (req, res) => {
       </div>
       `,
   };
-  await sendMail(msg);
+  // await sendMail(msg);
   res.end('ok');
 });
 
