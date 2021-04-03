@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 
-import { Order } from "@/types/index";
+import { Order, Comment } from "@/types/index";
 import {
   Box,
   Divider,
@@ -24,7 +24,7 @@ type Props = {
 };
 
 const PlayCard = ({ playData }: Props) => {
-  const [comments, setComments] = useState([{_id: "234234234", uid: 103, orderId: 204, message: "some type of comment"}]);
+  const [comments, setComments] = useState([] as Comment[]);
   const [timeData, setTimeData] = useState({ label: "", value: [] });
   //@ts-ignore
   const [metaData, setMetaData] = useState({ meta: [] });
@@ -65,7 +65,7 @@ const PlayCard = ({ playData }: Props) => {
         // helpers.setError(error.message)
       }
     };
-    const getComments = () => setComments([]);
+    const getComments = () => setComments([{_id: "234234234" as any, submitDate: new Date(), userName: "commentKing",uid: "1032fj23f" as any, oid: "l2k3j983fj" as any, message: "some type of comment"}]);
 
     getTickerData()
     getComments();
@@ -117,7 +117,7 @@ const PlayCard = ({ playData }: Props) => {
       <Textarea rows={2} onSubmit={submitComment}/>
       {comments
         ? Object.values(comments).map((props) => (
-            <ul>
+            <ul key={props._id}>
               <CommentCard {...props} />
             </ul>
           ))
