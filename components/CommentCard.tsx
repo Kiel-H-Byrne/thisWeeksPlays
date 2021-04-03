@@ -15,7 +15,7 @@ export const CommentCard = ({ uid, userName, message }: Comment) => {
       ) : (
         <img
           alt="image"
-          src={`https://avatars.dicebear.com/api/bottts/testernumb.svg`}
+          src={`https://avatars.dicebear.com/api/bottts/${uid}${Math.random()*234}.svg`}
           className={""}
           height="43px"
           width="43px"

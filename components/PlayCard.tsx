@@ -117,7 +117,7 @@ const PlayCard = ({ playData }: Props) => {
       <Textarea rows={2} onSubmit={submitComment}/>
       {comments
         ? Object.values(comments).map((props) => (
-            <ul key={props._id}>
+            <ul key={props.userName}>
               <CommentCard {...props} />
             </ul>
           ))
