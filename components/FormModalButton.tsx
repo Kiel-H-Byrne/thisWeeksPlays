@@ -18,8 +18,8 @@ const FormModalButton = () => {
     setOpen(!open);
     return !open;
   };
-  if (session) {
-    console.log(session);
+  if (!loading) {
+    console.log(session, loading);
   }
   return (
     <>

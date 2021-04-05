@@ -8,7 +8,6 @@ import { CheckCircleIcon } from "@chakra-ui/icons";
 
 const MyAvatar = () => {
   const [session, loading] = useSession();
-
   return (
     /* {if logged in, profile foto else avatar } */
     !loading && session ? (

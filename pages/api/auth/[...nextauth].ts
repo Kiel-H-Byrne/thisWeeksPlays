@@ -5,16 +5,20 @@ export default NextAuth({
   providers: [
     // OAuth authentication providers
     Providers.Google({
-      clientId: process.env.GOOGLE_ID ? process.env.GOOGLE_ID : "",
-      clientSecret: process.env.GOOGLE_SECRET ? process.env.GOOGLE_SECRET : "",
+      clientId: process.env.GOOGLE_ID! ,
+      clientSecret: process.env.GOOGLE_SECRET!,
       // scope:
-        // "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+      //   "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
     }),
     // Sign in with passwordless email link
     Providers.Email({
       server: process.env.MAIL_SERVER,
       from: '<no-reply@thehilmar.com>'
     }),
+    // Providers.Facebook({})
+    // Providers.Reddit({})
+    // Providers.Twitter({})
+    // Providers.Instagram({})
   ],
   // SQL or MongoDB database (or leave empty)
   // database: process.env.MONGODB_URI,

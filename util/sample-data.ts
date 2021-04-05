@@ -18,7 +18,6 @@ export const samplePlays: Order[] = [
     entryPrice: 215,
     targetAmount: 230,
     reasoning: Reasons.News,
-    exitStrategy: "",
     isShort: false,
     orderAmount: 100,
     screenShot: "https://picsum.photos/150/300",
@@ -33,12 +32,12 @@ export const samplePlays: Order[] = [
   },
   {
     _id: 202,
-    sentiment: Sentiment.Bullish,
+    sentiment: Sentiment.Bearish,
     ticker: "IDEX",
     instrument: Instruments.Stocks,
     isWatching: true,
     entryPrice: 4.50,
-    targetAmount: 1.5,
+    targetAmount: 2.5,
     reasoning: Reasons.Technicals,
     exitStrategy: "buy back at 17% drop or anywhere below 2.50",
     isShort: true,
@@ -50,7 +49,8 @@ export const samplePlays: Order[] = [
     submitDate: new Date(),
     get riskAmount() : number {
       return this.orderAmount * this.entryPrice
-    }
+    },
+    points: 10
   },
   {
     _id: 203,
@@ -72,7 +72,8 @@ export const samplePlays: Order[] = [
     orderAmount: 6,
     get riskAmount() : number {
       return this.orderAmount * this.entryPrice
-    }
+    },
+    points: 10
     
   },
   {

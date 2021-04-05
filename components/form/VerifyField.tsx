@@ -1,4 +1,4 @@
-import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
+import { ArrowDownIcon, ArrowUpIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { FormControl } from "@chakra-ui/react";
 import React from "react";
 
@@ -21,7 +21,7 @@ const VerifyField = ({ userId, upVotes, downVotes }: Props) => {
   // setResults([]);
   // };
 
-  const in_upvoted = () => {
+  const in_watched = () => {
     //if verifiedListings array contains order id, return true.
     if (userId && upVotes.length > 0) {
       return upVotes.includes(userId);
@@ -29,7 +29,7 @@ const VerifyField = ({ userId, upVotes, downVotes }: Props) => {
       return false;
     }
   };
-  const in_downvoted = () => {
+  const in_unwatched = () => {
     //if verifiedListings array contains order id, return true.
     if (userId && downVotes.length > 0) {
       return downVotes.includes(userId);
@@ -42,17 +42,18 @@ const VerifyField = ({ userId, upVotes, downVotes }: Props) => {
   };
 
   return (
-    <FormControl id="verify-control">
-      <div className="voteButton">
-        <span className="upVote">
-          <ArrowDownIcon className={in_upvoted() ? `verified` : `verify`} />
+    <FormControl id="watch-control">
+      <div className="watchButton">
+        <span className="watch">
+          {in_watched() ? (
+            <ViewOffIcon className={`unwatch`} />
+          ) : (
+            <ViewIcon className={`watched`} />
+          )}
         </span>
-        <span className="vote-count">{upVoteCount()} Verified</span>
-        <span className="downVote">
-          <ArrowUpIcon className={in_downvoted() ? `deverified` : `deverify`} />
-        </span>
+        <span className="vote-count">{upVoteCount() > 0 ? `${upVoteCount()} Watchers` : `Watch This`}</span>
+        <span className="unWatch"></span>
       </div>
-      {/* <FormErrorMessage>{meta.error}</FormErrorMessage> */}
     </FormControl>
   );
 };

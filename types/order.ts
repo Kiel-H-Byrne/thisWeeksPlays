@@ -26,4 +26,5 @@ export type Order = {
   riskAmount: number;
   screenShot?: string;
   uid: string;
+  points: number
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import Link from "next/link";
 
 import { Order, Comment } from "@/types/index";
@@ -43,6 +43,7 @@ const PlayCard = ({ playData }: Props) => {
     uid,
     upVotes,
     downVotes,
+    sentiment
   } = playData;
 
   useEffect(() => {
@@ -50,20 +51,22 @@ const PlayCard = ({ playData }: Props) => {
       let tickerData;
       try {
         tickerData = await axios({
-          url: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&apikey=${process.env.ALPHAVANTAGE_KEY}`,
+          // url: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&apikey=${process.env.ALPHAVANTAGE_KEY}`,
+          url: `https://cloud.iexapis.com/stable/stock/${ticker}/quote?token=${process.env.IEX_KEY}`,
         });
-        tickerData = Object.entries(tickerData.data);
-        setMetaData({ meta: tickerData[0][1] });
-        setTimeData({ label: tickerData[1][0], value: tickerData[1][1] });
-
-        let closePrice = Object.values(timeData.value)[0][AVLABELS.CLOSE];
-        setLastPrice(closePrice);
-        if (closePrice <= entryPrice && !isShort) {
-          setWinning(false);
-        }
       } catch (error) {
         // helpers.setError(error.message)
       }
+      if (tickerData) {
+        setMetaData({ meta: tickerData.data });
+        // setTimeData({ label: tickerData[1][0], value: tickerData[1][1] });
+        // let closePrice = Object.values(timeData.value)[0][AVLABELS.CLOSE];
+        setLastPrice(tickerData.data.close);
+        if (tickerData.data.close <= entryPrice && !isShort) {
+          setWinning(false);
+        }
+      }
+        
     };
     const getComments = () => setComments([{_id: "234234234" as any, submitDate: new Date(), userName: "commentKing",uid: "1032fj23f" as any, oid: "l2k3j983fj" as any, message: "some type of comment"}]);
 
@@ -76,33 +79,43 @@ const PlayCard = ({ playData }: Props) => {
     let msg = e.target.value
     console.log(msg)
   }
+  console.log(exitStrategy, ticker)
   return (
     // <Link href="/plays/[id]" as={`/plays/${data.id}`}>
     <Box
       p={5}
       shadow="md"
       borderWidth="3px"
-      borderColor={
-        winning === null ? "inherit" : winning ? "green.600" : "red"
-      }
+      borderColor={lastPrice === null ? "blue" : winning ? "green.600" : "red"}
       borderRadius={"3%"}
       width={250}
     >
       <Link href="/users/[name]" as={`/users/${userName}`}>
-        <Text as={"span"} fontStyle={"italic"}><a>@{userName}</a></Text>
+        <Text as={"span"} fontStyle={"italic"}>
+          <a>@{userName} </a>
+        </Text>
       </Link>
-      {isWatching ? ` is looking at a ` : ` entered a `}
+      {`is ${sentiment} on `}
+      <Text as={"span"} fontWeight={"bold"}>
+        {ticker}
+        {lastPrice ? ` ($${lastPrice}) ` : ``}
+      </Text>
+      and {isWatching ? `is looking at a ` : `entered a `}
       {isShort ? `short ` : `long `}
-      <Text as={"span"} fontWeight={"bold"}>{ticker}</Text>
-      {` play because of `}<Text as={"span"} fontWeight={"bold"} >{reasoning}</Text>{`, expecting it to hit `}
-      <Text as={"span"} fontWeight={"bold"} >${targetAmount}</Text>. 
+      {`play because of `}
+      <Text as={"span"} fontWeight={"bold"}>
+        {reasoning}
+      </Text>
+      {`, expecting it to hit `}
+      <Text as={"span"} fontWeight={"bold"}>
+        ${targetAmount}
+      </Text>
+      .
       <br />
-      {isWatching
-        ? `\n`
-        : exitStrategy
-        ? `They will ${exitStrategy}...`
-        : `They have no exit strategy...`}
-
+      {isWatching && `if bought, \n`}
+      {exitStrategy
+        ? `they will ${exitStrategy}...`
+        : `They will buy & hold...`}
       <div id="up-down-vote">
         <VerifyField
           orderId={_id}
@@ -111,10 +124,9 @@ const PlayCard = ({ playData }: Props) => {
           downVotes={downVotes}
         />
       </div>
-
       <Divider width="100%" />
       <span>Comments</span>
-      <Textarea rows={2} onSubmit={submitComment}/>
+      <Textarea rows={2} onSubmit={submitComment} />
       {comments
         ? Object.values(comments).map((props) => (
             <ul key={props.userName}>
