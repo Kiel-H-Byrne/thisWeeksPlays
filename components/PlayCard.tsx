@@ -45,16 +45,24 @@ const PlayCard = ({ playData }: Props) => {
     downVotes,
     sentiment,
     orderAmount,
-    optionsStrategy
+    optionsStrategy,
+    optionsExpiration
   } = playData;
 
   useEffect(() => {
     const getTickerData = async () => {
       let tickerData;
+      let url = `https://cloud.iexapis.com/stable/stock/${ticker}`
+      if (optionsStrategy) {
+        url = `${url}/options/${optionsExpiration}/`;
+      } else {
+        url = `${url}/quote`;
+      }
       try {
+        
         tickerData = await axios({
           // url: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&apikey=${process.env.ALPHAVANTAGE_KEY}`,
-          url: `https://cloud.iexapis.com/stable/stock/${ticker}/quote?token=${process.env.IEX_KEY}`,
+          url: `${url}?token=${process.env.IEX_KEY}`,
         });
       } catch (error) {
         // helpers.setError(error.message)
