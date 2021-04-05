@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import Link from "next/link";
 
 import { Order, Comment } from "@/types/index";
@@ -11,13 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { CommentCard } from "./CommentCard";
 import VerifyField from "./form/VerifyField";
-enum AVLABELS {
-  OPEN = "1. open",
-  HIGH = "2. high",
-  LOW = "3. low",
-  CLOSE = "4. close",
-  VOLUME = "5. volume",
-}
+// enum AVLABELS {
+//   OPEN = "1. open",
+//   HIGH = "2. high",
+//   LOW = "3. low",
+//   CLOSE = "4. close",
+//   VOLUME = "5. volume",
+// }
 
 type Props = {
   playData: Order;
@@ -25,7 +25,7 @@ type Props = {
 
 const PlayCard = ({ playData }: Props) => {
   const [comments, setComments] = useState([] as Comment[]);
-  const [timeData, setTimeData] = useState({ label: "", value: [] });
+  // const [timeData, setTimeData] = useState({ label: "", value: [] });
   //@ts-ignore
   const [metaData, setMetaData] = useState({ meta: [] });
   const [winning, setWinning] = useState(true);
@@ -43,7 +43,9 @@ const PlayCard = ({ playData }: Props) => {
     uid,
     upVotes,
     downVotes,
-    sentiment
+    sentiment,
+    orderAmount,
+    optionsStrategy
   } = playData;
 
   useEffect(() => {
@@ -79,7 +81,6 @@ const PlayCard = ({ playData }: Props) => {
     let msg = e.target.value
     console.log(msg)
   }
-  console.log(exitStrategy, ticker)
   return (
     // <Link href="/plays/[id]" as={`/plays/${data.id}`}>
     <Box
@@ -104,9 +105,10 @@ const PlayCard = ({ playData }: Props) => {
       {isShort ? `short ` : `long `}
       {`play because of `}
       <Text as={"span"} fontWeight={"bold"}>
-        {reasoning}
+        {reasoning}{", "}
       </Text>
-      {`, expecting it to hit `}
+      {`placing ${orderAmount} ${optionsStrategy}(s) `}
+      {`expecting it to hit `}
       <Text as={"span"} fontWeight={"bold"}>
         ${targetAmount}
       </Text>

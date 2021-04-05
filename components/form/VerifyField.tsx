@@ -1,4 +1,4 @@
-import { ArrowDownIcon, ArrowUpIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { FormControl } from "@chakra-ui/react";
 import React from "react";
 
@@ -9,7 +9,7 @@ interface Props {
   downVotes: string[];
 }
 
-const VerifyField = ({ userId, upVotes, downVotes }: Props) => {
+const VerifyField = ({ userId, upVotes }: Props) => {
   // const [field, meta, helpers] = useField("verify");
   // field.onChange = (e) => {
   // getSymbolSet(e.target.value);
@@ -29,14 +29,14 @@ const VerifyField = ({ userId, upVotes, downVotes }: Props) => {
       return false;
     }
   };
-  const in_unwatched = () => {
-    //if verifiedListings array contains order id, return true.
-    if (userId && downVotes.length > 0) {
-      return downVotes.includes(userId);
-    } else {
-      return false;
-    }
-  };
+  // const in_unwatched = () => {
+  //   //if verifiedListings array contains order id, return true.
+  //   if (userId && downVotes.length > 0) {
+  //     return downVotes.includes(userId);
+  //   } else {
+  //     return false;
+  //   }
+  // };
   const upVoteCount = () => {
     return upVotes.length;
   };

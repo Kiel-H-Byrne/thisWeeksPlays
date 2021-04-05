@@ -43,6 +43,7 @@ const initialData: Order = {
   riskAmount: 0, //number
   screenShot: "", //string
   uid: "", //string
+  points: 0
 };
 
 export const InputForm = () => {

@@ -23,6 +23,7 @@ export type Order = {
   userName: string;
   orderAmount: number;
   optionsStrategy?: ValueOf<OptionStrategies>;
+  optionsExpiration?: string | Date;
   riskAmount: number;
   screenShot?: string;
   uid: string;

@@ -1,8 +1,15 @@
-import { User, Order, Sentiment, Instruments, Reasons, OptionStrategies } from "@/types/index";
+import {
+  User,
+  Order,
+  Sentiment,
+  Instruments,
+  Reasons,
+  OptionStrategies,
+} from "@/types/index";
 
 /** Dummy user data. */
 export const sampleUserData: User[] = [
-  { _id: 101, name: "Alice", orders: [],  },
+  { _id: 101, name: "Alice", orders: [] },
   { _id: 102, name: "Bob", orders: [] },
   { _id: 103, name: "Caroline", orders: [] },
   { _id: 104, name: "Dave", orders: [] },
@@ -24,11 +31,12 @@ export const samplePlays: Order[] = [
     userName: "sirBuysAlot",
     uid: "234234jalkdjf",
     submitDate: new Date(),
-    upVotes: ["sigFried", "R0Y","TheBlackBengal"],
+    upVotes: ["sigFried", "R0Y", "TheBlackBengal"],
     downVotes: ["TheWhiteBengal", "ThatGUyFriday"],
-    get riskAmount() : number {
-     return this.orderAmount * this.entryPrice
-   }
+    get riskAmount(): number {
+      return this.orderAmount * this.entryPrice;
+    },
+    points: 13,
   },
   {
     _id: 202,
@@ -36,7 +44,7 @@ export const samplePlays: Order[] = [
     ticker: "IDEX",
     instrument: Instruments.Stocks,
     isWatching: true,
-    entryPrice: 4.50,
+    entryPrice: 4.5,
     targetAmount: 2.5,
     reasoning: Reasons.Technicals,
     exitStrategy: "buy back at 17% drop or anywhere below 2.50",
@@ -47,10 +55,10 @@ export const samplePlays: Order[] = [
     upVotes: [], //array of usernames who upvoted
     downVotes: [], //array of usernaes who downvoted,
     submitDate: new Date(),
-    get riskAmount() : number {
-      return this.orderAmount * this.entryPrice
+    get riskAmount(): number {
+      return this.orderAmount * this.entryPrice;
     },
-    points: 10
+    points: 10,
   },
   {
     _id: 203,
@@ -61,7 +69,8 @@ export const samplePlays: Order[] = [
     targetAmount: 700,
     reasoning: Reasons.News,
     exitStrategy: "exit at 60% or 3/10 risk ratio",
-    optionsStrategy: OptionStrategies.CREDIT_CALL,
+    optionsStrategy: OptionStrategies.CREDIT_BULL_PUT_SPREAD,
+    optionsExpiration: "20210618",
     userName: "musgKang",
     uid: "234234jalkdjf",
     submitDate: new Date(),
@@ -70,11 +79,10 @@ export const samplePlays: Order[] = [
     entryPrice: 450,
     isShort: false,
     orderAmount: 6,
-    get riskAmount() : number {
-      return this.orderAmount * this.entryPrice
+    get riskAmount(): number {
+      return this.orderAmount * this.entryPrice;
     },
-    points: 10
-    
+    points: 10,
   },
   {
     _id: 204,
@@ -92,9 +100,10 @@ export const samplePlays: Order[] = [
     orderAmount: 0,
     targetAmount: -1,
     reasoning: Reasons.News,
-    get riskAmount() : number {
-     return this.orderAmount * this.entryPrice
-   }
+    get riskAmount(): number {
+      return this.orderAmount * this.entryPrice;
+    },
+    points: 10,
   },
   {
     _id: 205,
@@ -112,9 +121,10 @@ export const samplePlays: Order[] = [
     orderAmount: 0,
     reasoning: Reasons.Technicals,
     targetAmount: 3000,
-    get riskAmount() : number {
-     return this.orderAmount * this.entryPrice
-   }
+    get riskAmount(): number {
+      return this.orderAmount * this.entryPrice;
+    },
+    points: 10,
   },
   {
     _id: 206,
@@ -132,9 +142,10 @@ export const samplePlays: Order[] = [
     orderAmount: 0,
     targetAmount: 10,
     reasoning: Reasons.Community,
-    get riskAmount() : number {
-     return this.orderAmount * this.entryPrice
-   }
+    get riskAmount(): number {
+      return this.orderAmount * this.entryPrice;
+    },
+    points: 10,
   },
 ];
 
