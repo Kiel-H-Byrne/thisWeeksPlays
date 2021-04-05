@@ -71,8 +71,8 @@ const PlayCard = ({ playData }: Props) => {
         setMetaData({ meta: tickerData.data });
         // setTimeData({ label: tickerData[1][0], value: tickerData[1][1] });
         // let closePrice = Object.values(timeData.value)[0][AVLABELS.CLOSE];
-        setLastPrice(tickerData.data.close);
-        if (tickerData.data.close <= entryPrice && !isShort) {
+        setLastPrice(tickerData.data.latestPrice);
+        if (tickerData.data.latestPrice <= entryPrice && !isShort) {
           setWinning(false);
         }
       }
