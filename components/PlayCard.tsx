@@ -44,20 +44,20 @@ const PlayCard = ({ playData }: Props) => {
     upVotes,
     downVotes,
     sentiment,
-    orderAmount,
-    optionsStrategy,
-    optionsExpiration
+    // orderAmount,
+    // optionsStrategy,
+    // optionsExpiration
   } = playData;
 
   useEffect(() => {
     const getTickerData = async () => {
       let tickerData;
       let url = `https://cloud.iexapis.com/stable/stock/${ticker}`
-      if (optionsStrategy) {
-        url = `${url}/options/${optionsExpiration}/`;
-      } else {
+      // if (optionsStrategy) {
+      //   url = `${url}/options/${optionsExpiration}/`;
+      // } else {
         url = `${url}/quote`;
-      }
+      // }
       try {
         
         tickerData = await axios({
@@ -107,7 +107,7 @@ const PlayCard = ({ playData }: Props) => {
       {`is ${sentiment} on `}
       <Text as={"span"} fontWeight={"bold"}>
         {ticker}
-        {lastPrice ? ` ($${lastPrice}) ` : ``}
+        {lastPrice ? ` ($${lastPrice})` : ``}{" "}
       </Text>
       and {isWatching ? `is looking at a ` : `entered a `}
       {isShort ? `short ` : `long `}
@@ -115,7 +115,7 @@ const PlayCard = ({ playData }: Props) => {
       <Text as={"span"} fontWeight={"bold"}>
         {reasoning}{", "}
       </Text>
-      {`placing ${orderAmount} ${optionsStrategy}(s) `}
+      {/* {`placing ${orderAmount} ${optionsStrategy}(s) `} */}
       {`expecting it to hit `}
       <Text as={"span"} fontWeight={"bold"}>
         ${targetAmount}
