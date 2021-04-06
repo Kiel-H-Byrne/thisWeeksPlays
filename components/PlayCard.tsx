@@ -6,11 +6,14 @@ import { Order, Comment } from "@/types/index";
 import {
   Box,
   Divider,
+  Spinner,
   Text,
   Textarea,
 } from "@chakra-ui/react";
 import { CommentCard } from "./CommentCard";
 import VerifyField from "./form/VerifyField";
+import useSWR from "swr";
+import fetcher from "@/lib/fetch";
 // enum AVLABELS {
 //   OPEN = "1. open",
 //   HIGH = "2. high",
@@ -29,7 +32,7 @@ const PlayCard = ({ playData }: Props) => {
   //@ts-ignore
   const [metaData, setMetaData] = useState({ meta: [] });
   const [winning, setWinning] = useState(true);
-  const [lastPrice, setLastPrice] = useState(null);
+  // const [lastPrice, setLastPrice] = useState(null);
   const {
     userName,
     ticker,
@@ -49,53 +52,66 @@ const PlayCard = ({ playData }: Props) => {
     // optionsExpiration
   } = playData;
 
-  useEffect(() => {
-    const getTickerData = async () => {
-      let tickerData;
-      let url = `https://cloud.iexapis.com/stable/stock/${ticker}`
-      // if (optionsStrategy) {
-      //   url = `${url}/options/${optionsExpiration}/`;
-      // } else {
-        url = `${url}/quote`;
-      // }
-      try {
+  let api_url = `https://cloud.iexapis.com/stable/stock/${ticker}/quote?token=${process.env.IEX_KEY}`
+  const { data } = useSWR(api_url, fetcher)
+  if (!data) {
+    return <Spinner />;
+  }
+  // useEffect(() => {
+  //   // const getTickerData = async () => {
+  //   //   let tickerData;
+  //   //   let url = `https://cloud.iexapis.com/stable/stock/${ticker}`
+  //   //   // if (optionsStrategy) {
+  //   //   //   url = `${url}/options/${optionsExpiration}/`;
+  //   //   // } else {
+  //   //     url = `${url}/quote`;
+  //   //   // }
+  //   //   try {
         
-        tickerData = await axios({
-          // url: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&apikey=${process.env.ALPHAVANTAGE_KEY}`,
-          url: `${url}?token=${process.env.IEX_KEY}`,
-        });
-      } catch (error) {
-        // helpers.setError(error.message)
-      }
-      if (tickerData) {
-        setMetaData({ meta: tickerData.data });
-        // setTimeData({ label: tickerData[1][0], value: tickerData[1][1] });
-        // let closePrice = Object.values(timeData.value)[0][AVLABELS.CLOSE];
-        setLastPrice(tickerData.data.latestPrice);
-        if (tickerData.data.latestPrice <= entryPrice && !isShort) {
-          setWinning(false);
-        }
-      }
+  //   //     tickerData = await axios({
+  //   //       // url: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&apikey=${process.env.ALPHAVANTAGE_KEY}`,
+  //   //       url: `${url}?token=${process.env.IEX_KEY}`,
+  //   //     });
+  //   //   } catch (error) {
+  //   //     // helpers.setError(error.message)
+  //   //   }
+  //   //   if (tickerData) {
+  //   //     setMetaData({ meta: tickerData.data });
+  //   //     // setTimeData({ label: tickerData[1][0], value: tickerData[1][1] });
+  //   //     // let closePrice = Object.values(timeData.value)[0][AVLABELS.CLOSE];
+  //   //     setLastPrice(tickerData.data.latestPrice);
+  //   //     if (tickerData.data.latestPrice <= entryPrice && !isShort) {
+  //   //       setWinning(false);
+  //   //     }
+  //   //   }
         
-    };
-    const getComments = () => setComments([{_id: "234234234" as any, submitDate: new Date(), userName: "commentKing",uid: "1032fj23f" as any, oid: "l2k3j983fj" as any, message: "some type of comment"}]);
+  //   // };
+  //   const getComments = () => setComments([{_id: "234234234" as any, submitDate: new Date(), userName: "commentKing",uid: "1032fj23f" as any, oid: "l2k3j983fj" as any, message: "some type of comment"}]);
 
-    getTickerData()
-    getComments();
+  //   // getTickerData()
+  //   getComments();
 
-  }, [lastPrice]);
+  // }, []);
 
   const submitComment = (e) => {
     let msg = e.target.value
     console.log(msg)
   }
+if (data) {
+  setMetaData({ meta: data });
+  // setTimeData({ label: tickerData[1][0], value: tickerData[1][1] });
+  // let closePrice = Object.values(timeData.value)[0][AVLABELS.CLOSE];
+  if (data.latestPrice <= entryPrice && !isShort) {
+    setWinning(false);
+  }
+}
   return (
     // <Link href="/plays/[id]" as={`/plays/${data.id}`}>
     <Box
       p={5}
       shadow="md"
       borderWidth="3px"
-      borderColor={lastPrice === null ? "blue" : winning ? "green.600" : "red"}
+      borderColor={data.latestPrice === null ? "blue" : winning ? "green.600" : "red"}
       borderRadius={"3%"}
       width={250}
     >
@@ -107,7 +123,7 @@ const PlayCard = ({ playData }: Props) => {
       {`is ${sentiment} on `}
       <Text as={"span"} fontWeight={"bold"}>
         {ticker}
-        {lastPrice ? ` ($${lastPrice})` : ``}{" "}
+        {data.latestPrice ? ` ($${data.latestPrice})` : ``}{" "}
       </Text>
       and {isWatching ? `is looking at a ` : `entered a `}
       {isShort ? `short ` : `long `}
