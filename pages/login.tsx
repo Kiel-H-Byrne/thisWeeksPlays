@@ -3,6 +3,14 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCurrentUser } from '@/hooks/index';
+import useSWR from 'swr';
+
+const create = (url, body) => fetch(url, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(body),
+})
+
 
 const LoginPage = () => {
   const router = useRouter();
@@ -19,16 +27,13 @@ const LoginPage = () => {
       email: e.currentTarget.email.value,
       password: e.currentTarget.password.value,
     };
-    const res = await fetch('/api/auth', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
-    if (res.status === 200) {
-      const userObj = await res.json();
+    
+    const {data, error} = useSWR(['/api/auth', body], create);
+    if (data?.status === 200) {
+      const userObj = await data?.json();
       mutate(userObj);
     } else {
-      setErrorMsg('Incorrect username or password. Try again!');
+      setErrorMsg('Incorrect username or password. Try again!' + error)
     }
   }
 

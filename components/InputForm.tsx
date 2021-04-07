@@ -22,9 +22,11 @@ import {
 import axios from "axios";
 import { AutoCompleteField } from "./MyAutocomplete";
 import { InfoPopover } from "./form/InfoPopover";
+import { mutate } from "swr";
+import ObjectID from "bson-objectid";
 
 const initialData: Order = {
-  _id: "",
+  _id: new ObjectID(),
   ticker: "", //string
   sentiment: Sentiment.Neutral, //keyof typeof Sentiment
   instrument: Instruments.Crypto, //ValueOf<Instruments>
@@ -42,7 +44,7 @@ const initialData: Order = {
   // optionsStrategy: OptionStrategies.DEBIT_CALL, //ValueOf<OptionStrategies>
   riskAmount: 0, //number
   screenShot: "", //string
-  uid: "", //string
+  uid: new ObjectID(), //string
   points: 0
 };
 
@@ -59,8 +61,13 @@ export const InputForm = () => {
   //   return error;
   // };
 
-  const validateAll = (values) => {
+  const validateAll = (values: Order) => {
+    const errors: Partial<Order> = {}
+    if (!values.ticker) {
+      errors.ticker = 'Required'
+    }
     console.log(values);
+    return errors
   };
 
   const submitForm = async (
@@ -81,6 +88,7 @@ export const InputForm = () => {
         });
       meta.setSubmitting(false);
     }, 400);
+    mutate("/api/orders");
   };
 
   return (
@@ -122,7 +130,6 @@ export const InputForm = () => {
             <Field name="sentiment">
               {({ field, form }) => (
                 <FormControl
-                  id="sentiment-control"
                   isRequired
                   isInvalid={form.errors.sentiment && form.touched.sentiment}
                 >
@@ -132,7 +139,7 @@ export const InputForm = () => {
                   <RadioGroup
                     {...field}
                     id="sentiment"
-                    onChange={(v) => form.setValues({ sentiment: v })}
+                    onChange={(v) => form.setValues({...form.values, sentiment: v })}
                   >
                     {Object.keys(Sentiment).map((sentiment) => (
                       <Radio

@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import Link from "next/link";
 
-import { Order, Comment } from "@/types/index";
-import {
-  Box,
-  Divider,
-  Text,
-  Textarea,
-} from "@chakra-ui/react";
+import { Instruments, Order } from "@/types/index";
+import { Box, Divider, Text, Textarea } from "@chakra-ui/react";
 import { CommentCard } from "./CommentCard";
 import VerifyField from "./form/VerifyField";
+import useSWR from "swr";
+import fetcher from "@/lib/fetch";
+import { sampleComments } from "../util";
 // enum AVLABELS {
 //   OPEN = "1. open",
 //   HIGH = "2. high",
@@ -24,12 +21,9 @@ type Props = {
 };
 
 const PlayCard = ({ playData }: Props) => {
-  const [comments, setComments] = useState([] as Comment[]);
   // const [timeData, setTimeData] = useState({ label: "", value: [] });
   //@ts-ignore
-  const [metaData, setMetaData] = useState({ meta: [] });
-  const [winning, setWinning] = useState(true);
-  const [lastPrice, setLastPrice] = useState(null);
+  // const [winning, setWinning] = useState(true);
   const {
     userName,
     ticker,
@@ -44,58 +38,54 @@ const PlayCard = ({ playData }: Props) => {
     upVotes,
     downVotes,
     sentiment,
+    instrument,
     // orderAmount,
     // optionsStrategy,
-    // optionsExpiration
+    optionsExpiration
   } = playData;
-
-  useEffect(() => {
-    const getTickerData = async () => {
-      let tickerData;
-      let url = `https://cloud.iexapis.com/stable/stock/${ticker}`
-      // if (optionsStrategy) {
-      //   url = `${url}/options/${optionsExpiration}/`;
-      // } else {
-        url = `${url}/quote`;
-      // }
-      try {
-        
-        tickerData = await axios({
-          // url: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&apikey=${process.env.ALPHAVANTAGE_KEY}`,
-          url: `${url}?token=${process.env.IEX_KEY}`,
-        });
-      } catch (error) {
-        // helpers.setError(error.message)
-      }
-      if (tickerData) {
-        setMetaData({ meta: tickerData.data });
-        // setTimeData({ label: tickerData[1][0], value: tickerData[1][1] });
-        // let closePrice = Object.values(timeData.value)[0][AVLABELS.CLOSE];
-        setLastPrice(tickerData.data.latestPrice);
-        if (tickerData.data.latestPrice <= entryPrice && !isShort) {
-          setWinning(false);
-        }
-      }
-        
-    };
-    const getComments = () => setComments([{_id: "234234234" as any, submitDate: new Date(), userName: "commentKing",uid: "1032fj23f" as any, oid: "l2k3j983fj" as any, message: "some type of comment"}]);
-
-    getTickerData()
-    getComments();
-
-  }, [lastPrice]);
-
-  const submitComment = (e) => {
-    let msg = e.target.value
-    console.log(msg)
+  let method;
+  let action;
+  switch (instrument) {
+    case Instruments.Options:
+      method = "stock";  
+      action = `options/${optionsExpiration}`
+      break;
+    case Instruments.Crypto:
+      method = "crypto";
+      break;
+    // case Instruments.ForEx:
+    //   method = "fx";
+    //   break;
+    default:
+      method = "stock";
+      action = "quote";
+      break;
   }
+
+  const { data, error } = useSWR(
+    `https://cloud.iexapis.com/stable/${method}/${ticker}/${action}?token=${process.env.IEX_KEY}`,
+    fetcher,
+    {shouldRetryOnError : false,errorRetryCount: 1}
+  );
+  if (error) console.error(error);
+  // if (data) {
+  //   if (data.latestPrice <= entryPrice && !isShort) {
+  //     setWinning(false);
+  //   }
+  // }
+  const submitComment = (e) => {
+    let msg = e.target.value;
+    console.log(msg);
+  };
+  const isWinning = data?.latestPrice <= entryPrice && !isShort;
+
   return (
     // <Link href="/plays/[id]" as={`/plays/${data.id}`}>
     <Box
       p={5}
       shadow="md"
       borderWidth="3px"
-      borderColor={lastPrice === null ? "blue" : winning ? "green.600" : "red"}
+      borderColor={ !data ? "grey" : isWinning ? "green.600" : "red"}
       borderRadius={"3%"}
       width={250}
     >
@@ -107,13 +97,14 @@ const PlayCard = ({ playData }: Props) => {
       {`is ${sentiment} on `}
       <Text as={"span"} fontWeight={"bold"}>
         {ticker}
-        {lastPrice ? ` ($${lastPrice})` : ``}{" "}
+        {data ? ` ($${data.latestPrice})` : ``}{" "}
       </Text>
       and {isWatching ? `is looking at a ` : `entered a `}
       {isShort ? `short ` : `long `}
       {`play because of `}
       <Text as={"span"} fontWeight={"bold"}>
-        {reasoning}{", "}
+        {reasoning}
+        {", "}
       </Text>
       {/* {`placing ${orderAmount} ${optionsStrategy}(s) `} */}
       {`expecting it to hit `}
@@ -137,9 +128,9 @@ const PlayCard = ({ playData }: Props) => {
       <Divider width="100%" />
       <span>Comments</span>
       <Textarea rows={2} onSubmit={submitComment} />
-      {comments
-        ? Object.values(comments).map((props) => (
-            <ul key={props.userName}>
+      {sampleComments //need to fetch and spread samples with real comments
+        ? Object.values(sampleComments).map((props) => (
+            <ul key={Math.random()*203}>
               <CommentCard {...props} />
             </ul>
           ))

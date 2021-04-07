@@ -1,39 +1,37 @@
+import fetcher from "@/lib/fetch";
 import {
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { useField } from "formik";
 import React, { useState } from "react";
+import useSWR from "swr";
 
 // interface Props {}
 
 export const AutoCompleteField = () => {
   const [field, meta, helpers] = useField("ticker");
   // const [symbolData, setSymbolData] = useState({ meta: [], time: [] });
-  const [results, setResults] = useState([]);
-  const getSymbolSet = async (text) => {
-    let data;
-    try {
-      data = await axios({
-        url: `https://ticker-2e1ica8b9.now.sh/keyword/${text}`,
-      });
-    } catch (error) {
-      helpers.setError(error.message);
-    }
-    data && setResults(data.data);
-  };
+  const [tickerSearch, setTickerSearch] = useState("");
 
   field.onChange = (e) => {
-    getSymbolSet(e.target.value);
+    setTickerSearch(e.target.value);
+    if (error) helpers.setError(error.message);
     helpers.setValue(e.target.value);
   };
+  const { data, error } = useSWR(
+    tickerSearch.length
+      ? `https://ticker-2e1ica8b9.now.sh/keyword/${tickerSearch}`
+      : null,
+    fetcher
+  );
+  // if (data) {console.log(data)};
 
   const setInputValue = (symbol) => {
     helpers.setValue(symbol);
-    setResults([]);
+    data.splice(0, data.length);
   };
   return (
     <FormControl
@@ -42,13 +40,13 @@ export const AutoCompleteField = () => {
       isInvalid={!!meta.error && meta.touched}
     >
       <FormLabel htmlFor="ticker">Ticker</FormLabel>
-      <Input {...field} placeholder="TCKR" />
+      <Input {...field} placeholder="TCKR" autoComplete="off" />
 
       <div className="result-set">
-        {results &&
-          results.map(({ symbol }, index) => (
+        {data &&
+          data.map(({ symbol, name }, index) => (
             <div key={index} onClick={() => setInputValue(symbol)}>
-              {symbol}
+              {symbol} - {name}
             </div>
           ))}
       </div>
