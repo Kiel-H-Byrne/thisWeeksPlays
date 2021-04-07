@@ -5,9 +5,10 @@ import {
   Reasons,
   ValueOf,
 } from "@/types/index";
+import ObjectID from "bson-objectid";
 
 export type Order = {
-  _id: any;
+  _id: ObjectID;
   ticker: string;
   sentiment: keyof typeof Sentiment;
   instrument: ValueOf<Instruments>;
@@ -15,8 +16,8 @@ export type Order = {
   targetAmount: number;
   exitStrategy?: string;
   submitDate: Date;
-  upVotes: string[]; //array of usernames
-  downVotes: string[]; //array of usernames
+  upVotes: ObjectID[]; //array of uids
+  downVotes: ObjectID[]; //array of uids
   reasoning: keyof typeof Reasons;
   isWatching: boolean;
   isShort: boolean;
@@ -26,6 +27,6 @@ export type Order = {
   optionsExpiration?: string | Date;
   riskAmount: number;
   screenShot?: string;
-  uid: string;
+  uid: ObjectID;
   points: number
 };

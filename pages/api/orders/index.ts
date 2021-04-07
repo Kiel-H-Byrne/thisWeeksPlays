@@ -1,6 +1,8 @@
 import nc from 'next-connect';
 import { all } from '@/middlewares/index';
 import { getOrders, insertOrder } from '@/db/index';
+import ObjectID from 'bson-objectid';
+import { getSession } from 'next-auth/client';
 
 const handler = nc();
 
@@ -29,13 +31,19 @@ handler.post(async (req: Request | any, res: Response | any) => {
   // if (!req.user) {
   //   return res.status(401).send('unauthenticated');
   // }
+  const session = await getSession()
+
   console.log("rez user")
-  console.log(req.user)
+  if (session) {
+    console.log(session)
+    //allow rest, or throw error
+  }
 
   if (!req.body.data) return res.status(400).send('You must write something');
-  const submission = {...req.body.data, creatorId: req.user?._id || "anonymousUser"}
+  const submission = {...req.body.data, uid: new ObjectID().toHexString()}
   const order = await insertOrder(req.db, submission);
-
+  console.log(order)
+  res.end()
   return res.json({ order });
 });
 

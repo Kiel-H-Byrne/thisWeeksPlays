@@ -29,7 +29,7 @@ export const InstrumentPlays = ({ instrument }: Props) => {
         <Stack spacing={8}>
           {plays.map((data) => {
             return data.instrument === instrument ? (
-              <PlayCard playData={data} key={data._id} />
+              <PlayCard playData={data} key={typeof data._id === "string" ? data._id : data._id.toHexString()} />
             ) : null;
           })}
         </Stack>

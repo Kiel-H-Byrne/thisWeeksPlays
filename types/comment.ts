@@ -1,10 +1,10 @@
-import { ObjectId } from "mongodb";
+import ObjectID from "bson-objectid";
 
 export type Comment = {
-  _id: ObjectId;
+  _id: ObjectID;
   message: string;
   submitDate: Date;
-  oid: ObjectId;
-  uid: ObjectId;
+  oid: number;
+  uid: number;
   userName: string;
 };
