@@ -22,10 +22,12 @@ export const InstrumentPlays = ({ instrument }: Props) => {
   if (data) {
     plays = [...plays, ...data.orders];
   }
+  console.log("is data loaded in InstrumentPlays?")
+  console.log(data?.orders)
   return (
     <Box>
       <Heading>Top 5 {instrument} Plays:</Heading>
-      <Skeleton isLoaded={!!data?.orders}>
+      <Skeleton isLoaded={data?.orders || plays}>
         <Stack spacing={8}>
           {plays.map((data) => {
             return data.instrument === instrument ? (
