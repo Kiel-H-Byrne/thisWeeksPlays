@@ -66,7 +66,6 @@ export const InputForm = () => {
     if (!values.ticker) {
       errors.ticker = 'Required'
     }
-    console.log(values);
     return errors
   };
 

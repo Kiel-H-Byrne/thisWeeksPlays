@@ -65,7 +65,7 @@ const PlayCard = ({ playData }: Props) => {
   const { data, error } = useSWR(
     `https://cloud.iexapis.com/stable/${method}/${ticker}/${action}?token=${process.env.IEX_KEY}`,
     fetcher,
-    {shouldRetryOnError : false,errorRetryCount: 1}
+    {shouldRetryOnError:false,errorRetryCount: 0}
   );
   if (error) console.error(error);
   // if (data) {

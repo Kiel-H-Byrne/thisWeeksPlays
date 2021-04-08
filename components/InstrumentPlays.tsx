@@ -14,7 +14,8 @@ interface Props {
 export const InstrumentPlays = ({ instrument }: Props) => {
   const { data, error } = useSWR(
     `/api/orders?instrument=${instrument}`,
-    fetcher
+    fetcher,
+    {errorRetryCount: 2}
   );
   if (error) console.error(error);
 
@@ -22,8 +23,6 @@ export const InstrumentPlays = ({ instrument }: Props) => {
   if (data) {
     plays = [...plays, ...data.orders];
   }
-  console.log("is data loaded in InstrumentPlays?")
-  console.log(data?.orders)
   return (
     <Box>
       <Heading>Top 5 {instrument} Plays:</Heading>

@@ -33,8 +33,8 @@ handler.post(async (req: Request | any, res: Response | any) => {
   // }
   const session = await getSession()
 
-  console.log("rez user")
   if (session) {
+    console.log("=SESSION=")
     console.log(session)
     //allow rest, or throw error
   }
@@ -42,6 +42,7 @@ handler.post(async (req: Request | any, res: Response | any) => {
   if (!req.body.data) return res.status(400).send('You must write something');
   const submission = {...req.body.data, uid: new ObjectID().toHexString()}
   const order = await insertOrder(req.db, submission);
+  console.log("submitting to db==>")
   console.log(order)
   res.end()
   return res.json({ order });
