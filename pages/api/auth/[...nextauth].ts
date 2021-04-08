@@ -21,6 +21,6 @@ export default NextAuth({
     // Providers.Instagram({})
   ],
   // SQL or MongoDB database (or leave empty)
-  // database: process.env.MONGODB_URI,
+  database: process.env.MONGODB_URI,
   debug: true,
 });
