@@ -17,7 +17,7 @@ export const InstrumentPlays = ({ instrument }: Props) => {
     fetcher,
     // {errorRetryCount: 2}
   );
-  if (error) return <> </>  ;
+  if (error) return console.log(error)  ;
 
   let plays = samplePlays;
   if (data) {
