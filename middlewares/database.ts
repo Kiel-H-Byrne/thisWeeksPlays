@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient } from "mongodb";
 
 /**
  * Global is used here to maintain a cached connection across hot reloads
@@ -8,36 +8,48 @@ import { MongoClient } from 'mongodb';
  */
 
 //@ts-ignore
-global.cachedDbClient = null;
+let cached = global.mongo;
 
+if (!cached) {
+  //@ts-ignore
+  cached = global.mongo = { conn: null, promise: null };
+}
 let indexesCreated = false;
 export async function createIndexes(db) {
   await Promise.all([
     db
-      .collection('tokens')
+      .collection("tokens")
       .createIndex({ expireAt: -1 }, { expireAfterSeconds: 0 }),
-    db.collection('comments').createIndex({ createdAt: -1 }),
-    db.collection('orders').createIndex({ createdAt: -1 }),
-    db.collection('users').createIndex({ email: 1 }, { unique: true }),
+    db.collection("comments").createIndex({ createdAt: -1 }),
+    db.collection("orders").createIndex({ createdAt: -1 }),
+    db.collection("users").createIndex({ email: 1 }, { unique: true }),
   ]);
   indexesCreated = true;
 }
 //@ts-ignore
 export default async function database(req, res, next) {
-  //@ts-ignore
-  if (!global.cachedDbClient) {
-    //@ts-ignore
-    global.cachedDbClient = new MongoClient(process.env.MONGODB_URI!, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    //@ts-ignore
-    await global.cachedDbClient.connect();
+  if (cached.conn) {
+    return cached.conn;
   }
   //@ts-ignore
-  req.dbClient = global.cachedDbClient;
-  //@ts-ignore
-  req.db = global.cachedDbClient.db(process.env.DB_NAME);
+  if (!cached.promise) {
+    const opts = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    };
+
+    cached.promise = MongoClient.connect(process.env.MONGODB_URI!, opts).then(
+      (client) => {
+        return {
+          client,
+          db: client.db(process.env.DB_NAME),
+        };
+      }
+    );
+  }
+  cached.conn = await cached.promise;
+  req.dbClient = cached.conn.client;
+  req.db = cached.conn.db;
   if (!indexesCreated) await createIndexes(req.db);
   return next();
 }

@@ -11,7 +11,6 @@ handler.use(all);
 const maxAge = 1 * 24 * 60 * 60;
 
 handler.get(async (req: any, res: any) => {
-  console.log(req.dbClient)
   const orders = await getOrders(
     req.db,
     req.query.from ? new Date(req.query.from) : undefined,
