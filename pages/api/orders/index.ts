@@ -17,7 +17,6 @@ handler.get(async (req: any, res: any) => {
     req.query.by,
     req.query.limit ? parseInt(req.query.limit, 10) : undefined,
   );
-
   if (req.query.from && orders.length > 0) {
     // This is safe to cache because from defines
     //  a concrete range of orders

@@ -57,7 +57,7 @@ const PlayCard = ({ playData }: Props) => {
       break;
     case Instruments.ForEx:
       dontCall = true
-    //   method = "fx";
+      method = "fx";
       break;
     case Instruments.Futures:
       dontCall = true

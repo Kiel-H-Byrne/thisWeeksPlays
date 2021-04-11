@@ -110,7 +110,7 @@ export const samplePlays: Order[] = [
   {
     _id: new ObjectID(),
     sentiment: Sentiment.Bullish,
-    ticker: "BTC/USD",
+    ticker: "BTCUSD",
     instrument: Instruments.ForEx,
     isWatching: false,
     userName: "cryptoKingZ",
