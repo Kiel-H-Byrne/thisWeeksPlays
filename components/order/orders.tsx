@@ -70,7 +70,7 @@ export function useOrderPages({ creatorId }) {
       creatorId ? `&by=${creatorId}` : ''
     }`;
   }, fetcher, {
-    refreshInterval: 10000, // Refresh every 10 seconds
+    // refreshInterval: 10000, // Refresh every 10 seconds
   });
 }
 
