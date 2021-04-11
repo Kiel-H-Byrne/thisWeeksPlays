@@ -15,9 +15,9 @@ export const InstrumentPlays = ({ instrument }: Props) => {
   const { data, error } = useSWR(
     `/api/orders?instrument=${instrument}`,
     fetcher,
-    {errorRetryCount: 2}
+    // {errorRetryCount: 2}
   );
-  if (error) console.error(error);
+  if (error) return <> </>  ;
 
   let plays = samplePlays;
   if (data) {

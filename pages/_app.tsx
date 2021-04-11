@@ -3,6 +3,14 @@ import React from "react";
 import Head from "next/head";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Provider } from "next-auth/client";
+import { SWRConfig } from "swr";
+import fetcher from "@/lib/fetch";
+
+const swr_config_options = {
+  refreshInterval: 0,
+  shouldRetryOnError: false,
+  fetcher: fetcher,
+};
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -11,7 +19,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <Head>
           <title>Top 5 Plays</title>
         </Head>
+        <SWRConfig value={swr_config_options}>
         <Component {...pageProps} />
+        </SWRConfig>
       </ChakraProvider>
     </Provider>
   );

@@ -45,17 +45,24 @@ const PlayCard = ({ playData }: Props) => {
   } = playData;
   let method;
   let action;
+  let dontCall
   switch (instrument) {
     case Instruments.Options:
+      dontCall = true
       method = "stock";  
       action = `options/${optionsExpiration}`
       break;
     case Instruments.Crypto:
       method = "crypto";
       break;
-    // case Instruments.ForEx:
+    case Instruments.ForEx:
+      dontCall = true
     //   method = "fx";
-    //   break;
+      break;
+    case Instruments.Futures:
+      dontCall = true
+    //   method = "futures";
+      break;
     default:
       method = "stock";
       action = "quote";
@@ -63,9 +70,9 @@ const PlayCard = ({ playData }: Props) => {
   }
 
   const { data, error } = useSWR(
-    `https://cloud.iexapis.com/stable/${method}/${ticker}/${action}?token=${process.env.IEX_KEY}`,
+    dontCall ? null : `https://cloud.iexapis.com/stable/${method}/${ticker}/${action}?token=${process.env.IEX_KEY}`,
     fetcher,
-    {shouldRetryOnError:false,errorRetryCount: 0}
+    // {shouldRetryOnError:false,errorRetryCount: 1}
   );
   if (error) console.error(error);
   // if (data) {
