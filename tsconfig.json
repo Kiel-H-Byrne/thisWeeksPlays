@@ -31,9 +31,6 @@
       "@/lib/*": [
         "lib/*"
       ],
-      "@/middlewares/*": [
-        "middlewares/*"
-      ],
       "@/hooks/*": [
         "hooks/*"
       ],
