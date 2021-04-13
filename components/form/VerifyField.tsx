@@ -1,13 +1,12 @@
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { FormControl } from "@chakra-ui/react";
-import ObjectID from "bson-objectid";
 import React from "react";
 
 interface Props {
-  orderId: ObjectID;
-  userId: ObjectID;
-  upVotes: ObjectID[];
-  downVotes: ObjectID[];
+  orderId: string;
+  userId: string;
+  upVotes: string[];
+  downVotes: string[];
 }
 
 const VerifyField = ({ userId, upVotes }: Props) => {

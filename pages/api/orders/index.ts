@@ -32,7 +32,7 @@ const orderHandler = async (req: any, res: any) => {
       res.send({ orders });
       break;
     case "POST":
-      if (!req.user) {
+      // if (!req.user) {
         //   return res.status(401).send('unauthenticated');
         // }
         const session = await getSession();
@@ -42,22 +42,20 @@ const orderHandler = async (req: any, res: any) => {
           console.log(session);
           //allow rest, or throw error
         }
-
-        if (!req.body.data)
+        console.log(req.body.data)
+        if (!req.body)
           return res.status(400).send("You must write something");
         const submission = {
           ...req.body.data,
           uid: new ObjectID().toHexString(),
         };
         const order = await insertOrder(db, submission);
-        console.log("submitting to db==>");
+        console.log("submitting to db ==>");
         console.log(order);
-        res.end();
         return res.json({ order });
-      }
       break;
     default:
-      // res.setHeader("Allow", ["GET", "POST"]);
+      res.setHeader("Allow", ["GET", "POST"]);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 };

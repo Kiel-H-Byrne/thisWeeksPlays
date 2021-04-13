@@ -13,7 +13,7 @@ const IndexPage = () => {
       <Text fontWeight={300} fontSize={16}>The online "Investor Group Chat". Post your watchlist, watch the plays others are watching or making this week! See the trends play out right before your eyes.</Text>
       <FormModalButton />
 
-      <HStack spacing={16}>
+      <HStack spacing={4} align={"flex-start"}>
         <InstrumentPlays instrument={Instruments.Stocks} />
         <InstrumentPlays instrument={Instruments.Options} />
         <InstrumentPlays instrument={Instruments.ForEx} />

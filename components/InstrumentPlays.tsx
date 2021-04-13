@@ -25,12 +25,12 @@ export const InstrumentPlays = ({ instrument }: Props) => {
   }
   return (
     <Box>
-      <Heading>Top 5 {instrument} Plays:</Heading>
+      <Heading paddingBottom={3}>Top 5 {instrument} Plays:</Heading>
       <Skeleton isLoaded={data?.orders || plays}>
-        <Stack spacing={8}>
+        <Stack spacing={3}>
           {plays.map((data) => {
             return data.instrument === instrument ? (
-              <PlayCard playData={data} key={typeof data._id === "string" ? data._id : data._id.toHexString()} />
+              <PlayCard playData={data} key={data._id} />
             ) : null;
           })}
         </Stack>

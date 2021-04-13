@@ -1,7 +1,6 @@
-import ObjectID from "bson-objectid";
 
 export type User = {
-  _id: ObjectID;
+  _id: string;
   name: string;
-  orders: object[]
+  orders: string[]
 };

@@ -26,7 +26,7 @@ import { mutate } from "swr";
 import ObjectID from "bson-objectid";
 
 const initialData: Order = {
-  _id: new ObjectID(),
+  _id: new ObjectID().toHexString(),
   ticker: "", //string
   sentiment: Sentiment.Neutral, //keyof typeof Sentiment
   instrument: Instruments.Crypto, //ValueOf<Instruments>
@@ -44,11 +44,11 @@ const initialData: Order = {
   // optionsStrategy: OptionStrategies.DEBIT_CALL, //ValueOf<OptionStrategies>
   riskAmount: 0, //number
   screenShot: "", //string
-  uid: new ObjectID(), //string
+  uid: "", //string
   points: 0
 };
 
-export const InputForm = () => {
+export const InputForm = ({toggleModal, userName}) => {
   // const [step, setStep] = useState(0);
 
   // const validateName = (value: string) => {
@@ -75,32 +75,29 @@ export const InputForm = () => {
     //  : Promise<{values: Order; meta: FormikHelpers<Order>}>
   ) => {
     meta.setSubmitting(true);
-    setTimeout(async () => {
+    mutate(
+      "/api/orders",
       await axios
         .post("/api/orders", {
           data: values,
         })
-        .catch((error) => {
-          if (error.response) {
-            console.log(error.response.statusText);
-          }
-        });
-      meta.setSubmitting(false);
-    }, 400);
+    );
     mutate("/api/orders");
+    meta.setSubmitting(false);
+    toggleModal();
   };
 
   return (
     <div>
       <Formik
-        initialValues={initialData}
+        initialValues={{...initialData, userName}}
         validate={(values: Order) => {
           validateAll(values);
         }}
         onSubmit={(values, meta) => submitForm(values, meta)}
       >
         {({ isSubmitting, values }) => (
-          <Form>
+          !isSubmitting ? <Form>
             <Field name="instrument">
               {({ field, form }) => (
                 <FormControl
@@ -307,7 +304,7 @@ export const InputForm = () => {
               Submit
             </Button>
             <Button mt={4}>Clear</Button>
-          </Form>
+          </Form> : <>Submitting...</>
         )}
       </Formik>
     </div>

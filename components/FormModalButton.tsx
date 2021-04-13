@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Modal,
   ModalBody,
@@ -18,9 +19,9 @@ const FormModalButton = () => {
     setOpen(!open);
     return !open;
   };
-  if (session) {
-    console.log(session, loading);
-  }
+  // if (session) {
+  //session.user.name / user.email / user.image
+  // }
   return (
     <>
       <Button onClick={() => toggleModalOpen()}>Submit Your Play</Button>
@@ -36,11 +37,11 @@ const FormModalButton = () => {
           <ModalContent>
             <ModalHeader>Submit your Play</ModalHeader>
             <ModalBody pb={6}>
-              <InputForm />
+              <InputForm toggleModal={toggleModalOpen} userName={session.user.name}/>
             </ModalBody>
           </ModalContent>
         ) : (
-          <ModalContent>Register / Log In</ModalContent>
+          <ModalContent><Box><Button>Register / Log In</Button></Box></ModalContent>
         )}
       </Modal>
     </>
