@@ -1,3 +1,4 @@
+const url = require('url')
 // Import the MongoDB driver
 import { Db, MongoClient } from "mongodb";
 
@@ -14,11 +15,11 @@ export async function connectToDatabase() {
   // Connect to our MongoDB database hosted on MongoDB Atlas
   const client = await MongoClient.connect(process.env.MONGODB_URI!, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    // useUnifiedTopology: true,
   });
 
   // Create new db instance; Specify which database we want to use is optional
-  const db = await client.db();
+  const db = await client.db(url.parse(process.env.MONGODB_URI).pathname.substr(1))
 
   cachedDb = db;
   return db;

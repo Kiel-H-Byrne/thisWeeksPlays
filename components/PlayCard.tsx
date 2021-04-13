@@ -68,7 +68,6 @@ const PlayCard = ({ playData }: Props) => {
       action = "quote";
       break;
   }
-
   const { data, error } = useSWR(
     dontCall ? null : `https://cloud.iexapis.com/stable/${method}/${ticker}/${action}?token=${process.env.IEX_KEY}`,
     fetcher,
@@ -88,6 +87,7 @@ const PlayCard = ({ playData }: Props) => {
 
   return (
     // <Link href="/plays/[id]" as={`/plays/${data.id}`}>
+    
     <Box
       p={5}
       shadow="md"

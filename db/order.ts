@@ -1,19 +1,20 @@
 import { nanoid } from 'nanoid';
 
+//@ts-ignore
 export async function getOrders(db, from = new Date(), by, limit) {
   return db
     .collection('orders')
     .find({
       // Pagination: Fetch orders from before the input date or fetch from newest
-      ...(from && {
-        createdAt: {
-          $lte: from,
-        },
-      }),
-      ...(by && { creatorId: by }),
+      // ...(from && {
+      //   createdAt: {
+      //     $lte: from,
+      //   },
+      // }),
+      // ...(by && { creatorId: by }),
     })
     .sort({ createdAt: -1 })
-    .limit(limit || 10)
+    // .limit(limit || 10)
     .toArray();
 }
 
