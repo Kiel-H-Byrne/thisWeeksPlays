@@ -15,7 +15,7 @@ export async function connectToDatabase() {
   // Connect to our MongoDB database hosted on MongoDB Atlas
   const client = await MongoClient.connect(process.env.MONGODB_URI!, {
     useNewUrlParser: true,
-    // useUnifiedTopology: true,
+    useUnifiedTopology: true,
   });
 
   // Create new db instance; Specify which database we want to use is optional
