@@ -1,28 +1,28 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import Link from "next/link";
-import Head from "next/head";
-import { Box, Flex, Grid, MenuIcon } from "@chakra-ui/react";
-import { CloseIcon } from "@chakra-ui/icons";
+import { Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Flex, Grid, useDisclosure } from "@chakra-ui/react";
+import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import MyAvatar from "./MyAvatar";
+import CustomHead from './CustomHead';
 
 type Props = {
   children?: ReactNode;
   title?: string;
 };
 
-const Layout = ({ children, title = "This is the default title" }: Props) => {
-  const [show, setShow] = useState(true);
-  const toggleMenu = () => {
-    setShow(!show)
-  };
-
+const NAV_LINKS = [
+  { path: "/", label: "Home" },
+  { path: "/about", label: "About" },
+  { path: "/users", label: "Users" },
+  { path: "/api/orders", label: "Orders" },
+];
+const Layout = ({ children, title = "ThisWeeksPlays.com" }: Props) => {
+  // const [show, setShow] = useState(true);
+  const { isOpen, onToggle, onClose } = useDisclosure()
+  
   return (
-    <div>
-      <Head>
-        <title>{title}</title>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+    <Box>
+      <CustomHead title={title} />
       <header>
         <Flex
           as="nav"
@@ -32,39 +32,53 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
           mb={8}
           p={3}
         >
-          <Box display={{ base: "block", md: "none" }} onClick={toggleMenu}>
-            {show ? <CloseIcon /> : <MenuIcon />}
+          <Box display={{ base: "block", md: "none" }} onClick={onToggle}>
+            <Button>{isOpen ? <CloseIcon /> : <HamburgerIcon />}</Button>
           </Box>
-          <Grid templateColumns="repeat(4, 1fr)" gap={6}>
-            <Link href="/">
-              <a>
-                <Box bg="blue.500">Home</Box>
-              </a>
-            </Link>
-            <Link href="/about">
-              <a>
-                <Box bg="blue.500">About</Box>
-              </a>
-            </Link>
-            <Link href="/users">
-              <a>
-                <Box bg="blue.500">Users List</Box>
-              </a>
-            </Link>
-            <a href="/api/users">
-              <Box bg="blue.500">Users API</Box>
-            </a>
-            <MyAvatar />
+
+          <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
+            <DrawerOverlay>
+              <DrawerContent>
+                <DrawerHeader borderBottomWidth="1px">
+                  Basic Drawer
+                </DrawerHeader>
+                <DrawerBody>
+                  {NAV_LINKS.map(({ label, path }) => (
+                    <Link href={path}>
+                      <a>
+                        <Box bg="blue.500">{label}</Box>
+                      </a>
+                    </Link>
+                  ))}
+                </DrawerBody>
+              </DrawerContent>
+            </DrawerOverlay>
+          </Drawer>
+          <Grid
+          width="100%"
+            templateColumns="repeat(4, 1fr)"
+            gap={6}
+            display={["none", "flex"]}
+          >
+            {NAV_LINKS.map(({ label, path }) => (
+              <Link href={path}>
+                <a>
+                  <Box bg="blue.500" padding="3" borderRadius="sm">{label}</Box>
+                </a>
+              </Link>
+            ))}
+            <Box position="absolute" right="0" paddingInline="3"><MyAvatar /></Box>
           </Grid>
         </Flex>
       </header>
-      <div>{children}</div>
+      <Box>{children}</Box>
       <footer>
         <hr />
         <span>I'm here to stay (Footer)</span>
       </footer>
-    </div>
+    </Box>
   );
 };
 
 export default Layout;
+

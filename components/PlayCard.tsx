@@ -94,7 +94,7 @@ const PlayCard = ({ playData }: Props) => {
       borderWidth="3px"
       borderColor={ !data ? "grey" : isWinning ? "green.600" : "red"}
       borderRadius={"3%"}
-      width={250}
+      width={"xs"}
     >
       <Link href="/users/[name]" as={`/users/${userName}`}>
         <Text as={"span"} fontStyle={"italic"}>

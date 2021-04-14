@@ -4,6 +4,7 @@
   "description": " ",
   "main": "index.js",
   "scripts": {
+    "t": "tsc -b",
     "dev": "tsc -b && next dev",
     "build": "tsc -b && next build",
     "start": "tsc -b && next start",

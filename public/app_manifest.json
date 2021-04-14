@@ -1,10 +1,10 @@
 {
-  "short_name": "MOBB",
-  "name": "The MOBB",
-  "description": "The MOBB: Map of Black Businesses",
+  "short_name": "TWP",
+  "name": "ThisWeeksPlays",
+  "description": "Real investment plays, by real people.",
   "start_url": "/?utm_source=homescreen",
-  "background_color": "#ED7E0E",
-  "theme_color": "#ED7E0E",
+  "background_color": "#9BA17B",
+  "theme_color": "#9BA17B",
   "display": "standalone",
   "icons": [
     {

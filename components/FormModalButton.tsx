@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Center,
   Modal,
   ModalBody,
   ModalContent,
@@ -23,8 +24,12 @@ const FormModalButton = () => {
   //session.user.name / user.email / user.image
   // }
   return (
-    <>
-      <Button onClick={() => toggleModalOpen()}>Submit Your Play</Button>
+    <Box margin="3">
+      <Center>
+        <Button padding="7" onClick={() => toggleModalOpen()} colorScheme="green">
+          Submit Your Play!
+        </Button>
+      </Center>
 
       <Modal
         closeOnOverlayClick={true}
@@ -37,14 +42,21 @@ const FormModalButton = () => {
           <ModalContent>
             <ModalHeader>Submit your Play</ModalHeader>
             <ModalBody pb={6}>
-              <InputForm toggleModal={toggleModalOpen} userName={session.user.name}/>
+              <InputForm
+                toggleModal={toggleModalOpen}
+                userName={session.user.name}
+              />
             </ModalBody>
           </ModalContent>
         ) : (
-          <ModalContent><Box><Button>Register / Log In</Button></Box></ModalContent>
+          <ModalContent>
+            <Box>
+              <Button>Register / Log In</Button>
+            </Box>
+          </ModalContent>
         )}
       </Modal>
-    </>
+    </Box>
   );
 };
 
