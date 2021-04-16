@@ -17,7 +17,7 @@ const CustomHead = ({title}: Props) => {
         content="width=device-width, shrink-to-fit=no, minimal-ui"
       />
       <meta name="format-detection" content="telephone=no" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
       <meta name="HandheldFriendly" content="true" />
       <meta name="mobile-web-app-capable" content="yes" />

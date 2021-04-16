@@ -44,7 +44,7 @@ const Layout = ({ children, title = "ThisWeeksPlays.com" }: Props) => {
                 </DrawerHeader>
                 <DrawerBody>
                   {NAV_LINKS.map(({ label, path }) => (
-                    <Link href={path}>
+                    <Link key={label} href={path}>
                       <a>
                         <Box bg="blue.500">{label}</Box>
                       </a>
@@ -61,7 +61,7 @@ const Layout = ({ children, title = "ThisWeeksPlays.com" }: Props) => {
             display={["none", "flex"]}
           >
             {NAV_LINKS.map(({ label, path }) => (
-              <Link href={path}>
+              <Link key={label} href={path}>
                 <a>
                   <Box bg="blue.500" padding="3" borderRadius="sm">{label}</Box>
                 </a>

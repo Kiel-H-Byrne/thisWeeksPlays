@@ -30,7 +30,7 @@ export const InstrumentPlays = ({ instrument }: Props) => {
         <Stack spacing={3}>
           {plays.map((data) => {
             return data.instrument === instrument ? (
-              <PlayCard playData={data} key={data._id} />
+              <PlayCard key={data._id} {...data} />
             ) : null;
           })}
         </Stack>

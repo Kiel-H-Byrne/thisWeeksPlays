@@ -1,98 +1,84 @@
 import React from "react";
 import Link from "next/link";
 
-import { Instruments, Order } from "@/types/index";
-import { Box, Divider, Text, Textarea } from "@chakra-ui/react";
+import * as types from "@/types/index";
+import { Box, Divider, Text } from "@chakra-ui/react";
 import { CommentCard } from "./CommentCard";
 import VerifyField from "./form/VerifyField";
 import useSWR from "swr";
 import fetcher from "@/lib/fetch";
 import { sampleComments } from "../util";
-// enum AVLABELS {
-//   OPEN = "1. open",
-//   HIGH = "2. high",
-//   LOW = "3. low",
-//   CLOSE = "4. close",
-//   VOLUME = "5. volume",
-// }
+import CommentForm from "./CommentForm";
+import { useSession } from "next-auth/client";
+// import axios from "axios";
 
-type Props = {
-  playData: Order;
-};
-
-const PlayCard = ({ playData }: Props) => {
-  // const [timeData, setTimeData] = useState({ label: "", value: [] });
-  //@ts-ignore
-  // const [winning, setWinning] = useState(true);
-  const {
-    userName,
-    ticker,
-    entryPrice,
-    exitStrategy,
-    isWatching,
-    targetAmount,
-    reasoning,
-    isShort,
-    _id,
-    uid,
-    upVotes,
-    downVotes,
-    sentiment,
-    instrument,
-    // orderAmount,
-    // optionsStrategy,
-    optionsExpiration
-  } = playData;
+const PlayCard = ({
+  userName,
+  ticker,
+  entryPrice,
+  exitStrategy,
+  isWatching,
+  targetAmount,
+  reasoning,
+  isShort,
+  _id,
+  uid,
+  upVotes,
+  downVotes,
+  sentiment,
+  instrument,
+  optionsExpiration,
+}: types.Order) => {
   let method;
   let action;
-  let dontCall
+  let dontCall;
   switch (instrument) {
-    case Instruments.Options:
-      dontCall = true
-      method = "stock";  
-      action = `options/${optionsExpiration}`
+    case types.Instruments.Options:
+      dontCall = true;
+      method = "stock";
+      action = `options/${optionsExpiration}`;
       break;
-    case Instruments.Crypto:
+    case types.Instruments.Crypto:
       method = "crypto";
       break;
-    case Instruments.ForEx:
-      dontCall = true
-    //   method = "fx";
+    case types.Instruments.ForEx:
+      dontCall = true;
+      //   method = "fx";
       break;
-    case Instruments.Futures:
-      dontCall = true
-    //   method = "futures";
+    case types.Instruments.Futures:
+      dontCall = true;
+      //   method = "futures";
       break;
     default:
       method = "stock";
       action = "quote";
       break;
   }
-  const { data, error } = useSWR(
-    dontCall ? null : `https://cloud.iexapis.com/stable/${method}/${ticker}/${action}?token=${process.env.IEX_KEY}`,
-    fetcher,
-    // {shouldRetryOnError:false,errorRetryCount: 1}
+  const [session, loading] = useSession();
+  const { data: tickerData, error: tickerError } = useSWR(
+    dontCall
+      ? null
+      : `https://cloud.iexapis.com/stable/${method}/${ticker}/${action}?token=${process.env.IEX_KEY}`,
+    fetcher
   );
-  if (error) console.error(error);
-  // if (data) {
-  //   if (data.latestPrice <= entryPrice && !isShort) {
-  //     setWinning(false);
-  //   }
-  // }
-  const submitComment = (e) => {
-    let msg = e.target.value;
-    console.log(msg);
-  };
-  const isWinning = data?.latestPrice <= entryPrice && !isShort;
+  const { data: commentsData, error: commentsError } = useSWR(
+    dontCall ? null : `/api/orders/comments/${_id}`,
+    fetcher
+  );
+  console.log(commentsData || "No Comments Data");
+  if (tickerError) console.error(tickerError);
+  if (commentsError) console.error(commentsError);
+
+  const isWinning = tickerData?.latestPrice <= entryPrice && !isShort;
 
   return (
     // <Link href="/plays/[id]" as={`/plays/${data.id}`}>
-    
+
     <Box
       p={5}
       shadow="md"
       borderWidth="3px"
-      borderColor={ !data ? "grey" : isWinning ? "green.600" : "red"}
+      borderColor={!tickerData ? "grey" : isWinning ? "green.600" : "red"}
       borderRadius={"3%"}
       width={"xs"}
     >
@@ -104,7 +90,7 @@ const PlayCard = ({ playData }: Props) => {
       {`is ${sentiment} on `}
       <Text as={"span"} fontWeight={"bold"}>
         {ticker}
-        {data ? ` ($${data.latestPrice})` : ``}{" "}
+        {tickerData ? ` ($${tickerData.latestPrice})` : ``}{" "}
       </Text>
       and {isWatching ? `is looking at a ` : `entered a `}
       {isShort ? `short ` : `long `}
@@ -133,11 +119,11 @@ const PlayCard = ({ playData }: Props) => {
         />
       </div>
       <Divider width="100%" />
-      <span>Comments</span>
-      <Textarea rows={2} onSubmit={submitComment} />
-      {sampleComments //need to fetch and spread samples with real comments
-        ? Object.values(sampleComments).map((props) => (
-            <ul key={Math.random()*203}>
+      {session && !loading ? <CommentForm oid={_id} session={session} /> : null}
+      {commentsData //need to fetch and spread samples with real comments
+        ? Object.values({ ...commentsData, ...sampleComments }).map((props) => (
+            <ul key={Math.random() * 203}>
+              {/*@ts-ignore*/}
               <CommentCard {...props} />
             </ul>
           ))

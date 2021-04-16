@@ -9,7 +9,7 @@ import {
 export type Order = {
   _id: string;
   ticker: string;
-  sentiment: keyof typeof Sentiment;
+  sentiment: Sentiment;
   instrument: ValueOf<Instruments>;
   entryPrice: number;
   targetAmount: number;
@@ -17,7 +17,7 @@ export type Order = {
   submitDate: Date;
   upVotes: string[]; //array of uids
   downVotes: string[]; //array of uids
-  reasoning: keyof typeof Reasons;
+  reasoning: Reasons;
   isWatching: boolean;
   isShort: boolean;
   userName: string;

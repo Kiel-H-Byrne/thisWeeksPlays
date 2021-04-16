@@ -43,7 +43,7 @@ export enum Reasons {
 }
 
 export enum Sentiment {
-  Bullish = "Bullish",
-  Bearish = "Bearish",
-  Neutral = "Neutral",
+  Bullish = "Bullish (🐂)",
+  Bearish = "Bearish (🐻)",
+  Neutral = "Neutral (🤷)",
 }

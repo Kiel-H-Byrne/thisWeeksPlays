@@ -9,6 +9,8 @@ let cachedDb: Db = null as any;
 
 export async function connectToDatabase() {
   if (cachedDb) {
+    console.log("yes, cached db")
+    console.log(cachedDb)
     return cachedDb;
   }
 
