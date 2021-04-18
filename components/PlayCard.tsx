@@ -10,8 +10,6 @@ import fetcher from "@/lib/fetch";
 // import { sampleComments } from "../util";
 import CommentForm from "./CommentForm";
 import { useSession } from "next-auth/client";
-import comments from 'pages/api/comments';
-// import axios from "axios";
 
 const PlayCard = ({
   userName,

@@ -1,9 +1,10 @@
 import React from "react";
 import { useFormik } from "formik";
-import { Box, Button, Textarea } from "@chakra-ui/react";
+import { Box, Button, Text, Textarea } from "@chakra-ui/react";
 import { Session } from "next-auth";
 import { mutate } from "swr";
 import axios from "axios";
+import { Comment } from '../types';
 
 interface Props {
   oid: string;
@@ -16,11 +17,18 @@ const CommentForm = ({ oid, session }: Props) => {
       userName: session.user.name,
       comment: "",
     },
+    validate: async (values: Comment) => {
+      const errors: Partial<Comment> = {}
+      if (values.comment.length == 0) {
+        errors.comment = "Cannot be blank"
+      }
+      return errors;
+    },
     onSubmit: async (values, helpers) => {
       const apiUrl = `/api/orders/comments/${values.oid}`;
       helpers.setSubmitting(true);
 
-      mutate(apiUrl, values,true);
+      mutate(apiUrl, values, false);
 
       mutate(
         apiUrl,
@@ -29,6 +37,9 @@ const CommentForm = ({ oid, session }: Props) => {
         })
       );
       helpers.setSubmitting(false);
+      helpers.resetForm({})
+      helpers.setStatus({success: true})
+
     },
   });
 
@@ -36,7 +47,7 @@ const CommentForm = ({ oid, session }: Props) => {
     <Box>
       <span>Comments</span>
       <Box key={oid} marginInline="3" style={{ display: "inline-flex" }}>
-        {true ? (
+        {!formik.isSubmitting ? ( //if a user is logged in right??
           <form onSubmit={formik.handleSubmit}>
             <Textarea
               rows={2}
@@ -44,6 +55,7 @@ const CommentForm = ({ oid, session }: Props) => {
               name="comment"
               onChange={formik.handleChange}
             />
+            {formik.errors ? <Text as="p" color="red" textAlign="center">{formik.errors.comment}</Text>: null}
             <Button type="submit">Comment</Button>
           </form>
         ) : (

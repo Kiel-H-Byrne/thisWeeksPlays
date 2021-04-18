@@ -88,7 +88,7 @@ export const InputForm = ({ onClose, userName }) => {
     );
     mutate("/api/orders");
     helpers.setSubmitting(false);
-    helpers.resetForm();
+    helpers.resetForm({});
     onClose();
   };
 
