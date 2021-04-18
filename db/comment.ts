@@ -2,22 +2,22 @@ import { nanoid } from 'nanoid';
 import { Comment } from '../types';
 
 //@ts-ignore
-export async function getComments(db, from = new Date(), by, limit) {
-  // return db
-  //   .collection('comments')
-  //   .find({
-  //     // Pagination: Fetch comments from before the input date or fetch from newest
-  //     // ...(from && {
-  //     //   createdAt: {
-  //     //     $lte: from,
-  //     //   },
-  //     // }),
-  //     // ...(by && { creatorId: by }),
-  //   })
-  //   .sort({ createdAt: -1 })
-  //   // .limit(limit || 10)
-  //   .toArray();
-  return []
+export async function getComments(db, from = new Date(), orderId, limit) {
+  return db
+    .collection("comments")
+    .find({
+      // Pagination: Fetch comments from before the input date or fetch from newest
+      // ...(from && {
+      //   createdAt: {
+      //     $lte: from,
+      //   },
+      // }),
+      ...(orderId && { oid: orderId }),
+    })
+    .sort({ createdAt: -1 })
+    .limit(limit || 100).toArray();
+    // cursor.close();
+    // return cursor.toArray();
 }
 
 export async function insertComment(db, data: Partial<Comment>) {

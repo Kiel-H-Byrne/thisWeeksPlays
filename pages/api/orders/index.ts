@@ -45,13 +45,8 @@ const orderHandler = async (req: any, res: any) => {
         console.log(req.body.data)
         if (!req.body)
           return res.status(400).send("You must write something");
-        const submission = {
-          ...req.body.data,
-          uid: new ObjectID().toHexString(),
-        };
-        const order = await insertOrder(db, submission);
-        console.log("submitting to db ==>");
-        console.log(order);
+        
+        const order = await insertOrder(db, req.body.data);
         return res.json({ order });
       break;
     default:

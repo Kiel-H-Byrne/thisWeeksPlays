@@ -9,8 +9,6 @@ let cachedDb: Db = null as any;
 
 export async function connectToDatabase() {
   if (cachedDb) {
-    console.log("yes, cached db")
-    console.log(cachedDb)
     return cachedDb;
   }
 
@@ -18,6 +16,9 @@ export async function connectToDatabase() {
   const client = await MongoClient.connect(process.env.MONGODB_URI!, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    maxIdleTimeMS: 10000,
+    serverSelectionTimeoutMS: 10000,
+    socketTimeoutMS: 20000
   });
 
   // Create new db instance; Specify which database we want to use is optional

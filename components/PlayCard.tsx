@@ -3,13 +3,14 @@ import Link from "next/link";
 
 import * as types from "@/types/index";
 import { Box, Divider, Text } from "@chakra-ui/react";
-import { CommentCard } from "./CommentCard";
+import { CommentCard as CommentCard } from "./CommentCard";
 import VerifyField from "./form/VerifyField";
 import useSWR from "swr";
 import fetcher from "@/lib/fetch";
-import { sampleComments } from "../util";
+// import { sampleComments } from "../util";
 import CommentForm from "./CommentForm";
 import { useSession } from "next-auth/client";
+import comments from 'pages/api/comments';
 // import axios from "axios";
 
 const PlayCard = ({
@@ -60,13 +61,13 @@ const PlayCard = ({
       ? null
       : `https://cloud.iexapis.com/stable/${method}/${ticker}/${action}?token=${process.env.IEX_KEY}`,
     fetcher
-  );
+    );
+    if (tickerError) console.error(tickerError);
+
   const { data: commentsData, error: commentsError } = useSWR(
-    dontCall ? null : `/api/orders/comments/${_id}`,
+    dontCall ? null : `/api/orders/comments/${_id}`, //calls by order id
     fetcher
   );
-  console.log(commentsData || "No Comments Data");
-  if (tickerError) console.error(tickerError);
   if (commentsError) console.error(commentsError);
 
   const isWinning = tickerData?.latestPrice <= entryPrice && !isShort;
@@ -120,11 +121,10 @@ const PlayCard = ({
       </div>
       <Divider width="100%" />
       {session && !loading ? <CommentForm oid={_id} session={session} /> : null}
-      {commentsData //need to fetch and spread samples with real comments
-        ? Object.values({ ...commentsData, ...sampleComments }).map((props) => (
+      {commentsData && commentsData.comments?.length > 0  
+        ? commentsData.comments.map((data) => (
             <ul key={Math.random() * 203}>
-              {/*@ts-ignore*/}
-              <CommentCard {...props} />
+              <CommentCard {...data} />
             </ul>
           ))
         : null}

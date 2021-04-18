@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 // import { Field, Form, Formik } from "formik";
 import React from "react";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, FormikHelpers } from "formik";
 import {
   Order,
   Instruments,
@@ -76,10 +76,10 @@ export const InputForm = ({ onClose, userName }) => {
 
   const submitForm = async (
     values,
-    meta
-    //  : Promise<{values: Order; meta: FormikHelpers<Order>}>
+    helpers: FormikHelpers<Partial<Order>>
+    //  : Promise<{values: Order; helpers: FormikHelpers<Order>}>
   ) => {
-    meta.setSubmitting(true);
+    helpers.setSubmitting(true);
     mutate(
       "/api/orders",
       await axios.post("/api/orders", {
@@ -87,7 +87,8 @@ export const InputForm = ({ onClose, userName }) => {
       })
     );
     mutate("/api/orders");
-    meta.setSubmitting(false);
+    helpers.setSubmitting(false);
+    helpers.resetForm();
     onClose();
   };
 
@@ -102,7 +103,7 @@ export const InputForm = ({ onClose, userName }) => {
         validate={(values: Partial<Order>) => {
           validateAll(values);
         }}
-        onSubmit={(values, meta) => submitForm(values, meta)}
+        onSubmit={(values, helpers) => submitForm(values, helpers)}
       >
         {({ isSubmitting, values }) =>
           !isSubmitting ? (
