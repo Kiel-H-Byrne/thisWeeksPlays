@@ -1,4 +1,4 @@
-import NextAuth, { User } from 'next-auth'
+import NextAuth from 'next-auth'
 import { Profile, Session } from 'next-auth/adapters';
 import Providers from 'next-auth/providers'
 

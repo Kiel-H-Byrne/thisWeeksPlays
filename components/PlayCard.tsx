@@ -2,14 +2,20 @@ import React from "react";
 import Link from "next/link";
 
 import * as types from "@/types/index";
-import { Box, Divider, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Collapse,
+  Divider,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { CommentCard as CommentCard } from "./CommentCard";
 import VerifyField from "./form/VerifyField";
 import useSWR from "swr";
 import fetcher from "@/lib/fetch";
-// import { sampleComments } from "../util";
 import CommentForm from "./CommentForm";
 import { useSession } from "next-auth/client";
+import { ChevronDownIcon } from '@chakra-ui/icons';
 
 const PlayCard = ({
   userName,
@@ -54,13 +60,14 @@ const PlayCard = ({
       break;
   }
   const [session, loading] = useSession();
+  const { isOpen, onToggle } = useDisclosure();
   const { data: tickerData, error: tickerError } = useSWR(
     dontCall
       ? null
       : `https://cloud.iexapis.com/stable/${method}/${ticker}/${action}?token=${process.env.IEX_KEY}`,
     fetcher
-    );
-    if (tickerError) console.error(tickerError);
+  );
+  if (tickerError) console.error(tickerError);
 
   const { data: commentsData, error: commentsError } = useSWR(
     dontCall ? null : `/api/orders/comments/${_id}`, //calls by order id
@@ -119,15 +126,22 @@ const PlayCard = ({
       </div>
       <Divider width="100%" />
       {session && !loading ? <CommentForm oid={_id} session={session} /> : null}
-      {commentsData && commentsData.comments?.length > 0  
-        ? commentsData.comments.map((data) => (
-            <ul key={Math.random() * 203}>
-              <CommentCard {...data} />
-            </ul>
-          ))
-        : null}
+      <Box>
+        <Box onClick={onToggle} padding="3" display="flex">
+         <Text as="h2"> Comments:</Text>
+          <ChevronDownIcon float="right"/>
+        </Box>
+        <Collapse in={isOpen} animateOpacity>
+          {commentsData && commentsData.comments?.length > 0
+            ? commentsData.comments.map((data) => (
+                <ul key={Math.random() * 203}>
+                  <CommentCard {...data} />
+                </ul>
+              ))
+            : null}
+        </Collapse>
+      </Box>
     </Box>
-    // </Link>
   );
 };
 

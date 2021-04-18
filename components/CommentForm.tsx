@@ -24,6 +24,7 @@ const CommentForm = ({ oid, session }: Props) => {
       }
       if (values.comment.length == 0) {
         errors.comment = "Cannot be blank"
+        
       }
       return errors;
     },
@@ -47,9 +48,7 @@ const CommentForm = ({ oid, session }: Props) => {
   });
 
   return (
-    <Box>
-      <span>Comments</span>
-      <Box key={oid} marginInline="3" style={{ display: "inline-flex" }}>
+      <Box marginInline="3" style={{ display: "inline-flex" }}>
         {!formik.isSubmitting ? ( //if a user is logged in right??
           <form onSubmit={formik.handleSubmit}>
             <Textarea
@@ -65,7 +64,6 @@ const CommentForm = ({ oid, session }: Props) => {
           <>Submitting...</>
         )}
       </Box>
-    </Box>
   );
 };
 

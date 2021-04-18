@@ -12,15 +12,11 @@ import {
 import React from "react";
 import { InputForm } from "@/components/InputForm";
 import { signIn, useSession } from "next-auth/client";
-import { Profile } from 'next-auth/adapters';
-
 
 const FormModalButton = () => {
   const { isOpen, onToggle, onClose} = useDisclosure()
   const [session, loading] = useSession();
-  // if (session) {
-  //session.user.name / user.email / user.image
-  // }
+
   return (
     <Box margin="3">
       <Center>
