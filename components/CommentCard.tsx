@@ -8,7 +8,7 @@ export const CommentCard = ({ uid, userName, comment}: Comment) => {
     <Box key={uid} marginInline="3" style={{ display: "inline-flex" }}>
       <img
         alt={userName}
-        src={`https://avatars.dicebear.com/api/bottts/${userName}.svg`}
+        src={`https://avatars.dicebear.com/api/bottts/${uid}.svg`}
         height="43px"
         width="43px"
       />

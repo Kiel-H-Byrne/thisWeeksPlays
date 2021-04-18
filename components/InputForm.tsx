@@ -24,11 +24,10 @@ import axios from "axios";
 import { AutoCompleteField } from "./MyAutocomplete";
 import { InfoPopover } from "./form/InfoPopover";
 import useSWR, { mutate } from "swr";
-import ObjectID from "bson-objectid";
 import fetcher from "@/lib/fetch";
 
 const initialData: Partial<Order> = {
-  _id: new ObjectID().toHexString(),
+  _id: "",
   // ticker: "", //string
   // sentiment: " ", //keyof typeof Sentiment
   instrument: Instruments.Crypto, //ValueOf<Instruments>
@@ -46,11 +45,11 @@ const initialData: Partial<Order> = {
   // optionsStrategy: OptionStrategies.DEBIT_CALL, //ValueOf<OptionStrategies>
   riskAmount: 0, //number
   screenShot: "", //string
-  uid: "", //string
+  uid: "", //string session.id
   points: 0,
 };
 
-export const InputForm = ({ onClose, userName }) => {
+export const InputForm = ({ onClose, userName, uid }) => {
   // const [step, setStep] = useState(0);
 
   // const validateName = (value: string) => {
@@ -83,7 +82,7 @@ export const InputForm = ({ onClose, userName }) => {
     mutate(
       "/api/orders",
       await axios.post("/api/orders", {
-        data: values,
+        data: {uid, ...values},
       })
     );
     mutate("/api/orders");

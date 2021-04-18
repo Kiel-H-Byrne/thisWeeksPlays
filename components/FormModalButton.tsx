@@ -12,6 +12,7 @@ import {
 import React from "react";
 import { InputForm } from "@/components/InputForm";
 import { signIn, useSession } from "next-auth/client";
+import { Profile } from 'next-auth/adapters';
 
 
 const FormModalButton = () => {
@@ -42,6 +43,7 @@ const FormModalButton = () => {
               <InputForm
                 onClose={onClose}
                 userName={session.user.name}
+                uid = {(session as any).id}
               />
             </ModalBody>
           </ModalContent>

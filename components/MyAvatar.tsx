@@ -8,6 +8,7 @@ import { CheckCircleIcon } from "@chakra-ui/icons";
 
 const MyAvatar = () => {
   const [session, loading] = useSession();
+  console.log(session)
   return !loading && session ? (
     <Popover placement="top-start">
       <PopoverTrigger>

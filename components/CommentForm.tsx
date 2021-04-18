@@ -14,11 +14,14 @@ const CommentForm = ({ oid, session }: Props) => {
   const formik = useFormik({
     initialValues: {
       oid,
-      userName: session.user.name,
+      userName: session.user.name as any,
       comment: "",
-    },
+    } as any,
     validate: async (values: Comment) => {
-      const errors: Partial<Comment> = {}
+      const errors: any = {};
+      if (values.comment.length < 5) {
+        errors.comment = "Let's say a bit more...";
+      }
       if (values.comment.length == 0) {
         errors.comment = "Cannot be blank"
       }
@@ -33,7 +36,7 @@ const CommentForm = ({ oid, session }: Props) => {
       mutate(
         apiUrl,
         await axios.post(apiUrl, {
-          data: values,
+          data: { ...values, uid: (session as any).id },
         })
       );
       helpers.setSubmitting(false);
