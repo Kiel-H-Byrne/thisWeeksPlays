@@ -172,6 +172,6 @@ export const sampleComments: Comment[] = [
     userName: "commentKing",
     uid: "101",
     oid: "201",
-    message: "some type of comment",
+    comment: "some type of comment",
   },
 ]

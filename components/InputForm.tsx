@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 // import { Field, Form, Formik } from "formik";
 import React from "react";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, FormikHelpers } from "formik";
 import {
   Order,
   Instruments,
@@ -24,11 +24,10 @@ import axios from "axios";
 import { AutoCompleteField } from "./MyAutocomplete";
 import { InfoPopover } from "./form/InfoPopover";
 import useSWR, { mutate } from "swr";
-import ObjectID from "bson-objectid";
 import fetcher from "@/lib/fetch";
 
 const initialData: Partial<Order> = {
-  _id: new ObjectID().toHexString(),
+  _id: "",
   // ticker: "", //string
   // sentiment: " ", //keyof typeof Sentiment
   instrument: Instruments.Crypto, //ValueOf<Instruments>
@@ -46,11 +45,11 @@ const initialData: Partial<Order> = {
   // optionsStrategy: OptionStrategies.DEBIT_CALL, //ValueOf<OptionStrategies>
   riskAmount: 0, //number
   screenShot: "", //string
-  uid: "", //string
+  uid: "", //string session.id
   points: 0,
 };
 
-export const InputForm = ({ onClose, userName }) => {
+export const InputForm = ({ onClose, userName, uid }) => {
   // const [step, setStep] = useState(0);
 
   // const validateName = (value: string) => {
@@ -76,18 +75,19 @@ export const InputForm = ({ onClose, userName }) => {
 
   const submitForm = async (
     values,
-    meta
-    //  : Promise<{values: Order; meta: FormikHelpers<Order>}>
+    helpers: FormikHelpers<Partial<Order>>
+    //  : Promise<{values: Order; helpers: FormikHelpers<Order>}>
   ) => {
-    meta.setSubmitting(true);
+    helpers.setSubmitting(true);
     mutate(
       "/api/orders",
       await axios.post("/api/orders", {
-        data: values,
+        data: {uid, ...values},
       })
     );
     mutate("/api/orders");
-    meta.setSubmitting(false);
+    helpers.setSubmitting(false);
+    helpers.resetForm({});
     onClose();
   };
 
@@ -102,7 +102,7 @@ export const InputForm = ({ onClose, userName }) => {
         validate={(values: Partial<Order>) => {
           validateAll(values);
         }}
-        onSubmit={(values, meta) => submitForm(values, meta)}
+        onSubmit={(values, helpers) => submitForm(values, helpers)}
       >
         {({ isSubmitting, values }) =>
           !isSubmitting ? (

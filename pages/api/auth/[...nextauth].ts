@@ -1,4 +1,5 @@
 import NextAuth from 'next-auth'
+import { Profile, Session } from 'next-auth/adapters';
 import Providers from 'next-auth/providers'
 
 export default NextAuth({
@@ -23,4 +24,11 @@ export default NextAuth({
   // SQL or MongoDB database (or leave empty)
   database: process.env.MONGODB_URI,
   debug: false,
+  callbacks: {
+    //@ts-ignore
+    session: async (session: Profile & Session, user: Profile) => {
+      session.id = user.id
+      return Promise.resolve(session)
+    }
+  }
 });

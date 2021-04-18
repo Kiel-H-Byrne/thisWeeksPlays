@@ -1,7 +1,7 @@
 
 export type Comment = {
   _id: string;
-  message: string;
+  comment: string;
   submitDate: Date;
   oid: string;
   uid: string;
