@@ -1,5 +1,5 @@
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { FormControl } from "@chakra-ui/react";
+import { Box, FormControl, Text } from "@chakra-ui/react";
 import React from "react";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   downVotes: string[];
 }
 
-const VerifyField = ({ userId, upVotes }: Props) => {
+const VerifyField = ({ userId = "", upVotes }: Props) => {
   // const [field, meta, helpers] = useField("verify");
   // field.onChange = (e) => {
   // getSymbolSet(e.target.value);
@@ -21,6 +21,22 @@ const VerifyField = ({ userId, upVotes }: Props) => {
   // setResults([]);
   // };
 
+  const handleClick = () => {
+    //if username is in watched, remove, if not, add
+    console.log(upVotes, userId)
+    if (userId && upVotes.length > 0) {
+      if (upVotes.includes(userId)) {
+        upVotes.pop()
+        //send POST request to update this orders upvotes field
+      } else {
+        upVotes.push(userId)
+        //send POST request to update this orders upvotes field
+      }
+    } else {
+      console.log("no uid?");
+    }
+
+  }
   const in_watched = () => {
     //if verifiedListings array contains order id, return true.
     if (userId && upVotes.length > 0) {
@@ -43,17 +59,17 @@ const VerifyField = ({ userId, upVotes }: Props) => {
 
   return (
     <FormControl id="watch-control">
-      <div className="watchButton">
-        <span className="watch">
+      <Box className="watchButton" display="flex" justifyContent="flex-end">
+        <Box className="watch" onClick={handleClick}>
           {in_watched() ? (
             <ViewOffIcon className={`unwatch`} />
           ) : (
             <ViewIcon className={`watched`} />
           )}
-        </span>
-        <span className="vote-count">{upVoteCount() > 0 ? `${upVoteCount()} Watchers` : `Watch This`}</span>
-        <span className="unWatch"></span>
-      </div>
+        </Box>
+        <Text className="vote-count" paddingInline="3">{upVoteCount() > 0 ? `${upVoteCount()} Watchers` : `Watch This`}</Text>
+        {/* <span className="unWatch"></span> */}
+      </Box>
     </FormControl>
   );
 };

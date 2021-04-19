@@ -32,8 +32,8 @@ export const samplePlays: Order[] = [
     userName: "sirBuysAlot",
     uid: "101",
     submitDate: new Date(),
-    upVotes: ["101", "101", "101"],
-    downVotes: ["101", "101"],
+    upVotes: [],
+    downVotes: [],
     get riskAmount(): number {
       return this.orderAmount * this.entryPrice;
     },

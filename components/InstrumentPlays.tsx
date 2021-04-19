@@ -8,7 +8,7 @@ import useSWR from "swr";
 import fetcher from "@/lib/fetch";
 
 interface Props {
-  instrument: keyof typeof Instruments;
+  instrument: Instruments;
 }
 
 export const InstrumentPlays = ({ instrument }: Props) => {
