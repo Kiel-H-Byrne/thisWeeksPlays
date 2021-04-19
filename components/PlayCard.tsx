@@ -111,7 +111,7 @@ const PlayCard = ({
         ? `they will ${exitStrategy}...`
         : `They will buy & hold...`}
       <Box id="up-down-vote">
-        {session ? (
+        {session && !loading ? (
           <VerifyField
             orderId={_id}
             userId={session.user.id as string}

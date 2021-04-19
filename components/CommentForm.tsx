@@ -1,7 +1,6 @@
 import React from "react";
 import { useFormik } from "formik";
 import { Box, Button, Text, Textarea } from "@chakra-ui/react";
-import { Session } from "next-auth";
 import { mutate } from "swr";
 import axios from "axios";
 import { Comment } from '../types';
@@ -15,7 +14,7 @@ const CommentForm = ({ oid, session }: Props) => {
   const formik = useFormik({
     initialValues: {
       oid,
-      userName: session?.user.name | null,
+      userName: session?.user.name,
       comment: "",
     } as any,
     validate: async (values: Comment) => {
