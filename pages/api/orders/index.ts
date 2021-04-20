@@ -1,5 +1,4 @@
 import { getOrders, insertOrder } from "@/db/index";
-import { getSession } from "next-auth/client";
 import { connectToDatabase } from "@/db/mongodb";
 
 const maxAge = 1 * 24 * 60 * 60;
@@ -34,14 +33,7 @@ const orderHandler = async (req: any, res: any) => {
       // if (!req.user) {
         //   return res.status(401).send('unauthenticated');
         // }
-        const session = await getSession();
 
-        if (session) {
-          console.log("=SESSION=");
-          console.log(session);
-          //allow rest, or throw error
-        }
-        console.log(req.body.data)
         if (!req.body)
           return res.status(400).send("You must write something");
         

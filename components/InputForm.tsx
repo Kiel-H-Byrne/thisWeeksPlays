@@ -27,7 +27,6 @@ import useSWR, { mutate } from "swr";
 import fetcher from "@/lib/fetch";
 
 const initialData: Partial<Order> = {
-  _id: "",
   // ticker: "", //string
   // sentiment: " ", //keyof typeof Sentiment
   instrument: Instruments.Crypto, //ValueOf<Instruments>

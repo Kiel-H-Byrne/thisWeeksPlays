@@ -23,7 +23,7 @@ export async function getComments(db, from = new Date(), orderId, limit) {
 export async function insertComment(db, data: Partial<Comment>) {
   return db.collection('comments').insertOne({
     ...data,
-    _id: nanoid(11),
+    _id: nanoid(12),
     createdAt: new Date(),
   }).then(({ ops }) => ops[0]);
 }
