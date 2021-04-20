@@ -1,20 +1,20 @@
 import React from "react";
 import { useFormik } from "formik";
 import { Box, Button, Text, Textarea } from "@chakra-ui/react";
-import { Session } from "next-auth";
 import { mutate } from "swr";
 import axios from "axios";
 import { Comment } from '../types';
+import { signIn } from 'next-auth/client';
 
 interface Props {
   oid: string;
-  session: Session;
+  session: any;
 }
 const CommentForm = ({ oid, session }: Props) => {
   const formik = useFormik({
     initialValues: {
       oid,
-      userName: session.user.name as any,
+      userName: session?.user.name,
       comment: "",
     } as any,
     validate: async (values: Comment) => {
@@ -48,7 +48,7 @@ const CommentForm = ({ oid, session }: Props) => {
   });
 
   return (
-      <Box marginInline="3" style={{ display: "inline-flex" }}>
+      <Box marginInline="3" >
         {!formik.isSubmitting ? ( //if a user is logged in right??
           <form onSubmit={formik.handleSubmit}>
             <Textarea
@@ -58,7 +58,7 @@ const CommentForm = ({ oid, session }: Props) => {
               onChange={formik.handleChange}
             />
             {formik.errors ? <Text as="p" color="red" textAlign="center">{formik.errors.comment}</Text>: null}
-            <Button type="submit">Comment</Button>
+            {session ? <Button type="submit">Comment</Button> : <Button onClick={() => signIn()}>Login to Comment</Button>}
           </form>
         ) : (
           <>Submitting...</>

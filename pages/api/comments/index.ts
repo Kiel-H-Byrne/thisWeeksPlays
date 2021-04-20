@@ -1,13 +1,10 @@
 import { getComments, insertComment } from "@/db/index";
-import { getSession } from "next-auth/client";
 import { connectToDatabase } from "@/db/mongodb";
 import { MAX_AGE } from '@/types/index';
 
 
 export default async (req: any, res: any) => {
   const db = await connectToDatabase();
-  const session = await getSession();
-  console.log(session)
   const {
     //@ts-ignore
     //can send query params to sort & limit results

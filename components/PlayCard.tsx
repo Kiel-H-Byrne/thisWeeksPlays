@@ -2,20 +2,14 @@ import React from "react";
 import Link from "next/link";
 
 import * as types from "@/types/index";
-import {
-  Box,
-  Collapse,
-  Divider,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Collapse, Divider, Text, useDisclosure } from "@chakra-ui/react";
 import { CommentCard as CommentCard } from "./CommentCard";
 import VerifyField from "./form/VerifyField";
 import useSWR from "swr";
 import fetcher from "@/lib/fetch";
 import CommentForm from "./CommentForm";
 import { useSession } from "next-auth/client";
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 const PlayCard = ({
   userName,
@@ -27,7 +21,7 @@ const PlayCard = ({
   reasoning,
   isShort,
   _id,
-  uid,
+  // uid,
   upVotes,
   downVotes,
   sentiment,
@@ -116,23 +110,39 @@ const PlayCard = ({
       {exitStrategy
         ? `they will ${exitStrategy}...`
         : `They will buy & hold...`}
-      <div id="up-down-vote">
-        <VerifyField
-          orderId={_id}
-          userId={uid}
-          upVotes={upVotes}
-          downVotes={downVotes}
-        />
-      </div>
-      <Divider width="100%" />
-      {session && !loading ? <CommentForm oid={_id} session={session} /> : null}
+      <Box id="up-down-vote">
+        {session && !loading ? (
+          <VerifyField
+            orderId={_id}
+            userId={session.user.id as string}
+            upVotes={upVotes}
+            downVotes={downVotes}
+          />
+        ) : null}
+      </Box>
+      {commentsData ? <Divider /> : null}
+      <CommentForm oid={_id} session={session} />
       <Box>
-        <Box onClick={onToggle} padding="3" display="flex">
-         <Text as="h2"> Comments:</Text>
-          <ChevronDownIcon float="right"/>
-        </Box>
-        <Collapse in={isOpen} animateOpacity>
-          {commentsData && commentsData.comments?.length > 0
+        {commentsData?.comments.length >= 3 ? (
+          <Box
+            onClick={onToggle}
+            padding="3"
+            display="flex"
+            justifyContent="space-between"
+          >
+            <Text as="h2"> View Comments:</Text>
+            {isOpen ? (
+              <ChevronDownIcon float="right" />
+            ) : (
+              <ChevronUpIcon float="right" />
+            )}
+          </Box>
+        ) : null}
+        <Collapse
+          in={isOpen || commentsData?.comments.length < 3}
+          animateOpacity
+        >
+          {commentsData?.comments?.length > 0
             ? commentsData.comments.map((data) => (
                 <ul key={Math.random() * 203}>
                   <CommentCard {...data} />
