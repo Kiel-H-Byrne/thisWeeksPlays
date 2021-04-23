@@ -1,6 +1,5 @@
 import fetcher from "@/lib/fetch";
 import {
-  Box,
   Collapse,
   FormControl,
   FormErrorMessage,
@@ -60,7 +59,7 @@ export const AutoCompleteField = () => {
 
       {data && (
         <Collapse
-          in={isOpen && tickerSearch}
+          in={isOpen && !!tickerSearch}
           animateOpacity
           className="result-set"
         >
