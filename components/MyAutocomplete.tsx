@@ -64,7 +64,7 @@ export const AutoCompleteField = () => {
           animateOpacity
           className="result-set"
         >
-          <Table boxShadow="inner" backgroundColor="lightgrey">
+          <Table boxShadow="inner" backgroundColor="oldlace">
             <Thead>
               <Tr>
                 <Th>Symbol</Th>
