@@ -80,7 +80,7 @@ const PlayCard = ({
       borderWidth="3px"
       borderColor={!tickerData ? "grey" : isWinning ? "green.600" : "red"}
       borderRadius={"3%"}
-      width={"xs"}
+      width={"3xs"}
     >
       <Link href="/users/[name]" as={`/users/${userName}`}>
         <Text as={"span"} fontStyle={"italic"}>

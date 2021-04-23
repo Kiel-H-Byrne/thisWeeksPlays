@@ -1,9 +1,17 @@
 import fetcher from "@/lib/fetch";
 import {
+  Collapse,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useField } from "formik";
 import React, { useState } from "react";
@@ -14,15 +22,21 @@ import useSWR from "swr";
 export const AutoCompleteField = () => {
   const [field, meta, helpers] = useField("ticker");
   // const [symbolData, setSymbolData] = useState({ meta: [], time: [] });
-  const [tickerSearch, setTickerSearch] = useState("");
+  const [tickerSearch, setTickerSearch] = useState(null);
+  const { isOpen, onToggle } = useDisclosure();
 
   field.onChange = (e) => {
-    setTickerSearch(e.target.value);
+    if (!isOpen) {
+      onToggle();
+    }
+    setTimeout(() => {
+      setTickerSearch(e.target.value);
+    }, 300);
     if (error) helpers.setError(error.message);
     helpers.setValue(e.target.value);
   };
   const { data, error } = useSWR(
-    tickerSearch.length
+    tickerSearch
       ? `https://ticker-2e1ica8b9.now.sh/keyword/${tickerSearch}`
       : null,
     fetcher
@@ -31,6 +45,7 @@ export const AutoCompleteField = () => {
 
   const setInputValue = (symbol) => {
     helpers.setValue(symbol);
+    onToggle();
     data.splice(0, data.length);
   };
   return (
@@ -42,14 +57,30 @@ export const AutoCompleteField = () => {
       <FormLabel htmlFor="ticker">Ticker</FormLabel>
       <Input {...field} placeholder="TCKR" autoComplete="off" />
 
-      <div className="result-set">
-        {data &&
-          data.map(({ symbol, name }, index) => (
-            <div key={index} onClick={() => setInputValue(symbol)}>
-              {symbol} - {name}
-            </div>
-          ))}
-      </div>
+      {data && (
+        <Collapse
+          in={isOpen && !!tickerSearch}
+          animateOpacity
+          className="result-set"
+        >
+          <Table boxShadow="inner" backgroundColor="oldlace">
+            <Thead>
+              <Tr>
+                <Th>Symbol</Th>
+                <Th>Name</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {data.map(({ symbol, name }, index) => (
+                <Tr key={index} onClick={() => setInputValue(symbol)}>
+                  <Td>{symbol}</Td>
+                  <Td>{name}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Collapse>
+      )}
       <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl>
   );

@@ -81,7 +81,7 @@ export const InputForm = ({ onClose, userName, uid }) => {
     mutate(
       "/api/orders",
       await axios.post("/api/orders", {
-        data: {uid, ...values},
+        data: { uid, ...values },
       })
     );
     mutate("/api/orders");
@@ -96,6 +96,7 @@ export const InputForm = ({ onClose, userName, uid }) => {
   // data is set and price will show in form
   return (
     <div>
+      {/* <Text paddingBottom="3" fontSize="1.3rem">Enter your pick, general direction, entry price and target exit date or price.</Text> */}
       <Formik
         initialValues={{ ...initialData, userName }}
         validate={(values: Partial<Order>) => {
@@ -245,33 +246,53 @@ export const InputForm = ({ onClose, userName, uid }) => {
               ) : null}
 
               <Field name="exitStrategy">
-                {({ field, form }) => (
-                  <FormControl
-                    id="exitStrategy-control"
-                    isRequired
-                    isInvalid={
-                      form.errors.exitStrategy && form.touched.exitStrategy
-                    }
-                  >
-                    <FormLabel
-                      htmlFor="exitStrategy"
-                      placeholder="Exit Strategy"
+                {({ field, form }) => {
+                  const method = "stock";
+                  const action = "quote";
+                  const { data, error } = useSWR(
+                    !form.values.ticker
+                      ? null
+                      : `https://cloud.iexapis.com/stable/${method}/${form.values.ticker}/${action}?token=${process.env.IEX_KEY}`,
+                    fetcher
+                  );
+                  if (error) {
+                    console.error(error);
+                  }
+                  return (
+                    <FormControl
+                      id="exitStrategy-control"
+                      isRequired
+                      isInvalid={
+                        form.errors.exitStrategy && form.touched.exitStrategy
+                      }
                     >
-                      Exit Strategy <InfoPopover name="exitStrategy" />
-                    </FormLabel>
-                    <Input
-                      {...field}
-                      id="exitStrategy"
-                      placeholder="Exit Strategy"
-                    />
-                    Take Profit: x (dollars/percent switch) Stop Loss: x
-                    (dollars/percent switch)
-                    {/* value should be object {TP: $3 SL: $20} */}
-                    <FormErrorMessage>
-                      {form.errors.exitStrategy}
-                    </FormErrorMessage>
-                  </FormControl>
-                )}
+                      <FormLabel
+                        htmlFor="exitStrategy"
+                        placeholder="Exit Strategy"
+                      >
+                        Exit Strategy <InfoPopover name="exit-strategy" />
+                        {data ? (
+                          <Text as="span" fontSize="small">
+                            {" "}
+                            ${form.values.ticker} is currently $
+                            {data.latestPrice}
+                          </Text>
+                        ) : (
+                          ``
+                        )}
+                      </FormLabel>
+                      <Input
+                        {...field}
+                        id="exitStrategy"
+                        placeholder="Exit Strategy"
+                      />
+                      {/* value should be object {TP: $3 SL: $20} */}
+                      <FormErrorMessage>
+                        {form.errors.exitStrategy}
+                      </FormErrorMessage>
+                    </FormControl>
+                  );
+                }}
               </Field>
               <Field name="reasoning">
                 {({ field, form }) => (
@@ -281,7 +302,7 @@ export const InputForm = ({ onClose, userName, uid }) => {
                     isInvalid={form.errors.reasoning && form.touched.reasoning}
                   >
                     <FormLabel htmlFor="reasoning" placeholder="Reasoning">
-                      Reasoning
+                      Reasoning <InfoPopover name="reasoning" />
                     </FormLabel>
                     <Select
                       {...field}
@@ -298,57 +319,6 @@ export const InputForm = ({ onClose, userName, uid }) => {
                   </FormControl>
                 )}
               </Field>
-              <Field name="targetAmount">
-                {({ field, form }) => {
-                  const method = "stock";
-                  const action = "quote";
-                  const { data, error } = useSWR(
-                    !form.values.ticker
-                      ? null
-                      : `https://cloud.iexapis.com/stable/${method}/${form.values.ticker}/${action}?token=${process.env.IEX_KEY}`,
-                    fetcher
-                  );
-                  if (error) {
-                    console.error(error);
-                  }
-                  return (
-                    <FormControl
-                      id="targetAmount-control"
-                      isRequired
-                      isInvalid={
-                        form.errors.targetAmount && form.touched.targetAmount
-                      }
-                    >
-                      <FormLabel
-                        htmlFor="targetAmount"
-                        placeholder="Target Amount"
-                      >
-                        What's your target price by the time you exit (or within
-                        two months)?
-                        {data ? (
-                          <Text as="span" fontSize="small">
-                            {" "}
-                            ${form.values.ticker} is currently $
-                            {data.latestPrice}
-                          </Text>
-                        ) : (
-                          ``
-                        )}
-                      </FormLabel>
-                      <Input
-                        type="number"
-                        {...field}
-                        id="targetAmount"
-                        placeholder="Target Amount"
-                      />
-                      <FormErrorMessage>
-                        {form.errors.targetAmount}
-                      </FormErrorMessage>
-                    </FormControl>
-                  );
-                }}
-              </Field>
-
               <Button
                 colorScheme="green"
                 mr={3}

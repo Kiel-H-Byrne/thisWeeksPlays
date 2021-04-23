@@ -25,7 +25,7 @@ export const InstrumentPlays = ({ instrument }: Props) => {
   }
   return (
     <Box>
-      <Heading paddingBottom={3} textAlign="center">Top {instrument} Plays:</Heading>
+      <Heading fontSize="1.7rem" paddingBottom={3} textAlign="center">Top {instrument} Plays:</Heading>
       <Skeleton isLoaded={data?.orders || plays}>
         <Stack spacing={3}>
           {plays.map((data) => {
