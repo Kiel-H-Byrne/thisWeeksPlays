@@ -150,14 +150,14 @@ export const samplePlays: Order[] = [
   },
 ];
 
-export const MoreInformation: { [name: string]: string } = {
+export const MoreInformation = {
   ticker: "",
   sentiment: "",
   instrument: "",
   entryPrice: "",
   targetAmount: "",
-  "exit-strategy": "",
-  reasoning: "",
+  "exit-strategy": `Either the Date you plan to exit, or a target price to take a profit or loss. Must choose one.\n Holding long term? set a loss price target. \n Short-term Trade? Set a Date.\nSwing Trading? Set a profit price target.`,
+  reasoning: `What made you place or watch this order?`,
   "is-watching": "",
   isShort: "",
   orderAmount: "",

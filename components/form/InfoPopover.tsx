@@ -13,17 +13,23 @@ import { MoreInformation } from "@/util/index";
 
 export const InfoPopover = ({ name }: { name: string }) => {
   return (
-    <Popover placement="top-start">
+    <Popover placement="top-start" trigger="hover">
       <PopoverTrigger>
         <InfoOutlineIcon aria-label={`More About ${name}`} />
       </PopoverTrigger>
       <PopoverContent>
-        <PopoverHeader fontWeight="semibold">
-          {name.split("-").join("")}...
+        <PopoverHeader
+          fontWeight="semibold"
+          fontSize="sm"
+          textTransform="capitalize"
+        >
+          {name.split("-").join(" ")}:
         </PopoverHeader>
         <PopoverArrow />
         <PopoverCloseButton />
-        <PopoverBody>{MoreInformation[name]}</PopoverBody>
+        <PopoverBody fontWeight="normal" fontSize="sm">
+          {MoreInformation[name]}
+        </PopoverBody>
       </PopoverContent>
     </Popover>
   );
