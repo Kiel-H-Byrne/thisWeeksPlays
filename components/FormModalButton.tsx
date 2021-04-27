@@ -37,7 +37,7 @@ const FormModalButton = () => {
             <ModalBody pb={6}>
               <InputForm
                 onClose={onClose}
-                userName={session.user.name}
+                userName={session.user?.name}
                 uid = {session['id']}
               />
             </ModalBody>
