@@ -26,7 +26,6 @@ const orderHandler = async (req: any, res: any) => {
         //  a concrete range of orders
         res.setHeader("cache-control", `public, max-age=${maxAge}`);
       }
-
       res.send({ orders });
       break;
     case "POST":

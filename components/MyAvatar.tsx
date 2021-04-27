@@ -1,10 +1,19 @@
 import * as React from "react";
+import { useSession, signIn, signOut } from "next-auth/client";
 import {
-  useSession, signIn, signOut
-} from 'next-auth/client'
-import { Avatar, Button, Grid, Image, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger } from "@chakra-ui/react";
+  Avatar,
+  Button,
+  Grid,
+  Image,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+} from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
-
 
 const MyAvatar = () => {
   const [session, loading] = useSession();
@@ -42,4 +51,3 @@ const MyAvatar = () => {
 };
 
 export default MyAvatar;
-

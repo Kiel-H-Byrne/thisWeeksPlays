@@ -50,3 +50,7 @@ export enum Sentiment {
   Bearish = "Bearish (🐻)",
   Neutral = "Neutral (🤷)",
 }
+
+export enum Quarters {
+  Q1, Q2, Q3, Q4
+}

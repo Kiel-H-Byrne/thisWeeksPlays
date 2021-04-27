@@ -13,8 +13,10 @@ interface Props {
 
 export const InstrumentPlays = ({ instrument }: Props) => {
   const { data, error } = useSWR(
-    `/api/orders?instrument=${instrument}`,
-    fetcher,
+    `/api/orders?instrument=${instrument}&from=${new Date().setMonth(
+      new Date().getMonth() - 3
+    )}`,
+    fetcher
     // {errorRetryCount: 2}
   );
   if (error) console.log(error)  ;

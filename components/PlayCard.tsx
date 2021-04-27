@@ -21,7 +21,6 @@ const PlayCard = ({
   reasoning,
   isShort,
   _id,
-  // uid,
   upVotes,
   downVotes,
   sentiment,
@@ -80,7 +79,7 @@ const PlayCard = ({
       borderWidth="3px"
       borderColor={!tickerData ? "grey" : isWinning ? "green.600" : "red"}
       borderRadius={"3%"}
-      width={"3xs"}
+      width={"xs"}
     >
       <Link href="/users/[name]" as={`/users/${userName}`}>
         <Text as={"span"} fontStyle={"italic"}>
@@ -114,7 +113,7 @@ const PlayCard = ({
         {session && !loading ? (
           <VerifyField
             orderId={_id}
-            userId={session.user.id as string}
+            userId={session['id']}
             upVotes={upVotes}
             downVotes={downVotes}
           />
@@ -132,11 +131,11 @@ const PlayCard = ({
           >
             <Text as="h2"> View Comments:</Text>
             {isOpen ? (
-              <ChevronDownIcon float="right" />
+              <ChevronDownIcon margin="auto"/>
             ) : (
-              <ChevronUpIcon float="right" />
+              <ChevronUpIcon margin="auto"/>
             )}
-          </Box>
+            </Box>
         ) : null}
         <Collapse
           in={isOpen || commentsData?.comments.length < 3}

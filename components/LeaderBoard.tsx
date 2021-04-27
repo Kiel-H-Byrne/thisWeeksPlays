@@ -27,7 +27,8 @@ const LeaderBoard = (props: Props) => {
             <Td><Th>Name</Th><Th>Total Revenue</Th></Td> */
   return (
     <Box paddingInline="8" marginBlock="8" boxShadow="base" borderBlock="1px solid green" borderRadius="sm">
-      <Heading textAlign="center">Top 5 Pickers</Heading>
+      <Heading textAlign="center">Quarterly Leaderboard</Heading>
+      <Heading textAlign="center" fontSize="xl" fontWeight="normal">Top 5 Pickers this season</Heading>
     <HStack id="leaderboard" spacing="32" >
       <LeaderTable title="Most Consistent" leaders={leaders_consistent}/>
       <LeaderTable title="Most Gains (%)" leaders={leaders_gains}/>
