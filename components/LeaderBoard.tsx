@@ -12,6 +12,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React from "react";
+import { InteractiveUserName } from './InteractiveUserName';
 
 interface Props {}
 
@@ -60,7 +61,7 @@ const LeaderTable = ({title, leaders}) => {
           return (
 
             <Tr>
-            <Td >@{name}</Td>
+            <Td ><InteractiveUserName userName={name} uid={"uid"} /></Td>
             <Td isNumeric>{stat}</Td>
           </Tr>
           )

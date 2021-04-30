@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useUser } from '@/hooks/index';
 import fetcher from '@/lib/fetch';
 import { defaultProfilePicture } from '@/lib/default';
+import { InteractiveUserName } from '../InteractiveUserName';
 
 function Order({ order }) {
   const user = useUser(order.creatorId);
@@ -27,11 +28,12 @@ function Order({ order }) {
       </style>
       <div>
         {user && (
-          <Link href={`/user/${user._id}`}>
-            <a style={{ display: 'inline-flex', alignItems: 'center' }}>
-              <img width="27" height="27" style={{ borderRadius: '50%', objectFit: 'cover', marginRight: '0.3rem' }} src={user.profilePicture || defaultProfilePicture(user._id)} alt={user.name} />
-              <b>{user.name}</b>
-            </a>
+          <InteractiveUserName userName={user.userName} uid={user._id} />
+          // <Link href={`/user/${user._id}`}>
+          //   <a style={{ display: 'inline-flex', alignItems: 'center' }}>
+          //     <img width="27" height="27" style={{ borderRadius: '50%', objectFit: 'cover', marginRight: '0.3rem' }} src={user.profilePicture || defaultProfilePicture(user._id)} alt={user.name} />
+          //     <b>{user.name}</b>
+          //   </a>
           </Link>
         )}
         <p>
