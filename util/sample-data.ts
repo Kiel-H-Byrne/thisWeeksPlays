@@ -10,10 +10,10 @@ import {
 
 /** Dummy user data. */
 export const sampleUserData: User[] = [
-  { _id: "101", name: "Alice", orders: [] },
-  { _id: "102", name: "Bob", orders: [] },
-  { _id: "103", name: "Caroline", orders: [] },
-  { _id: "104", name: "Dave", orders: [] },
+  { _id: "101", name: "Alice", orders: [], stats: {winningOrders: 0, netProfit: 0, netGain: 0} },
+  { _id: "102", name: "Bob", orders: [], stats: {winningOrders: 0, netProfit: 0, netGain: 0} },
+  { _id: "103", name: "Caroline", orders: [], stats: {winningOrders: 0, netProfit: 0, netGain: 0} },
+  { _id: "104", name: "Dave", orders: [], stats: {winningOrders: 0, netProfit: 0, netGain: 0} },
 ];
 
 export const samplePlays: Order[] = [

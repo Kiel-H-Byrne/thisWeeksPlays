@@ -16,7 +16,7 @@ const orderHandler = async (req: any, res: any) => {
     case "GET":
       const orders = await getOrders(
         db,
-        req.query.from ? new Date(req.query.from) : undefined,
+        req.query.from ? req.query.from : undefined,
         req.query.by,
         req.query.limit ? parseInt(req.query.limit, 10) : undefined
       );

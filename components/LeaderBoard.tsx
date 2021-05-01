@@ -17,6 +17,7 @@ import { InteractiveUserName } from './InteractiveUserName';
 interface Props {}
 
 const LeaderBoard = (props: Props) => {
+  console.log("[LeaderBoard Props:");
   console.log(props);
   //three tables HStacked, with shared header?
   // <Th>Most Consistent</Th>
@@ -59,12 +60,13 @@ const LeaderTable = ({title, leaders}) => {
       <Tbody>
         {leaders.map(({name, stat}) => {
           return (
-
-            <Tr>
-            <Td ><InteractiveUserName userName={name} uid={"uid"} /></Td>
-            <Td isNumeric>{stat}</Td>
-          </Tr>
-          )
+            <Tr key={name}>
+              <Td>
+                <InteractiveUserName userName={name} uid={"uid"} />
+              </Td>
+              <Td isNumeric>{stat}</Td>
+            </Tr>
+          );
         })}
       </Tbody>
     </Table>

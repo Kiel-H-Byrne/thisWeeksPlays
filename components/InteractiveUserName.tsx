@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Avatar,
-  Box,
   Flex,
   Popover,
   PopoverArrow,
@@ -10,7 +9,10 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
+  Table,
   Text,
+  Th,
+  Tr,
 } from "@chakra-ui/react";
 
 export const InteractiveUserName = ({
@@ -42,7 +44,10 @@ export const InteractiveUserName = ({
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverBody fontWeight="normal" fontSize="sm">
-          fetch stats on suchandsuch
+          <Table>
+            <Tr><Th>Stat</Th></Tr>
+            {/* <Tr></Tr> */}
+          </Table>
         </PopoverBody>
       </PopoverContent>
     </Popover>

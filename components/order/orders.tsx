@@ -1,9 +1,7 @@
 import React from 'react';
 import { useSWRInfinite } from 'swr';
-import Link from 'next/link';
 import { useUser } from '@/hooks/index';
 import fetcher from '@/lib/fetch';
-import { defaultProfilePicture } from '@/lib/default';
 import { InteractiveUserName } from '../InteractiveUserName';
 
 function Order({ order }) {
@@ -34,7 +32,7 @@ function Order({ order }) {
           //     <img width="27" height="27" style={{ borderRadius: '50%', objectFit: 'cover', marginRight: '0.3rem' }} src={user.profilePicture || defaultProfilePicture(user._id)} alt={user.name} />
           //     <b>{user.name}</b>
           //   </a>
-          </Link>
+          // </Link>
         )}
         <p>
           {order.content}

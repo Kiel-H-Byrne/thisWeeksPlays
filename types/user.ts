@@ -2,7 +2,12 @@
 export type User = {
   _id: string;
   name: string;
-  orders: string[];
+  orders: string[]; //array of submitted orders?
+  stats: {
+    winningOrders: number;
+    netProfit: number;
+    netGain: number;
+  };
 };
 
 export type Session = {

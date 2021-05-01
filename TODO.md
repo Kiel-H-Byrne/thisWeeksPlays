@@ -32,3 +32,11 @@ exitStrategy == date, or lossPrice or profitPrice (calculator button to convert 
 when placing order, always have exit in mind, either time or dollar value.
 (so ask when exit on the form, either date-picker or dollar amount.)
 if price hits dollar amount, or date is reached, calculate isWinning.
+
+
+
+need "ending price" 
+onDate: setWinning, setFinalPrice (get price diff, get % gain or loss.)
+
+make calls for orders submitted within last 3 weeks.  (date 1, createdDate)
+on date 2 (on or after 3 weeks after onCreated Date) set order/user statistics
