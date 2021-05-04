@@ -6,19 +6,21 @@ import {
   TableCaption,
   Tbody,
   Td,
-  // Tfoot,
   Th,
   Thead,
   Tr,
 } from "@chakra-ui/react";
 import React from "react";
-import { InteractiveUserName } from './InteractiveUserName';
+import { Order } from '../types';
+import { InteractiveUserName } from "./InteractiveUserName";
 
-interface Props {}
+interface Props {
+  orders: Order[]
+}
 
-const LeaderBoard = (props: Props) => {
+const LeaderBoard = ({orders}: Props) => {
   console.log("[LeaderBoard Props:");
-  console.log(props);
+  console.log(orders);
   //three tables HStacked, with shared header?
   // <Th>Most Consistent</Th>
   //           <Th>Most Gains (%)</Th>
@@ -28,41 +30,64 @@ const LeaderBoard = (props: Props) => {
             <Td><Th>Name</Th><Th>Profit %age</Th></Td>
             <Td><Th>Name</Th><Th>Total Revenue</Th></Td> */
   return (
-    <Box paddingInline="8" marginBlock="8" boxShadow="base" borderBlock="1px solid green" borderRadius="sm">
+    <Box
+      paddingInline="8"
+      marginBlock="8"
+      boxShadow="base"
+      borderBlock="1px solid green"
+      borderRadius="sm"
+    >
       <Heading textAlign="center">Quarterly Leaderboard</Heading>
-      <Heading textAlign="center" fontSize="xl" fontWeight="normal">Top 5 Pickers this season</Heading>
-    <HStack id="leaderboard" spacing="32" >
-      <LeaderTable title="Most Consistent" leaders={leaders_consistent}/>
-      <LeaderTable title="Most Gains (%)" leaders={leaders_gains}/>
-      <LeaderTable title="Most Revenue ($)" leaders={leaders_revenue}/>
-    </HStack>
+      <Heading textAlign="center" fontSize="xl" fontWeight="normal">
+        Top 5 Pickers this season
+      </Heading>
+      <HStack id="leaderboard" spacing="32">
+        <LeaderTable title="Most Consistent" leaders={leaders_consistent} />
+        <LeaderTable title="Most Gains (%)" leaders={leaders_gains} />
+        <LeaderTable title="Most Revenue ($)" leaders={leaders_revenue} />
+      </HStack>
     </Box>
   );
 };
 
 export default LeaderBoard;
 
-const leaders_consistent = [{name: "Hullaballoo", stat: 2.23}, {name: "BigIbuy", stat: 1.03}, {name: "BillyTeePhillians", stat: .83}]
-const leaders_gains = [{name: "DankMasterJay", stat: 3}, {name: "SkunkTuesday", stat: 1.5}, {name: "RealDrizzy", stat: .28}]
-const leaders_revenue = [{name: "BlakkRob", stat: 53000}, {name: "Dee_Emm_Exx", stat: 18000}, {name: "DogeStar", stat: 1700}]
+const leaders_consistent = [
+  { name: "Hullaballoo", stat: 2.23 },
+  { name: "BigIbuy", stat: 1.03 },
+  { name: "BillyTeePhillians", stat: 0.83 },
+];
+const leaders_gains = [
+  { name: "DankMasterJay", stat: 3 },
+  { name: "SkunkTuesday", stat: 1.5 },
+  { name: "RealDrizzy", stat: 0.28 },
+];
+const leaders_revenue = [
+  { name: "BlakkRob", stat: 53000 },
+  { name: "Dee_Emm_Exx", stat: 18000 },
+  { name: "DogeStar", stat: 1700 },
+];
 
-
-const LeaderTable = ({title, leaders}) => {
+const LeaderTable = ({ title, leaders }) => {
+  // search all orders within last 3 weeks,
+  // then create three arrays of objects for each category
   return (
     <Table variant="simple" colorScheme="orange">
-      <TableCaption placement="top" fontSize="larger">{title}</TableCaption>
+      <TableCaption placement="top" fontSize="larger">
+        {title}
+      </TableCaption>
       <Thead>
-        <Tr >
-          <Th >Member Name</Th>
+        <Tr>
+          <Th>Member Name</Th>
           <Th isNumeric>Rate </Th>
         </Tr>
       </Thead>
       <Tbody>
-        {leaders.map(({name, stat}) => {
+        {leaders.map(({ name, stat, uid }) => {
           return (
             <Tr key={name}>
               <Td>
-                <InteractiveUserName userName={name} uid={"uid"} />
+                <InteractiveUserName userName={name} uid={uid} />
               </Td>
               <Td isNumeric>{stat}</Td>
             </Tr>
@@ -72,4 +97,3 @@ const LeaderTable = ({title, leaders}) => {
     </Table>
   );
 };
-

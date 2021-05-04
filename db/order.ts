@@ -2,7 +2,6 @@ import { nanoid } from "nanoid";
 
 //@ts-ignore
 export async function getOrders(db, from: string, by: string, limit: number) {
-  console.log(new Date(from));
   return (
     db
       .collection("orders")
@@ -17,9 +16,15 @@ export async function getOrders(db, from: string, by: string, limit: number) {
         // ...(by && { creatorId: by }),
       })
       .sort({ createdAt: -1 })
-      // .limit(limit || 10)
+      .limit(limit)
       .toArray()
   );
+}
+
+export async function findOrderById(db, orderId:string) {
+  return db.collection('orders').findOne({
+    _id: orderId,
+  }).then((order) => order || null);
 }
 
 export async function insertOrder(db, data) {

@@ -12,8 +12,11 @@ import {
   Table,
   Text,
   Th,
+  Thead,
+  Tbody,
   Tr,
 } from "@chakra-ui/react";
+import { useUser } from '../hooks';
 
 export const InteractiveUserName = ({
   userName,
@@ -22,6 +25,8 @@ export const InteractiveUserName = ({
   userName: string;
   uid: string;
 }) => {
+  const user = useUser(uid)
+  // user && console.log(user)
   return (
     <Popover placement="auto-end" trigger="hover">
       <PopoverTrigger>
@@ -29,7 +34,7 @@ export const InteractiveUserName = ({
           <Avatar
             src={`https://avatars.dicebear.com/api/bottts/${uid}.svg`}
             size="xs"
-          ></Avatar>{" "}
+          ></Avatar>
           <Text>@{userName}</Text>
         </Flex>
       </PopoverTrigger>
@@ -45,8 +50,12 @@ export const InteractiveUserName = ({
         <PopoverCloseButton />
         <PopoverBody fontWeight="normal" fontSize="sm">
           <Table>
-            <Tr><Th>Stat</Th></Tr>
-            {/* <Tr></Tr> */}
+            <Thead>
+              <Tr>
+                <Th>Stat</Th>
+              </Tr>
+            </Thead>
+            <Tbody>{/* <Tr></Tr> */}</Tbody>
           </Table>
         </PopoverBody>
       </PopoverContent>

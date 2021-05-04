@@ -30,7 +30,6 @@
     "alphavantage": "^2.2.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
-    "bson-objectid": "^2.0.1",
     "chakra-ui-autocomplete": "^1.2.6",
     "date-fns": "^2.21.1",
     "dotenv": "^8.2.0",

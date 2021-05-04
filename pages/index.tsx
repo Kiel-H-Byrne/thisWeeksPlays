@@ -4,9 +4,17 @@ import { Box, Container, Heading, HStack, Text } from "@chakra-ui/react";
 import FormModalButton from "@/components/FormModalButton";
 import { InstrumentPlays } from "@/components/InstrumentPlays";
 import { Instruments } from "@/types/index";
-import LeaderBoard from '@/components/LeaderBoard';
+import LeaderBoard from "@/components/LeaderBoard";
+import fetcher from "@/lib/fetch";
+import useSWR from "swr";
+import { format, subWeeks } from "date-fns";
 
 const IndexPage = () => {
+  var threeWeeksAgo = format(subWeeks(new Date(), 3), "MM/dd/y");
+
+  const {data: orders, error} = useSWR(`api/orders?from=${threeWeeksAgo}`, fetcher);
+  console.log(orders, error);
+  // const ordersByInstrument = {}
   return (
     <Layout title="Top5Plays.com">
       <Container maxW="container.xl">
@@ -25,11 +33,11 @@ const IndexPage = () => {
         </Box>
         <FormModalButton />
       </Container>
-      <LeaderBoard />
+      <LeaderBoard orders={orders}/>
       <Box display="flex" overflowX="auto" boxShadow="inner">
         <HStack spacing={7} align={"flex-start"} padding="7">
           {Object.values(Instruments).map((instrument) => {
-            return <InstrumentPlays instrument={instrument} />;
+            return <>{instrument}{' '}</>;//<InstrumentPlays instrument={instrument} />;
           })}
         </HStack>
       </Box>
