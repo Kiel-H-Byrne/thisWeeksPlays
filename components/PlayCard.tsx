@@ -117,7 +117,7 @@ const PlayCard = ({
         {session && !loading ? (
           <VerifyField
             orderId={_id}
-            userId={session["id"]}
+            userId={session["id"] as string}
             upVotes={upVotes}
             downVotes={downVotes}
           />
