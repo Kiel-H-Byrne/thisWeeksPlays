@@ -1,12 +1,11 @@
 import React from 'react';
 import { useSWRInfinite } from 'swr';
-import Link from 'next/link';
-import { useUser } from '@/hooks/index';
+// import { useUser } from '@/hooks/index';
 import fetcher from '@/lib/fetch';
-import { defaultProfilePicture } from '@/lib/default';
+// import { InteractiveUserName } from '../InteractiveUserName';
 
 function Order({ order }) {
-  const user = useUser(order.creatorId);
+  // const user = useUser(order.creatorId);
   return (
     <>
       <style jsx>
@@ -26,18 +25,19 @@ function Order({ order }) {
         `}
       </style>
       <div>
-        {user && (
+        {/* {user && (
+          <InteractiveUserName userName={user.userName} uid={user._id} />
           <Link href={`/user/${user._id}`}>
             <a style={{ display: 'inline-flex', alignItems: 'center' }}>
               <img width="27" height="27" style={{ borderRadius: '50%', objectFit: 'cover', marginRight: '0.3rem' }} src={user.profilePicture || defaultProfilePicture(user._id)} alt={user.name} />
               <b>{user.name}</b>
             </a>
           </Link>
-        )}
+        )} */}
         <p>
           {order.content}
         </p>
-        <small>{new Date(order.createdAt).toLocaleString()}</small>
+        <small>{new Date(order.submitDate).toLocaleString()}</small>
       </div>
     </>
   );
@@ -57,12 +57,12 @@ export function useOrderPages({ creatorId }) {
       }`;
     }
 
-    // using oldest orders createdAt date as cursor
+    // using oldest orders submitDate date as cursor
     // We want to fetch orders which has a datethat is
-    // before (hence the .getTime() - 1) the last order's createdAt
+    // before (hence the .getTime() - 1) the last order's submitDate
     const from = new Date(
       new Date(
-        previousPageData.orders[previousPageData.orders.length - 1].createdAt,
+        previousPageData.orders[previousPageData.orders.length - 1].submitDate,
       ).getTime() - 1,
     ).toJSON();
 

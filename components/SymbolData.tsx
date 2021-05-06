@@ -16,7 +16,7 @@ interface Props {
 
 export const SymbolData = ({symbol}: Props) => {
   const [timeData, setTimeData] = useState({ label: "", value: [] });
-  const [metaData, setMetaData] = useState({ meta: [] });
+  // const [metaData, setMetaData] = useState({ meta: [] });
   useEffect(() => {
     const getSymbolData = async () => {
       let data;
@@ -25,7 +25,7 @@ export const SymbolData = ({symbol}: Props) => {
           url: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=${process.env.ALPHAVANTAGE_KEY}`,
         });
         data = Object.entries(data.data);
-        setMetaData({ meta: data[0][1] });
+        // setMetaData({ meta: data[0][1] });
         setTimeData({ label: data[1][0], value: data[1][1] });
       } catch (error) {
         // helpers.setError(error.message)
@@ -33,7 +33,6 @@ export const SymbolData = ({symbol}: Props) => {
     };
     getSymbolData();
   }, []); 
-  console.log(metaData)
   return (
     <Heading>
       {symbol}{" "}

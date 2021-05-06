@@ -37,7 +37,7 @@ const CommentForm = ({ oid, session }: Props) => {
       mutate(
         apiUrl,
         await axios.post(apiUrl, {
-          data: { ...values, uid: (session as any).id },
+          data: { ...values, uid: session["id"] },
         })
       );
       helpers.setSubmitting(false);

@@ -7,13 +7,16 @@ import {
   OptionStrategies,
   Comment,
 } from "@/types/index";
+import { getDateThreeWeeksAgo } from './util';
 
+const sampleDate = new Date(getDateThreeWeeksAgo)
+console.log(sampleDate)
 /** Dummy user data. */
-export const sampleUserData: User[] = [
-  { _id: "101", name: "Alice", orders: [] },
-  { _id: "102", name: "Bob", orders: [] },
-  { _id: "103", name: "Caroline", orders: [] },
-  { _id: "104", name: "Dave", orders: [] },
+export const sampleUserData: Partial<User>[] = [
+  { _id: "101", name: "Alice", orders: [], stats: {winningOrders: 0, netProfit: 0, netGain: 0} },
+  { _id: "102", name: "Bob", orders: [], stats: {winningOrders: 0, netProfit: 0, netGain: 0} },
+  { _id: "103", name: "Caroline", orders: [], stats: {winningOrders: 0, netProfit: 0, netGain: 0} },
+  { _id: "104", name: "Dave", orders: [], stats: {winningOrders: 0, netProfit: 0, netGain: 0} },
 ];
 
 export const samplePlays: Order[] = [
@@ -31,7 +34,7 @@ export const samplePlays: Order[] = [
     screenShot: "https://picsum.photos/150/300",
     userName: "sirBuysAlot",
     uid: "101",
-    submitDate: new Date(),
+    submitDate: sampleDate,
     upVotes: [],
     downVotes: [],
     get riskAmount(): number {
@@ -55,7 +58,7 @@ export const samplePlays: Order[] = [
     uid: "101",
     upVotes: [], //array of usernames who upvoted
     downVotes: [], //array of usernaes who downvoted,
-    submitDate: new Date(),
+    submitDate: sampleDate,
     get riskAmount(): number {
       return this.orderAmount * this.entryPrice;
     },
@@ -74,7 +77,7 @@ export const samplePlays: Order[] = [
     optionsExpiration: "20230317",
     userName: "musgKang",
     uid: "101",
-    submitDate: new Date(),
+    submitDate: sampleDate,
     upVotes: [],
     downVotes: [],
     entryPrice: 450,
@@ -93,7 +96,7 @@ export const samplePlays: Order[] = [
     isWatching: false,
     userName: "futureIsNow",
     uid: "101",
-    submitDate: new Date(),
+    submitDate: sampleDate,
     upVotes: [],
     downVotes: [],
     entryPrice: 0,
@@ -114,7 +117,7 @@ export const samplePlays: Order[] = [
     isWatching: false,
     userName: "cryptoKingZ",
     uid: "101",
-    submitDate: new Date(),
+    submitDate: sampleDate,
     upVotes: [],
     downVotes: [],
     entryPrice: 0,
@@ -135,7 +138,7 @@ export const samplePlays: Order[] = [
     isWatching: true,
     userName: "digiMon",
     uid: "101",
-    submitDate: new Date(),
+    submitDate: sampleDate,
     upVotes: [],
     downVotes: [],
     entryPrice: 0,
@@ -168,7 +171,7 @@ export const MoreInformation = {
 export const sampleComments: Comment[] = [
   {
     _id: "301",
-    submitDate: new Date(),
+    submitDate: sampleDate,
     userName: "commentKing",
     uid: "101",
     oid: "201",

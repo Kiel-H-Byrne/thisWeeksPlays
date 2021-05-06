@@ -1,9 +1,9 @@
-import { getOrders, insertOrder } from "@/db/index";
+import { getUsers, insertUser } from "@/db/index";
 import { connectToDatabase } from "@/db/mongodb";
 
 const maxAge = 1 * 24 * 60 * 60;
 
-const orderHandler = async (req: any, res: any) => {
+const userHandler = async (req: any, res: any) => {
   const db = await connectToDatabase();
 
   const {
@@ -14,11 +14,11 @@ const orderHandler = async (req: any, res: any) => {
   } = req;
   switch (method) {
     case "GET":
-      const orders = await getOrders(
+      const orders = await getUsers(
         db,
-        req.query.from ? req.query.from : undefined,
-        req.query.by,
-        req.query.limit ? parseInt(req.query.limit, 10) : 100
+        // req.query.from ? req.query.from : undefined,
+        // req.query.by,
+        // req.query.limit ? parseInt(req.query.limit, 10) : 100
       );
 
       if (req.query.from && orders.length > 0) {
@@ -36,7 +36,7 @@ const orderHandler = async (req: any, res: any) => {
         if (!req.body)
           return res.status(400).send("You must write something");
         
-        const order = await insertOrder(db, req.body.data);
+        const order = await insertUser(db, req.body.data);
         return res.json({ order });
       break;
     default:
@@ -49,4 +49,4 @@ const orderHandler = async (req: any, res: any) => {
 //
 // });
 
-export default orderHandler;
+export default userHandler;

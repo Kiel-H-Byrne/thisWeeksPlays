@@ -16,7 +16,7 @@ import { signIn, useSession } from "next-auth/client";
 const FormModalButton = () => {
   const { isOpen, onToggle, onClose} = useDisclosure()
   const [session, loading] = useSession();
-
+  
   return (
     <Box margin="3">
       <Center>
@@ -38,8 +38,9 @@ const FormModalButton = () => {
             <ModalBody pb={6}>
               <InputForm
                 onClose={onClose}
-                userName={session.user.name}
-                uid = {(session as any).id}
+                userName={session.user?.name}
+                //@ts-ignore
+                uid={session.id}
               />
             </ModalBody>
           </ModalContent>
