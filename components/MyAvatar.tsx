@@ -17,16 +17,16 @@ import { CheckCircleIcon } from "@chakra-ui/icons";
 
 const MyAvatar = () => {
   const [session, loading] = useSession();
-  return session && !loading ? (
+  return session?.user && !loading ? (
     <Popover placement="top-start">
       <PopoverTrigger>
         <Avatar
           src={
-            session.user?.image
-              ? session.user?.image
-              : `https://avatars.dicebear.com/api/bottts/${session.user?.email}.svg`
+            session.user.image
+              ? session.user.image
+              : `https://avatars.dicebear.com/api/bottts/${session.user.email}.svg`
           }
-          alt={session?.user.name}
+          alt={session.user.name}
         />
       </PopoverTrigger>
       <PopoverContent>
