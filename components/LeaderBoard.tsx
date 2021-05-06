@@ -10,6 +10,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { nanoid } from 'nanoid';
 import React from "react";
 import { Order } from '../types';
 import { InteractiveUserName } from "./InteractiveUserName";
@@ -53,19 +54,19 @@ const LeaderBoard = ({orders}: Props) => {
 export default LeaderBoard;
 
 const leaders_consistent = [
-  { name: "Hullaballoo", stat: 2.23 },
-  { name: "BigIbuy", stat: 1.03 },
-  { name: "BillyTeePhillians", stat: 0.83 },
+  { name: "Hullaballoo", stat: 2.23, uid: (Math.random()*100000).toPrecision(5) },
+  { name: "BigIbuy", stat: 1.03, uid: nanoid(11) },
+  { name: "BillyTeePhillians", stat: 0.83, uid: nanoid(11) },
 ];
 const leaders_gains = [
-  { name: "DankMasterJay", stat: 3 },
-  { name: "SkunkTuesday", stat: 1.5 },
-  { name: "RealDrizzy", stat: 0.28 },
+  { name: "DankMasterJay", stat: 3, uid: nanoid(11) },
+  { name: "SkunkTuesday", stat: 1.5, uid: nanoid(11) },
+  { name: "RealDrizzy", stat: 0.28, uid: nanoid(11) },
 ];
 const leaders_revenue = [
-  { name: "BlakkRob", stat: 53000 },
-  { name: "Dee_Emm_Exx", stat: 18000 },
-  { name: "DogeStar", stat: 1700 },
+  { name: "BlakkRob", stat: 53000, uid: nanoid(11) },
+  { name: "Dee_Emm_Exx", stat: 18000, uid: nanoid(11) },
+  { name: "DogeStar", stat: 1700, uid: nanoid(11) },
 ];
 
 const LeaderTable = ({ title, leaders }) => {

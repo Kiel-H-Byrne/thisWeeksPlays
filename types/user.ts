@@ -1,13 +1,19 @@
+import { ObjectId } from "mongodb";
 
 export type User = {
-  _id: string;
+  _id: ObjectId | string;
   name: string;
-  orders: string[]; //array of submitted orders?
+  email: string;
+  image: string;
+  createdAt: Date;
+  updatedAt: Date;
+  orders: ObjectId[] | string[]; //array of submitted order ids
   stats: {
     winningOrders: number;
     netProfit: number;
     netGain: number;
   };
+  profile: {};
 };
 
 export type Session = {

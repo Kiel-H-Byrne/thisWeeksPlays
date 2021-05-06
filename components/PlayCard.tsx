@@ -10,6 +10,7 @@ import fetcher from "@/lib/fetch";
 import CommentForm from "./CommentForm";
 import { useSession } from "next-auth/client";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+import { format } from 'date-fns';
 
 const PlayCard = ({
   userName,
@@ -26,6 +27,9 @@ const PlayCard = ({
   sentiment,
   instrument,
   optionsExpiration,
+  submitDate,
+  //@ts-ignore
+  createdAt
 }: types.Order) => {
   let method;
   let action;
@@ -69,7 +73,6 @@ const PlayCard = ({
   if (commentsError) console.error(commentsError);
 
   const isWinning = tickerData?.latestPrice <= entryPrice && !isShort;
-
   return (
     // <Link href="/plays/[id]" as={`/plays/${data.id}`}>
 
@@ -109,11 +112,12 @@ const PlayCard = ({
       {exitStrategy
         ? `they will ${exitStrategy}...`
         : `They will buy & hold...`}
+      <Text fontSize="xs" color="grey">Submitted: {submitDate ? format(new Date(submitDate), 'MM/dd/y') : format(new Date(createdAt), 'MM/dd/y')}</Text>
       <Box id="up-down-vote">
         {session && !loading ? (
           <VerifyField
             orderId={_id}
-            userId={session['id']}
+            userId={session["id"]}
             upVotes={upVotes}
             downVotes={downVotes}
           />
@@ -131,11 +135,11 @@ const PlayCard = ({
           >
             <Text as="h2"> View Comments:</Text>
             {isOpen ? (
-              <ChevronDownIcon margin="auto"/>
+              <ChevronDownIcon margin="auto" />
             ) : (
-              <ChevronUpIcon margin="auto"/>
+              <ChevronUpIcon margin="auto" />
             )}
-            </Box>
+          </Box>
         ) : null}
         <Collapse
           in={isOpen || commentsData?.comments.length < 3}

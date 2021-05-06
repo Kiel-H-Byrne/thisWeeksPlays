@@ -25,32 +25,20 @@ import { AutoCompleteField } from "./MyAutocomplete";
 import { InfoPopover } from "./form/InfoPopover";
 import useSWR, { mutate } from "swr";
 import fetcher from "@/lib/fetch";
+import { getDateThreeWeeksAgo } from '../util';
 
 const initialData: Partial<Order> = {
-  // ticker: "", //string
-  // sentiment: " ", //keyof typeof Sentiment
   instrument: Instruments.Crypto, //ValueOf<Instruments>
-  // entryPrice: 0, //number
-  targetAmount: 0, //number
-  exitStrategy: "", //string
-  submitDate: new Date(), //Date
   upVotes: [], //array of userIds
   downVotes: [], //array of userIds
-  // reasoning: Reasons.News, //keyof typeof Reasons
   isWatching: true, //boolean
   isShort: false, //boolean
-  userName: "", //string
-  orderAmount: 0, //number
-  // optionsStrategy: OptionStrategies.DEBIT_CALL, //ValueOf<OptionStrategies>
   riskAmount: 0, //number
-  screenShot: "", //string
-  uid: "", //string session.id
   points: 0,
 };
 
 export const InputForm = ({ onClose, userName, uid }) => {
   // const [step, setStep] = useState(0);
-
   // const validateName = (value: string) => {
   //   let error;
   //   if (!value) {
@@ -79,12 +67,12 @@ export const InputForm = ({ onClose, userName, uid }) => {
   ) => {
     helpers.setSubmitting(true);
     mutate(
-      "/api/orders",
-      await axios.post("/api/orders", {
+      `/api/orders?from=${getDateThreeWeeksAgo}`,
+      await axios.post(`/api/orders?from=${getDateThreeWeeksAgo}`, {
         data: { uid, ...values },
       })
     );
-    mutate("/api/orders");
+    mutate(`/api/orders?from=${getDateThreeWeeksAgo}`);
     helpers.setSubmitting(false);
     helpers.resetForm({});
     onClose();

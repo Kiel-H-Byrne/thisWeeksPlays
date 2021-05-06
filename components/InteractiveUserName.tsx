@@ -15,8 +15,9 @@ import {
   Thead,
   Tbody,
   Tr,
+  Skeleton,
 } from "@chakra-ui/react";
-import { useUser } from '../hooks';
+import { fetchUser } from '../hooks';
 
 export const InteractiveUserName = ({
   userName,
@@ -25,18 +26,20 @@ export const InteractiveUserName = ({
   userName: string;
   uid: string;
 }) => {
-  const user = useUser(uid)
-  // user && console.log(user)
+  const user = uid ? fetchUser(uid) : null
+  console.log(user)
   return (
     <Popover placement="auto-end" trigger="hover">
       <PopoverTrigger>
+        <Skeleton isLoaded={!!user}>
         <Flex>
           <Avatar
             src={`https://avatars.dicebear.com/api/bottts/${uid}.svg`}
             size="xs"
           ></Avatar>
-          <Text>@{userName}</Text>
+          <Text>@{user?.profile?.userName || user?.name}</Text>
         </Flex>
+        </Skeleton>
       </PopoverTrigger>
       <PopoverContent>
         <PopoverHeader

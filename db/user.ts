@@ -59,14 +59,14 @@ export async function getUsers(db) {
     .find({
       // Pagination: Fetch orders from before the input date or fetch from newest
       // ...(from && {
-      //   createdAt: {
+      //   submitDate: {
       //     $lt: new Date(), //less than today
       //     $gte: new Date(from), //greater than or equal to three weeks ago
       //   },
       // }),
       // ...(by && { creatorId: by }),
     })
-    .sort({ createdAt: -1 })
+    .sort({ submitDate: -1 })
     // .limit(limit)
     .toArray();
   return users;

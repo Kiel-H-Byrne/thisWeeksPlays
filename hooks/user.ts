@@ -7,8 +7,7 @@ export function useCurrentUser() {
   return [user, { mutate }];
 }
 
-export function useUser(userId) {
-  const { data, error } = useSWR(`/api/users/${userId}`, fetcher, { revalidateOnFocus: false });
-  console.log(data, error)
+export function fetchUser(userId) {
+  const { data } = useSWR(`/api/users/${userId}`, fetcher, { revalidateOnFocus: false });
   return data?.user;
 }

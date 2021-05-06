@@ -1,6 +1,7 @@
+import { ObjectId } from 'mongodb';
 
 export type Comment = {
-  _id: string;
+  _id: ObjectId | string;
   comment: string;
   submitDate: Date;
   oid: string;

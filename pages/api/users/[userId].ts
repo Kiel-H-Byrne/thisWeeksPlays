@@ -11,10 +11,13 @@ export default async function userHandler(req, res) {
   } = req
   switch (method) {
     case 'GET':
-      console.log("getting user " + userId)
       // Get data from your database
-      const user = await findUserById(db, userId);
-      res.status(200).json(user)
+      try {
+        const user = await findUserById(db, userId);
+        res.status(200).json(user)
+      } catch (error) {
+        res.status(404).send({"error": error.message})
+      }
       break
     // case 'PUT':
     //   // Update or create data in your database
