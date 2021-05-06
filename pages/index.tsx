@@ -49,7 +49,7 @@ const IndexPage = () => {
         </Box>
         <FormModalButton />
       </Container>
-      <LeaderBoard orders={data?.orders} />
+      <LeaderBoard orders={data} />
       <Box display="flex" overflowX="auto" boxShadow="inner">
         <HStack spacing={7} align={"flex-start"} padding="7">
           {Object.entries(ordersByInstrument).map((instrument) => (

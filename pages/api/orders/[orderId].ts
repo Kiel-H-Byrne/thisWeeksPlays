@@ -11,7 +11,6 @@ export default async function orderHandler(req, res) {
     case 'GET':
       // Get data from your database
       const order = await findOrderById(db, orderId);
-      console.log(order)
       res.status(200).json(order)
       break
     // case 'PUT':
