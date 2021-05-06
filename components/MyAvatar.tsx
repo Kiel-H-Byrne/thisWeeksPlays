@@ -22,9 +22,9 @@ const MyAvatar = () => {
       <PopoverTrigger>
         <Avatar
           src={
-            session?.user.image
-              ? session?.user.image
-              : `https://avatars.dicebear.com/api/bottts/${session?.user.email}.svg`
+            session.user?.image
+              ? session.user?.image
+              : `https://avatars.dicebear.com/api/bottts/${session.user?.email}.svg`
           }
           alt={session?.user.name}
         />
