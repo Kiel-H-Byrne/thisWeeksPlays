@@ -25,7 +25,7 @@ import { AutoCompleteField } from "./MyAutocomplete";
 import { InfoPopover } from "./form/InfoPopover";
 import useSWR, { mutate } from "swr";
 import fetcher from "@/lib/fetch";
-import { getDateThreeWeeksAgo } from '../util';
+import { calculatePoints, getDateThreeWeeksAgo } from "../util";
 
 const initialData: Partial<Order> = {
   instrument: Instruments.Crypto, //ValueOf<Instruments>
@@ -66,10 +66,11 @@ export const InputForm = ({ onClose, userName, uid }) => {
     //  : Promise<{values: Order; helpers: FormikHelpers<Order>}>
   ) => {
     helpers.setSubmitting(true);
+    const totalPoints = calculatePoints(values);
     mutate(
       `/api/orders?from=${getDateThreeWeeksAgo}`,
       await axios.post(`/api/orders?from=${getDateThreeWeeksAgo}`, {
-        data: { uid, ...values },
+        data: { uid, ...values, points: totalPoints },
       })
     );
     mutate(`/api/orders?from=${getDateThreeWeeksAgo}`);

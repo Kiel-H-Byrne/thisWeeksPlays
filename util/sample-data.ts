@@ -18,7 +18,7 @@ export const sampleUserData: Partial<User>[] = [
   { _id: "104", name: "Dave", orders: [], stats: {winningOrders: 0, netProfit: 0, netGain: 0} },
 ];
 
-export const samplePlays: Order[] = [
+export const samplePlays: Partial<Order>[] = [
   {
     _id: "201",
     sentiment: Sentiment.Bullish,

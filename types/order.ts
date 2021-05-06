@@ -28,5 +28,5 @@ export type Order = {
   screenShot?: string;
   uid: string;
   points: number;
-  // isWinning: boolean;
+  isWinning: boolean;
 };

@@ -27,17 +27,16 @@ export const InteractiveUserName = ({
   uid: string;
 }) => {
   const user = uid ? fetchUser(uid) : null
-  console.log(user)
   return (
     <Popover placement="auto-end" trigger="hover">
       <PopoverTrigger>
-        <Skeleton isLoaded={!!user}>
+        <Skeleton isLoaded={!!uid}>
         <Flex>
           <Avatar
             src={`https://avatars.dicebear.com/api/bottts/${uid}.svg`}
             size="xs"
           ></Avatar>
-          <Text>@{user?.profile?.userName || user?.name}</Text>
+          <Text>@{user?.profile?.userName || user?.name || userName}</Text>
         </Flex>
         </Skeleton>
       </PopoverTrigger>
