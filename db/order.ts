@@ -15,7 +15,7 @@ export async function getOrders(db, from: string, by: string, limit: number) {
       }),
       // ...(by && { creatorId: by }),
     })
-    .sort({ submitDate: -1 })
+    .sort({ points: -1 })
     .limit(limit)
     .toArray();
 }

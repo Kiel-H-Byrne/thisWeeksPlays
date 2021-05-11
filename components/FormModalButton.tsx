@@ -39,8 +39,7 @@ const FormModalButton = () => {
               <InputForm
                 onClose={onClose}
                 userName={session.user?.name}
-                //@ts-ignore
-                uid={session.id}
+                uid={session.id as string}
               />
             </ModalBody>
           </ModalContent>

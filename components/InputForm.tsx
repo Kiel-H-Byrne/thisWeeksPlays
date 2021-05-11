@@ -141,7 +141,7 @@ export const InputForm = ({ onClose, userName, uid }) => {
                         form.setValues({ ...form.values, sentiment: v })
                       }
                     >
-                      {Object.keys(Sentiment).map((sentiment) => (
+                      {Object.values(Sentiment).map((sentiment) => (
                         <Radio
                           key={`select-option_${sentiment}`}
                           value={sentiment}

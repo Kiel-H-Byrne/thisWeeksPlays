@@ -26,8 +26,7 @@ export default NextAuth({
   database: process.env.MONGODB_URI,
   debug: false,
   callbacks: {
-    //@ts-ignore
-    session: async (session: Profile & Session, user: Profile) => {
+    session: async (session: Session, user: Profile) => {
       session.id = user.id
       return Promise.resolve(session)
     }

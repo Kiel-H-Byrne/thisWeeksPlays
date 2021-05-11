@@ -1,8 +1,14 @@
 import React from "react";
-import Link from "next/link";
 
 import * as types from "@/types/index";
-import { Box, Collapse, Divider, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Collapse,
+  Divider,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { CommentCard as CommentCard } from "./CommentCard";
 import VerifyField from "./form/VerifyField";
 import useSWR from "swr";
@@ -10,10 +16,12 @@ import fetcher from "@/lib/fetch";
 import CommentForm from "./CommentForm";
 import { useSession } from "next-auth/client";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
-import { format } from 'date-fns';
+import { format } from "date-fns";
+import { InteractiveUserName } from "./InteractiveUserName";
 
 const PlayCard = ({
   userName,
+  uid,
   ticker,
   entryPrice,
   exitStrategy,
@@ -29,7 +37,7 @@ const PlayCard = ({
   optionsExpiration,
   submitDate,
   //@ts-ignore
-  createdAt
+  createdAt,
 }: types.Order) => {
   let method;
   let action;
@@ -84,35 +92,40 @@ const PlayCard = ({
       borderRadius={"3%"}
       width={"xs"}
     >
-      <Link href="/users/[name]" as={`/users/${userName}`}>
-        <Text as={"span"} fontStyle={"italic"}>
-          <a>@{userName} </a>
+      <Flex wrap="wrap" display="flow">
+        <Text as="span" marginRight="1" fontWeight="500" fontStyle="italic">
+          <InteractiveUserName userName={userName} uid={uid} />
         </Text>
-      </Link>
-      {`is ${sentiment} on `}
-      <Text as={"span"} fontWeight={"bold"}>
-        {ticker}
-        {tickerData ? ` ($${tickerData.latestPrice})` : ``}{" "}
+        <Text marginInline="1" as="span">{`is ${sentiment} on `}</Text>
+        <Text as={"span"} fontWeight={"bold"} marginInline="1">
+          {ticker}
+          {tickerData ? ` ($${tickerData.latestPrice})` : ``}{" "}
+        </Text>
+        <Text as="span" marginInline="1">
+          and {isWatching ? `is looking at a ` : `entered a `}
+          {isShort ? `short ` : `long `}
+          {`play because of `}
+        </Text>
+        <Text as={"span"} fontWeight={"bold"} marginInline="1">
+          {reasoning}
+          {", "}
+        </Text>
+        {/* {`placing ${orderAmount} ${optionsStrategy}(s) `} */}
+        <Text marginInline="1" as="span">{`expecting it to hit `}</Text>
+        <Text as={"span"} fontWeight={"bold"} marginInline="1">
+          ${targetAmount}.
+        </Text>
+        <br />
+        <Text>
+          {isWatching && `If bought, \n`}
+          {exitStrategy
+            ? `They will ${exitStrategy}...`
+            : `They will buy & hold...`}
+        </Text>
+      </Flex>
+      <Text fontSize="xs" color="grey" marginBlock="2">
+        Submitted: {format(new Date(submitDate), "MM/dd/y")}
       </Text>
-      and {isWatching ? `is looking at a ` : `entered a `}
-      {isShort ? `short ` : `long `}
-      {`play because of `}
-      <Text as={"span"} fontWeight={"bold"}>
-        {reasoning}
-        {", "}
-      </Text>
-      {/* {`placing ${orderAmount} ${optionsStrategy}(s) `} */}
-      {`expecting it to hit `}
-      <Text as={"span"} fontWeight={"bold"}>
-        ${targetAmount}
-      </Text>
-      .
-      <br />
-      {isWatching && `if bought, \n`}
-      {exitStrategy
-        ? `they will ${exitStrategy}...`
-        : `They will buy & hold...`}
-      <Text fontSize="xs" color="grey">Submitted: {submitDate ? format(new Date(submitDate), 'MM/dd/y') : format(new Date(createdAt), 'MM/dd/y')}</Text>
       <Box id="up-down-vote">
         {session && !loading ? (
           <VerifyField

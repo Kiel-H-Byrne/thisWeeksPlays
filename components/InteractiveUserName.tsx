@@ -16,8 +16,9 @@ import {
   Tbody,
   Tr,
   Skeleton,
+  Box,
 } from "@chakra-ui/react";
-import { fetchUser } from '../hooks';
+import { fetchUser } from "../hooks";
 
 export const InteractiveUserName = ({
   userName,
@@ -26,41 +27,43 @@ export const InteractiveUserName = ({
   userName: string;
   uid: string;
 }) => {
-  const user = uid ? fetchUser(uid) : null
+  const user = uid ? fetchUser(uid) : null;
   return (
-    <Popover placement="auto-end" trigger="hover">
-      <PopoverTrigger>
-        <Skeleton isLoaded={!!uid}>
-        <Flex>
-          <Avatar
-            src={`https://avatars.dicebear.com/api/bottts/${uid}.svg`}
-            size="xs"
-          ></Avatar>
-          <Text>@{user?.profile?.userName || user?.name || userName}</Text>
-        </Flex>
-        </Skeleton>
-      </PopoverTrigger>
-      <PopoverContent>
-        <PopoverHeader
-          fontWeight="semibold"
-          fontSize="sm"
-          textTransform="capitalize"
-        >
-          {userName}:
-        </PopoverHeader>
-        <PopoverArrow />
-        <PopoverCloseButton />
-        <PopoverBody fontWeight="normal" fontSize="sm">
-          <Table>
-            <Thead>
-              <Tr>
-                <Th>Stat</Th>
-              </Tr>
-            </Thead>
-            <Tbody>{/* <Tr></Tr> */}</Tbody>
-          </Table>
-        </PopoverBody>
-      </PopoverContent>
-    </Popover>
+    <Box as="span" marginInline="1">
+      <Popover placement="auto-end" trigger="hover">
+        <PopoverTrigger>
+          <Skeleton isLoaded={!!uid}>
+            <Flex>
+              <Avatar
+                src={`https://avatars.dicebear.com/api/bottts/${uid}.svg`}
+                size="xs"
+              ></Avatar>
+              <Text>@{user?.profile?.userName || user?.name || userName}</Text>
+            </Flex>
+          </Skeleton>
+        </PopoverTrigger>
+        <PopoverContent>
+          <PopoverHeader
+            fontWeight="semibold"
+            fontSize="sm"
+            textTransform="capitalize"
+          >
+            {userName}:
+          </PopoverHeader>
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <PopoverBody fontWeight="normal" fontSize="sm">
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th>Stat</Th>
+                </Tr>
+              </Thead>
+              <Tbody>{/* <Tr></Tr> */}</Tbody>
+            </Table>
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+    </Box>
   );
 };
