@@ -23,11 +23,10 @@ export default async function commentHandler(req, res) {
       // Update or create data in your database
       const comment = await insertComment(db, req.body.data);
       return res.json({ comment });
-
       // res.status(200).json({ id, name: name || `User ${id}` })
       break;
     default:
-      res.setHeader("Allow", ["GET", "PUT"]);
+      res.setHeader("Allow", ["GET", "PUT", "POST"]);
       res.status(405).end(`Method ${method} Not Allowed`);
       break;
   }

@@ -1,3 +1,4 @@
+import fetcher from '@/lib/fetch';
 import {
   Box,
   Heading,
@@ -12,16 +13,36 @@ import {
 } from "@chakra-ui/react";
 import { nanoid } from 'nanoid';
 import React from "react";
+import useSWR from 'swr';
 import { Order } from '../types';
 import { InteractiveUserName } from "./InteractiveUserName";
 
 interface Props {
   orders: Order[]
 }
+interface Leaders {
+  name: string,
+  uid: string | any //ObjectID,
+  stat: number,
 
+}
 const LeaderBoard = ({orders}: Props) => {
-  console.log("[LeaderBoard Props:");
-  console.log(orders);
+  // const { data: pastOrders, error } = useSWR(`/api/orders?from=${from}&limit=${PAGE_SIZE}${
+  //   creatorId ? `&by=${creatorId}` : ''
+  // }`, fetcher);
+  //need to get points from orders prop; 
+  const getConsistentLeaders = (orders: Order[]): Leaders[] => {
+    //consistent = iswinning the most times, orders by same user,
+    console.log(orders)
+    let z = orders.filter(o => o.isWinning === true)
+
+    console.log(z)
+    return   [
+      { name: "Hullaballoo", stat: 2.23, uid: (Math.random()*100000).toPrecision(5) },
+      { name: "BigIbuy", stat: 1.03, uid: nanoid(11) },
+      { name: "BillyTeePhillians", stat: 0.83, uid: nanoid(11) },
+    ];
+  };
   //three tables HStacked, with shared header?
   // <Th>Most Consistent</Th>
   //           <Th>Most Gains (%)</Th>
@@ -43,7 +64,7 @@ const LeaderBoard = ({orders}: Props) => {
         Top 5 Pickers this season
       </Heading>
       <HStack id="leaderboard" spacing="32">
-        <LeaderTable title="Most Consistent" leaders={leaders_consistent} />
+        <LeaderTable title="Most Consistent" leaders={getConsistentLeaders(orders)} />
         <LeaderTable title="Most Gains (%)" leaders={leaders_gains} />
         <LeaderTable title="Most Revenue ($)" leaders={leaders_revenue} />
       </HStack>
@@ -53,11 +74,6 @@ const LeaderBoard = ({orders}: Props) => {
 
 export default LeaderBoard;
 
-const leaders_consistent = [
-  { name: "Hullaballoo", stat: 2.23, uid: (Math.random()*100000).toPrecision(5) },
-  { name: "BigIbuy", stat: 1.03, uid: nanoid(11) },
-  { name: "BillyTeePhillians", stat: 0.83, uid: nanoid(11) },
-];
 const leaders_gains = [
   { name: "DankMasterJay", stat: 3, uid: nanoid(11) },
   { name: "SkunkTuesday", stat: 1.5, uid: nanoid(11) },

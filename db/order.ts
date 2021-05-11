@@ -43,3 +43,11 @@ export async function insertOrder(db, data: Order) {
     })
     .then(({ ops }) => ops[0]);
 }
+
+
+export async function updateOrderById(db, id, update) {
+  return db
+    .collection("orders")
+    .findOneAndUpdate({ _id: id }, { $set: update }, { returnOriginal: false })
+    .then(({ value }) => value);
+}

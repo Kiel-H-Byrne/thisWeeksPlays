@@ -11,15 +11,16 @@ import {
 } from "@chakra-ui/react";
 import { CommentCard as CommentCard } from "./CommentCard";
 import VerifyField from "./form/VerifyField";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import fetcher from "@/lib/fetch";
 import CommentForm from "./CommentForm";
 import { useSession } from "next-auth/client";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { format } from "date-fns";
 import { InteractiveUserName } from "./InteractiveUserName";
+import axios from 'axios';
 
-const PlayCard = ({
+const PlayCard = async ({
   userName,
   uid,
   ticker,
@@ -81,6 +82,17 @@ const PlayCard = ({
   if (commentsError) console.error(commentsError);
 
   const isWinning = tickerData?.latestPrice <= entryPrice && !isShort;
+  //if the current date is greater than or equal to 3 weeks after submit date, add isWinning stat to order
+  if (new Date () >= submitDate) {
+    console.log("set isWinning")
+    console.log(isWinning);
+    mutate(
+      `api/orders/${_id}`,
+      await axios.post(`api/orders/${_id}`, {
+        data: { isWinning: true },
+      })
+    );
+  }
   return (
     // <Link href="/plays/[id]" as={`/plays/${data.id}`}>
 
