@@ -1,4 +1,4 @@
-import { findOrderById, updateOrder, updateOrderById } from '@/db/index';
+import { findOrderById, updateOrderById } from '@/db/index';
 import { connectToDatabase } from '@/db/mongodb'
 
 export default async function orderHandler(req, res) {
@@ -20,14 +20,12 @@ export default async function orderHandler(req, res) {
     case "POST":
       //if id exists in db, update with data; otherwise insert new
       // Update or create data in your database
-      console.log("updating...")
-      console.log(req.body.data)
-      const comment = await updateOrderById(db, orderId, req.body.data);
-      return res.json({ comment });
-      // res.status(200).json({ id, name: name || `User ${id}` })
+      const update = await updateOrderById(db, orderId, req.body.data);
+      // return res.json({ update });
+      res.status(200).json({ update })
       break;
     default:
-      res.setHeader('Allow', ['GET', 'PUT'])
+      res.setHeader('Allow', ['GET', 'PUT', 'POST'])
       res.status(405).end(`Method ${method} Not Allowed`)
   }
 }

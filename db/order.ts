@@ -24,7 +24,7 @@ export async function findOrderById(db, orderId: string) {
   return db
     .collection("orders")
     .findOne({
-      _id: new ObjectId(orderId)
+      _id: typeof orderId === "string" ? orderId : new ObjectId(orderId)
     })
     .then((order) => order || "No Order Found for id: " + orderId);
 }
@@ -46,6 +46,8 @@ export async function insertOrder(db, data: Order) {
 
 
 export async function updateOrderById(db, id, update) {
+  // const _id = new ObjectId(`${id}`);
+  console.log(id)
   return db
     .collection("orders")
     .findOneAndUpdate({ _id: id }, { $set: update }, { returnOriginal: false })

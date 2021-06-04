@@ -7,7 +7,7 @@ import {
 } from "@/types/index";
 
 export type Order = {
-  _id: string;
+  _id: any //ObjectId;
   ticker: string;
   sentiment: Sentiment;
   instrument: ValueOf<Instruments>;

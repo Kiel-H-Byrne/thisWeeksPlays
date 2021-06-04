@@ -1,19 +1,20 @@
-import fetcher from '@/lib/fetch';
+// import fetcher from '@/lib/fetch';
 import {
   Box,
+  Flex,
   Heading,
-  HStack,
   Table,
   TableCaption,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
 } from "@chakra-ui/react";
 import { nanoid } from 'nanoid';
 import React from "react";
-import useSWR from 'swr';
+// import useSWR from 'swr';
 import { Order } from '../types';
 import { InteractiveUserName } from "./InteractiveUserName";
 
@@ -43,31 +44,28 @@ const LeaderBoard = ({orders}: Props) => {
       { name: "BillyTeePhillians", stat: 0.83, uid: nanoid(11) },
     ];
   };
-  //three tables HStacked, with shared header?
-  // <Th>Most Consistent</Th>
-  //           <Th>Most Gains (%)</Th>
-  //           <Th>Most Revenue ($)</Th>
-
-  /* <Td><Th>Name</Th><Th>Rate</Th></Td>
-            <Td><Th>Name</Th><Th>Profit %age</Th></Td>
-            <Td><Th>Name</Th><Th>Total Revenue</Th></Td> */
   return (
     <Box
-      paddingInline="8"
-      marginBlock="8"
+      marginBlock="5"
       boxShadow="base"
       borderBlock="1px solid green"
       borderRadius="sm"
+      // minW="100%"
     >
-      <Heading textAlign="center">Quarterly Leaderboard</Heading>
-      <Heading textAlign="center" fontSize="xl" fontWeight="normal">
-        Top 5 Pickers this season
+      <Heading textAlign="center" backgroundColor="green.300" paddingBlock="3" fontSize={["2xl", "3xl"]}>
+        Quarterly Leaderboard
+        <Text fontSize={["lg","xl"]} fontWeight="normal">
+          Top 5 Pickers this season
+        </Text>
       </Heading>
-      <HStack id="leaderboard" spacing="32">
-        <LeaderTable title="Most Consistent" leaders={getConsistentLeaders(orders)} />
+      <Flex direction={["column", "row"]} id="leaderboard" overflowX="scroll">
+        <LeaderTable
+          title="Most Consistent"
+          leaders={getConsistentLeaders(orders)}
+        />
         <LeaderTable title="Most Gains (%)" leaders={leaders_gains} />
         <LeaderTable title="Most Revenue ($)" leaders={leaders_revenue} />
-      </HStack>
+      </Flex>
     </Box>
   );
 };
@@ -89,13 +87,13 @@ const LeaderTable = ({ title, leaders }) => {
   // search all orders within last 3 weeks,
   // then create three arrays of objects for each category
   return (
-    <Table variant="simple" colorScheme="orange">
-      <TableCaption placement="top" fontSize="larger">
+    <Table variant="simple" colorScheme="whiteAlpha" width="100%" overflowX="scroll" backgroundColor="whiteAlpha.100" borderBottomColor="green.200" borderBottomWidth="medium">
+      <TableCaption placement="top" fontSize="large" margin="0" color="green.400">
         {title}
       </TableCaption>
       <Thead>
         <Tr>
-          <Th>Member Name</Th>
+          <Th textAlign="center">Member Name</Th>
           <Th isNumeric>Rate </Th>
         </Tr>
       </Thead>

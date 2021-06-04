@@ -2,7 +2,8 @@ import React from "react";
 import Layout from "@/components/layout";
 import {
   Box,
-  Container,
+  Center,
+  // Flex,
   Heading,
   HStack,
   Skeleton,
@@ -10,7 +11,9 @@ import {
 } from "@chakra-ui/react";
 import FormModalButton from "@/components/FormModalButton";
 import { InstrumentPlays } from "@/components/InstrumentPlays";
-import { Instruments, Order } from "@/types/index";
+import { 
+  Instruments, 
+  Order } from "@/types/index";
 import { samplePlays, getDateThreeWeeksAgo } from "@/util/index";
 import LeaderBoard from "@/components/LeaderBoard";
 import fetcher from "@/lib/fetch";
@@ -33,25 +36,23 @@ const IndexPage = () => {
   }
   return (
     <Layout title="Top5Plays.com">
-      <Container maxW="container.xl">
-        <Heading textAlign="center" margin="auto">
-          Top 5 Plays 👋
-        </Heading>
-        <Box padding="3" marginBlock="5">
-          <Text fontWeight={400} fontSize={36}>
-            Welcome to This Weeks Plays!
-          </Text>
-          <Text fontWeight={300} fontSize={16}>
-            The online "Investor Group Chat". Post your watchlist, watch the
-            plays others are watching or making this week! See the trends play
-            out right before your eyes.
-          </Text>
-        </Box>
-        <FormModalButton />
-      </Container>
+      <Heading textAlign="center" margin="auto">
+        Top 5 Plays 👋
+      </Heading>
+      <Box direction="column" padding="3" marginBlock="5">
+        <Center fontWeight={400} fontSize={["2xl", "3xl", "4xl"]}>
+          Welcome to This Weeks Plays!
+        </Center>
+        <Text fontWeight={300} fontSize={16}>
+          The online "Investor Group Chat". Post your watchlist, watch the plays
+          others are watching or making this week! See the trends play out right
+          before your eyes.
+        </Text>
+      </Box>
+      <FormModalButton />
       <LeaderBoard orders={data} />
-      <Box display="flex" overflowX="auto" boxShadow="inner">
-        <HStack spacing={7} align={"flex-start"} padding="7">
+      <Box  overflowX="scroll">
+        <HStack  align={"flex-start"} padding="auto">
           {Object.entries(ordersByInstrument).map((instrument) => (
             <Skeleton isLoaded={!!data}>
               <InstrumentPlays

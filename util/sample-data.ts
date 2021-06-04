@@ -7,9 +7,7 @@ import {
   OptionStrategies,
   Comment,
 } from "@/types/index";
-import { getDateThreeWeeksAgo } from './util';
 
-const sampleDate = new Date(getDateThreeWeeksAgo)
 /** Dummy user data. */
 export const sampleUserData: Partial<User>[] = [
   { _id: "101", name: "Alice", orders: [], stats: {winningOrders: 0, netProfit: 0, netGain: 0} },
@@ -20,7 +18,6 @@ export const sampleUserData: Partial<User>[] = [
 
 export const samplePlays: Partial<Order>[] = [
   {
-    _id: "201",
     sentiment: Sentiment.Bullish,
     ticker: "IBUY",
     instrument: Instruments.Stocks,
@@ -33,7 +30,7 @@ export const samplePlays: Partial<Order>[] = [
     screenShot: "https://picsum.photos/150/300",
     userName: "sirBuysAlot",
     uid: "101",
-    submitDate: sampleDate,
+    submitDate: new Date(),
     upVotes: [],
     downVotes: [],
     get riskAmount(): number {
@@ -42,7 +39,6 @@ export const samplePlays: Partial<Order>[] = [
     points: 13,
   },
   {
-    _id: "202",
     sentiment: Sentiment.Bearish,
     ticker: "IDEX",
     instrument: Instruments.Stocks,
@@ -57,14 +53,13 @@ export const samplePlays: Partial<Order>[] = [
     uid: "101",
     upVotes: [], //array of usernames who upvoted
     downVotes: [], //array of usernaes who downvoted,
-    submitDate: sampleDate,
+    submitDate: new Date(),
     get riskAmount(): number {
       return this.orderAmount * this.entryPrice;
     },
     points: 10,
   },
   {
-    _id: "203",
     sentiment: Sentiment.Bullish,
     ticker: "TSLA",
     instrument: Instruments.Options,
@@ -76,7 +71,7 @@ export const samplePlays: Partial<Order>[] = [
     optionsExpiration: "20230317",
     userName: "musgKang",
     uid: "101",
-    submitDate: sampleDate,
+    submitDate: new Date(),
     upVotes: [],
     downVotes: [],
     entryPrice: 450,
@@ -88,14 +83,13 @@ export const samplePlays: Partial<Order>[] = [
     points: 10,
   },
   {
-    _id: "204",
     sentiment: Sentiment.Bullish,
     ticker: "ZB",
     instrument: Instruments.Futures,
     isWatching: false,
     userName: "futureIsNow",
     uid: "101",
-    submitDate: sampleDate,
+    submitDate: new Date(),
     upVotes: [],
     downVotes: [],
     entryPrice: 0,
@@ -109,14 +103,13 @@ export const samplePlays: Partial<Order>[] = [
     points: 10,
   },
   {
-    _id: "205",
     sentiment: Sentiment.Bullish,
     ticker: "BTC/USD",
     instrument: Instruments.ForEx,
     isWatching: false,
     userName: "cryptoKingZ",
     uid: "101",
-    submitDate: sampleDate,
+    submitDate: new Date(),
     upVotes: [],
     downVotes: [],
     entryPrice: 0,
@@ -130,14 +123,13 @@ export const samplePlays: Partial<Order>[] = [
     points: 10,
   },
   {
-    _id: "206",
     sentiment: Sentiment.Bullish,
     ticker: "BTCUSDT",
     instrument: Instruments.Crypto,
     isWatching: true,
     userName: "digiMon",
     uid: "101",
-    submitDate: sampleDate,
+    submitDate: new Date(),
     upVotes: [],
     downVotes: [],
     entryPrice: 0,
@@ -170,7 +162,7 @@ export const MoreInformation = {
 export const sampleComments: Comment[] = [
   {
     _id: "301",
-    submitDate: sampleDate,
+    submitDate: new Date(),
     userName: "commentKing",
     uid: "101",
     oid: "201",

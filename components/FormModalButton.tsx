@@ -20,7 +20,7 @@ const FormModalButton = () => {
   return (
     <Box margin="3">
       <Center>
-        <Button padding="7" onClick={onToggle} colorScheme="green">
+        <Button padding={["3","7"]} onClick={onToggle} colorScheme="green" fontSize={["md", "larger"]}>
           Submit Your Play!
         </Button>
       </Center>
