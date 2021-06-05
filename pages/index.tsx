@@ -3,9 +3,8 @@ import Layout from "@/components/layout";
 import {
   Box,
   Center,
-  // Flex,
+  Flex,
   Heading,
-  HStack,
   Skeleton,
   Text,
 } from "@chakra-ui/react";
@@ -51,18 +50,16 @@ const IndexPage = () => {
       </Box>
       <FormModalButton />
       <LeaderBoard orders={data} />
-      <Box  overflowX="scroll">
-        <HStack  align={"flex-start"} padding="auto">
+        <Flex padding="auto" overflowX="auto">
           {Object.entries(ordersByInstrument).map((instrument) => (
-            <Skeleton isLoaded={!!data}>
+            <Skeleton isLoaded={!!data} marginInline="3">
               <InstrumentPlays
                 instrument={instrument[0] as Instruments}
                 orders={instrument[1]}
               />
             </Skeleton>
           ))}
-        </HStack>
-      </Box>
+        </Flex>
     </Layout>
   );
 };

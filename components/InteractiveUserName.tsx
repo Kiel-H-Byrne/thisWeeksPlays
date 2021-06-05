@@ -30,11 +30,11 @@ export const InteractiveUserName = ({
 }) => {
   const user = uid ? fetchUser(uid) : null;
   return (
-    <Box as="span">
+    <Box>
       <Popover placement="auto-end" trigger="hover">
         <PopoverTrigger>
           <Skeleton isLoaded={!!uid}>
-            <Flex>
+            <Flex >
               <Avatar
                 src={`https://avatars.dicebear.com/api/bottts/${uid}.svg`}
                 size="xs"

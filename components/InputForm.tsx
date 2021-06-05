@@ -22,10 +22,11 @@ import {
 } from "@/types/index";
 import axios from "axios";
 import { AutoCompleteField } from "./MyAutocomplete";
-import { InfoPopover } from "./form/InfoPopover";
+import { IconPopover } from "./form/InfoPopover";
 import useSWR, { mutate } from "swr";
 import fetcher from "@/lib/fetch";
 import { calculatePoints, getDateThreeWeeksAgo } from "../util";
+import { InfoOutlineIcon } from '@chakra-ui/icons';
 
 const initialData: Partial<Order> = {
   instrument: Instruments.Crypto, //ValueOf<Instruments>
@@ -259,7 +260,7 @@ export const InputForm = ({ onClose, userName, uid }) => {
                         htmlFor="exitStrategy"
                         placeholder="Exit Strategy"
                       >
-                        Exit Strategy <InfoPopover name="exit-strategy" />
+                        Exit Strategy <IconPopover name="exit-strategy" Icon={InfoOutlineIcon}/>
                         {data ? (
                           <Text as="span" fontSize="small">
                             {" "}
@@ -291,7 +292,7 @@ export const InputForm = ({ onClose, userName, uid }) => {
                     isInvalid={form.errors.reasoning && form.touched.reasoning}
                   >
                     <FormLabel htmlFor="reasoning" placeholder="Reasoning">
-                      Reasoning <InfoPopover name="reasoning" />
+                      Reasoning <IconPopover name="reasoning" Icon={InfoOutlineIcon} />
                     </FormLabel>
                     <Select
                       {...field}

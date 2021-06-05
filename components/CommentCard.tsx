@@ -1,4 +1,4 @@
-import { Box, Text, VStack } from "@chakra-ui/react";
+import { Flex, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import { Comment } from "../types";
 import { InteractiveUserName } from './InteractiveUserName';
@@ -6,11 +6,11 @@ import { InteractiveUserName } from './InteractiveUserName';
 export const CommentCard = ({ uid, userName, comment}: Comment) => {
   //form input comment, and onsubmit send to api.
   return (
-    <Box key={uid} marginInline="3" style={{ display: "inline-flex" }}>
-      <VStack alignItems="flex-start">
+    <Flex key={uid} marginInline="3" direction="row">
+      <VStack alignItems="flex-start" flexShrink={0}>
         <Text>{comment}</Text>
         <InteractiveUserName {...{userName, uid}} />
       </VStack>
-    </Box>
+    </Flex>
   );
 };

@@ -58,7 +58,7 @@ const LeaderBoard = ({orders}: Props) => {
           Top 5 Pickers this season
         </Text>
       </Heading>
-      <Flex direction={["column", "row"]} id="leaderboard" overflowX="scroll">
+      <Flex id="leaderboard" overflowX="auto">
         <LeaderTable
           title="Most Consistent"
           leaders={getConsistentLeaders(orders)}
@@ -87,7 +87,7 @@ const LeaderTable = ({ title, leaders }) => {
   // search all orders within last 3 weeks,
   // then create three arrays of objects for each category
   return (
-    <Table variant="simple" colorScheme="whiteAlpha" width="100%" overflowX="scroll" backgroundColor="whiteAlpha.100" borderBottomColor="green.200" borderBottomWidth="medium">
+    <Table variant="simple" colorScheme="whiteAlpha" overflowX="auto" backgroundColor="whiteAlpha.100" borderRightColor="green.200" borderRightWidth="thin" borderRightStyle="dashed" /* borderBottomColor="green.200" borderBottomWidth="medium" */>
       <TableCaption placement="top" fontSize="large" margin="0" color="green.400">
         {title}
       </TableCaption>

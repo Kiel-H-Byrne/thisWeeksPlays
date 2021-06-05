@@ -1,6 +1,7 @@
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { Box, FormControl, Text } from "@chakra-ui/react";
+import { ChevronDownIcon, ChevronUpIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { Box, Flex, FormControl } from "@chakra-ui/react";
 import React from "react";
+import { IconPopover } from './InfoPopover';
 
 interface Props {
   orderId: string;
@@ -53,23 +54,29 @@ const VerifyField = ({ userId = "", upVotes }: Props) => {
   //     return false;
   //   }
   // };
-  const upVoteCount = () => {
-    return upVotes.length;
-  };
+  // const upVoteCount = () => {
+  //   return upVotes.length;
+  // };
 
   return (
     <FormControl id="watch-control">
-      <Box className="watchButton" display="flex" justifyContent="flex-end">
+      <Flex className="watchButton" justifyContent="flex-end">
         <Box className="watch" onClick={handleClick}>
           {in_watched() ? (
-            <ViewOffIcon className={`unwatch`} />
+            <IconPopover name="stop-following" Icon={ViewOffIcon}/>
           ) : (
-            <ViewIcon className={`watched`} />
+            <IconPopover name="follow" Icon={ViewIcon}/>
           )}
         </Box>
-        <Text className="vote-count" paddingInline="3">{upVoteCount() > 0 ? `${upVoteCount()} Watchers` : `Watch This`}</Text>
+        {/* <Text className="votw-follow" paddingInline="3">
+          {upVoteCount() > 0 ? `${upVoteCount()} Watchers` : `Follow This Play`}
+        </Text> */}
         {/* <span className="unWatch"></span> */}
-      </Box>
+      <Flex direction="column">
+      <IconPopover name="up-vote" Icon={ChevronUpIcon}/>
+      <IconPopover name="down-vote" Icon={ChevronDownIcon}/>
+      </Flex>
+      </Flex>
     </FormControl>
   );
 };

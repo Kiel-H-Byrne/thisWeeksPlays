@@ -35,16 +35,9 @@ const Layout = ({ children, title = "ThisWeeksPlays.com" }: Props) => {
 
   return (
     <Flex
-    width="100%"
-    height="100%"
-    // position="absolute"
-    // bottom="0"
-    // top="0"
-    flexShrink="revert"
+    flexShrink={0}
       direction="column"
       m="0 auto"
-      // justify="space-between"
-      // wrap="wrap"
     >
       <CustomHead title={title} />
       <header>
@@ -88,7 +81,9 @@ const Layout = ({ children, title = "ThisWeeksPlays.com" }: Props) => {
           </Box>
         </Grid>
       </header>
+      <Box flexShrink={0}>
       {children}      
+      </Box>
       <MyFooter />
     </Flex>
   );

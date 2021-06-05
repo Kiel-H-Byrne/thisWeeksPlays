@@ -3,17 +3,15 @@ import React from "react";
 import * as types from "@/types/index";
 import {
   Box,
-  Flex,
   Collapse,
   Divider,
-  Text,
+  Flex,
   useDisclosure,
 } from "@chakra-ui/react";
 import { CommentCard as CommentCard } from "./CommentCard";
 import VerifyField from "./form/VerifyField";
-import useSWR
-// , { mutate } 
-from "swr";
+import useSWR from // , { mutate }
+"swr";
 import fetcher from "@/lib/fetch";
 import CommentForm from "./CommentForm";
 import { useSession } from "next-auth/client";
@@ -21,7 +19,7 @@ import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { format } from "date-fns";
 import { InteractiveUserName } from "./InteractiveUserName";
 // import axios from 'axios';
-import { getDateThreeWeeksAgo } from '../util';
+import { getDateThreeWeeksAgo } from "../util";
 
 const PlayCard = ({
   userName,
@@ -87,8 +85,8 @@ const PlayCard = ({
   const isWinning = tickerData?.latestPrice <= entryPrice && !isShort;
   //if the current date is greater than or equal to 3 weeks after submit date, add isWinning stat to order
   if (submitDate === new Date(getDateThreeWeeksAgo)) {
-    console.log("order has expired, set the metrics")
-    console.log(submitDate + "==" + new Date(getDateThreeWeeksAgo))
+    console.log("order has expired, set the metrics");
+    console.log(submitDate + "==" + new Date(getDateThreeWeeksAgo));
     // mutate(
     //   `api/orders/${_id}`,
     //   axios.post(`api/orders/${_id}`, {
@@ -99,48 +97,50 @@ const PlayCard = ({
   return (
     // <Link href="/plays/[id]" as={`/plays/${data.id}`}>
     <Box
-      p={5}
+      p={2}
       shadow="md"
-      borderWidth="3px"
+      borderWidth={!tickerData ? "thin" : "medium"}
       borderColor={!tickerData ? "grey" : isWinning ? "green.600" : "red"}
       borderRadius={"3%"}
-      width={"xs"}
+      width={"2xs"}
     >
-      <Flex wrap="wrap" display="flow">
-        <Text as="span" marginRight="1" fontWeight="500" fontStyle="italic">
+      <Flex wrap="wrap" display="inline-flex" flexFlow="wrap">
+        <Flex marginRight={1} fontWeight="500" fontStyle="italic">
           <InteractiveUserName userName={userName} uid={uid} />
-        </Text>
-        <Text marginInline="1" as="span">{`is ${sentiment} on `}</Text>
-        <Text as={"span"} fontWeight={"bold"} marginInline="1">
+        </Flex>
+        <Flex marginInline={1}>{`is ${sentiment} on `}</Flex>
+        <Flex fontWeight={"bold"} marginInline={1}>
           {ticker}
-          {tickerData ? ` ($${tickerData.latestPrice})` : ``}{" "}
-        </Text>
-        <Text as="span" marginInline="1">
+          {tickerData ? ` ($${tickerData.latestPrice})` : ``}
+        </Flex>
+        <Flex marginInline={1}>
           and {isWatching ? `is looking at a ` : `entered a `}
+        </Flex>
+        <Flex as="span" color={isShort ? `red.400` : `green.400`}>
           {isShort ? `short ` : `long `}
-          {`play because of `}
-        </Text>
-        <Text as={"span"} fontWeight={"bold"} marginInline="1">
+        </Flex>
+        <Flex marginInline={1}>{`play because of `}</Flex>
+        <Flex fontWeight={"bold"} marginInline={1}>
           {reasoning}
           {", "}
-        </Text>
+        </Flex>
         {/* {`placing ${orderAmount} ${optionsStrategy}(s) `} */}
-        <Text marginInline="1" as="span">{`expecting it to hit `}</Text>
-        <Text as={"span"} fontWeight={"bold"} marginInline="1">
+        <Flex marginInline={1}>{`expecting it to hit `}</Flex>
+        <Flex fontWeight={"bold"} marginInline={1}>
           ${targetAmount}.
-        </Text>
+        </Flex>
         <br />
-        <Text>
+        <Flex>
           {isWatching && `If bought, \n`}
           {exitStrategy
             ? `They will ${exitStrategy}...`
             : `They will buy & hold...`}
-        </Text>
+        </Flex>
       </Flex>
-      <Text fontSize="xs" color="grey" marginBlock="2">
-        Submitted: {format(new Date(submitDate), "MM/dd/y")}
-      </Text>
-      <Box id="up-down-vote">
+      <Flex id="up-down-vote">
+        <Flex fontSize="xs" color="grey" marginBlock="2" whiteSpace="nowrap">
+          Submitted: {format(new Date(submitDate), "MM/dd/y")}
+        </Flex>
         {session && !loading ? (
           <VerifyField
             orderId={_id}
@@ -149,7 +149,7 @@ const PlayCard = ({
             downVotes={downVotes}
           />
         ) : null}
-      </Box>
+      </Flex>
       {commentsData ? <Divider /> : null}
       <CommentForm oid={_id} session={session} />
       <Box>
@@ -160,7 +160,7 @@ const PlayCard = ({
             display="flex"
             justifyContent="space-between"
           >
-            <Text as="h2"> View Comments:</Text>
+            <Flex as="h2"> View Comments:</Flex>
             {isOpen ? (
               <ChevronDownIcon margin="auto" />
             ) : (
