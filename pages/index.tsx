@@ -52,7 +52,7 @@ const IndexPage = () => {
       <LeaderBoard orders={data} />
         <Flex padding="auto" overflowX="auto">
           {Object.entries(ordersByInstrument).map((instrument) => (
-            <Skeleton isLoaded={!!data} marginInline="3">
+            <Skeleton isLoaded={!!data} marginInline="3" key={instrument[0]}>
               <InstrumentPlays
                 instrument={instrument[0] as Instruments}
                 orders={instrument[1]}

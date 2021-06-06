@@ -153,7 +153,7 @@ const PlayCard = ({
       {commentsData ? <Divider /> : null}
       <CommentForm oid={_id} session={session} />
       <Box>
-        {commentsData?.comments.length >= 3 ? (
+        {commentsData?.comments?.length >= 3 ? (
           <Box
             onClick={onToggle}
             padding="3"
@@ -169,7 +169,7 @@ const PlayCard = ({
           </Box>
         ) : null}
         <Collapse
-          in={isOpen || commentsData?.comments.length < 3}
+          in={isOpen || commentsData?.comments?.length < 3}
           animateOpacity
         >
           {commentsData?.comments?.length > 0

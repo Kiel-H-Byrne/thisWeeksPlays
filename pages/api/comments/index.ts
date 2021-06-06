@@ -11,7 +11,7 @@ export default async (req: any, res: any) => {
     query: { id, name, oid, limit, from },
     method,
   } = req;
-  console.log(req.query)
+  // console.log(req.query)
   switch (method) {
     case "GET":
       const comments = await getComments(
@@ -33,7 +33,7 @@ export default async (req: any, res: any) => {
       // if (!req.user) {
         //   return res.status(401).send('unauthenticated');
         // }
-        console.log(req.body.data)
+        // console.log(req.body.data)
         if (!req.body)
           return res.status(400).send("You must write something");
         const comment = await insertComment(db, req.body.data);

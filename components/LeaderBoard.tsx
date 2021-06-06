@@ -34,10 +34,10 @@ const LeaderBoard = ({orders}: Props) => {
   //need to get points from orders prop; 
   const getConsistentLeaders = (orders: Order[]): Leaders[] => {
     //consistent = iswinning the most times, orders by same user,
-    console.log(orders)
+    // console.log(orders)
     let z = orders.filter(o => o.isWinning === true)
 
-    console.log(z)
+    // console.log(z)
     return   [
       { name: "Hullaballoo", stat: 2.23, uid: (Math.random()*100000).toPrecision(5) },
       { name: "BigIbuy", stat: 1.03, uid: nanoid(11) },

@@ -149,7 +149,7 @@ export const MoreInformation = {
   sentiment: "",
   instrument: "",
   entryPrice: "",
-  targetAmount: "",
+  "target-amount": "Price Target for your ideal profit.",
   "exit-strategy": `Either the Date you plan to exit, or a target price to take a profit or loss. Must choose one.\n Holding long term? set a loss price target. \n Short-term Trade? Set a Date.\nSwing Trading? Set a profit price target.`,
   reasoning: `What made you place or watch this order?`,
   "is-watching": "",
@@ -157,6 +157,10 @@ export const MoreInformation = {
   orderAmount: "",
   riskAmount: "",
   screenShot: "",
+  follow: "Follow this play, see how it pans out...",
+  "stop-following": "Stop Following this play...",
+  "up-vote": "Vote for this play.",
+  "down-vote": "Downvote this play.",
 };
 
 export const sampleComments: Comment[] = [

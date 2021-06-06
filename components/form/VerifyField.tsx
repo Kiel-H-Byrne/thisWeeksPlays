@@ -1,7 +1,12 @@
-import { ChevronDownIcon, ChevronUpIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ViewIcon,
+  ViewOffIcon,
+} from "@chakra-ui/icons";
 import { Box, Flex, FormControl } from "@chakra-ui/react";
 import React from "react";
-import { IconPopover } from './InfoPopover';
+import { IconPopover } from "./InfoPopover";
 
 interface Props {
   orderId: string;
@@ -24,20 +29,19 @@ const VerifyField = ({ userId = "", upVotes }: Props) => {
 
   const handleClick = () => {
     //if username is in watched, remove, if not, add
-    console.log(upVotes, userId)
+    console.log(upVotes, userId);
     if (userId && upVotes.length > 0) {
       if (upVotes.includes(userId)) {
-        upVotes.pop()
+        upVotes.pop();
         //send POST request to update this orders upvotes field
       } else {
-        upVotes.push(userId)
+        upVotes.push(userId);
         //send POST request to update this orders upvotes field
       }
     } else {
       console.log("no uid?");
     }
-
-  }
+  };
   const in_watched = () => {
     //if verifiedListings array contains order id, return true.
     if (userId && upVotes.length > 0) {
@@ -60,22 +64,22 @@ const VerifyField = ({ userId = "", upVotes }: Props) => {
 
   return (
     <FormControl id="watch-control">
-      <Flex className="watchButton" justifyContent="flex-end">
+      <Flex justifyContent="flex-end">
+      <Flex direction="column">
+        <IconPopover name="up-vote" Icon={ArrowUpIcon} />
+        <IconPopover name="down-vote" Icon={ArrowDownIcon} />
+      </Flex>
         <Box className="watch" onClick={handleClick}>
           {in_watched() ? (
-            <IconPopover name="stop-following" Icon={ViewOffIcon}/>
+            <IconPopover name="stop-following" Icon={ViewOffIcon} />
           ) : (
-            <IconPopover name="follow" Icon={ViewIcon}/>
+            <IconPopover name="follow" Icon={ViewIcon} />
           )}
         </Box>
         {/* <Text className="votw-follow" paddingInline="3">
           {upVoteCount() > 0 ? `${upVoteCount()} Watchers` : `Follow This Play`}
         </Text> */}
         {/* <span className="unWatch"></span> */}
-      <Flex direction="column">
-      <IconPopover name="up-vote" Icon={ChevronUpIcon}/>
-      <IconPopover name="down-vote" Icon={ChevronDownIcon}/>
-      </Flex>
       </Flex>
     </FormControl>
   );

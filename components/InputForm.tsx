@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 // import { Field, Form, Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Field, Form, FormikHelpers } from "formik";
 import {
   Order,
@@ -26,7 +26,7 @@ import { IconPopover } from "./form/InfoPopover";
 import useSWR, { mutate } from "swr";
 import fetcher from "@/lib/fetch";
 import { calculatePoints, getDateThreeWeeksAgo } from "../util";
-import { InfoOutlineIcon } from '@chakra-ui/icons';
+import { InfoOutlineIcon } from "@chakra-ui/icons";
 
 const initialData: Partial<Order> = {
   instrument: Instruments.Crypto, //ValueOf<Instruments>
@@ -234,20 +234,85 @@ export const InputForm = ({ onClose, userName, uid }) => {
                   )}
                 </Field>
               ) : null}
-
-              <Field name="exitStrategy">
+              <Field name="targetAmount">
                 {({ field, form }) => {
                   const method = "stock";
                   const action = "quote";
-                  const { data, error } = useSWR(
-                    !form.values.ticker
-                      ? null
-                      : `https://cloud.iexapis.com/stable/${method}/${form.values.ticker}/${action}?token=${process.env.IEX_KEY}`,
-                    fetcher
-                  );
-                  if (error) {
-                    console.error(error);
+                  const [quote, setQuote] = useState(null)
+                  const quoteURI = !form.values.ticker
+                    ? null
+                    : form.values.instrument == Instruments.Options
+                    ? `https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-options`
+                    : form.values.instrument == Instruments.Options
+                    ? ``
+                    : `https://cloud.iexapis.com/stable/${method}/${form.values.ticker}/${action}?token=${process.env.IEX_KEY}`;
+                  // : `/api/quote/${form.values.ticker}`,
+                  const getSymbolData = async () => {
+                    try {
+                      return await axios({
+                        url: quoteURI,
+                        params: {
+                          symbol: form.values.ticker,
+                          region: "US",
+                        },
+                        headers: {
+                          'x-rapidapi-key': process.env.RAPID_KEY,
+                          'x-rapidapi-host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
+                        }
+                      });
+                    } catch (error) {
+                      console.log(error);
+                    }
                   }
+                  form.values.ticker
+                    ? getSymbolData().then((res) => setQuote(res))
+                    : null;
+                    console.log(quote)
+                  // if (error) {
+                  //   console.error(error);
+                  // }
+                  return (
+                    <FormControl
+                      id="targetAmount-control"
+                      isRequired
+                      isInvalid={
+                        form.errors.targetAmount && form.touched.targetAmount
+                      }
+                    >
+                      <FormLabel
+                        htmlFor="targetAmount"
+                        placeholder="Target Price"
+                      >
+                        Target Price{" "}
+                        <IconPopover
+                          name="target-amount"
+                          Icon={InfoOutlineIcon}
+                        />
+                        {quote ? (
+                          <Text as="span" fontSize="small">
+                            {" "}
+                            ${form.values.ticker} is currently $
+                            {/* {data.latestPrice} */}
+                          </Text>
+                        ) : (
+                          ``
+                        )}
+                      </FormLabel>
+                      <Input
+                        {...field}
+                        id="targetAmount"
+                        placeholder="Target Amount"
+                      />
+                      {/* value should be object {TP: $3 SL: $20} */}
+                      <FormErrorMessage>
+                        {form.errors.targetAmount}
+                      </FormErrorMessage>
+                    </FormControl>
+                  );
+                }}
+              </Field>
+              <Field name="exitStrategy">
+                {({ field, form }) => {
                   return (
                     <FormControl
                       id="exitStrategy-control"
@@ -260,16 +325,11 @@ export const InputForm = ({ onClose, userName, uid }) => {
                         htmlFor="exitStrategy"
                         placeholder="Exit Strategy"
                       >
-                        Exit Strategy <IconPopover name="exit-strategy" Icon={InfoOutlineIcon}/>
-                        {data ? (
-                          <Text as="span" fontSize="small">
-                            {" "}
-                            ${form.values.ticker} is currently $
-                            {data.latestPrice}
-                          </Text>
-                        ) : (
-                          ``
-                        )}
+                        Exit Strategy{" "}
+                        <IconPopover
+                          name="exit-strategy"
+                          Icon={InfoOutlineIcon}
+                        />
                       </FormLabel>
                       <Input
                         {...field}
@@ -292,7 +352,8 @@ export const InputForm = ({ onClose, userName, uid }) => {
                     isInvalid={form.errors.reasoning && form.touched.reasoning}
                   >
                     <FormLabel htmlFor="reasoning" placeholder="Reasoning">
-                      Reasoning <IconPopover name="reasoning" Icon={InfoOutlineIcon} />
+                      Reasoning{" "}
+                      <IconPopover name="reasoning" Icon={InfoOutlineIcon} />
                     </FormLabel>
                     <Select
                       {...field}

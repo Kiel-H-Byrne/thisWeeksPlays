@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 
 module.exports = {
   env: {
@@ -10,9 +10,10 @@ module.exports = {
     SESSION_SECRET: process.env.SESSION_SECRET,
     ALPHAVANTAGE_KEY: process.env.ALPHAVANTAGE_KEY,
     IEX_KEY: process.env.IEX_KEY,
-    GOOGLE_ID:process.env.GOOGLE_ID,
+    GOOGLE_ID: process.env.GOOGLE_ID,
     GOOGLE_SECRET: process.env.GOOGLE_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-
+    QUANDL_KEY: process.env.QUANDL_KEY,
+    RAPID_KEY: process.env.RAPID_KEY,
   },
 };
