@@ -18,6 +18,7 @@ export const sampleUserData: Partial<User>[] = [
 
 export const samplePlays: Partial<Order>[] = [
   {
+    _id: "201",
     sentiment: Sentiment.Bullish,
     ticker: "IBUY",
     instrument: Instruments.Stocks,
@@ -39,6 +40,7 @@ export const samplePlays: Partial<Order>[] = [
     points: 13,
   },
   {
+    _id: "202",
     sentiment: Sentiment.Bearish,
     ticker: "IDEX",
     instrument: Instruments.Stocks,
@@ -60,6 +62,7 @@ export const samplePlays: Partial<Order>[] = [
     points: 10,
   },
   {
+    _id: "203",
     sentiment: Sentiment.Bullish,
     ticker: "TSLA",
     instrument: Instruments.Options,
@@ -83,6 +86,7 @@ export const samplePlays: Partial<Order>[] = [
     points: 10,
   },
   {
+    _id: "204",
     sentiment: Sentiment.Bullish,
     ticker: "ZB",
     instrument: Instruments.Futures,
@@ -103,6 +107,7 @@ export const samplePlays: Partial<Order>[] = [
     points: 10,
   },
   {
+    _id: "205",
     sentiment: Sentiment.Bullish,
     ticker: "BTC/USD",
     instrument: Instruments.ForEx,
@@ -123,6 +128,7 @@ export const samplePlays: Partial<Order>[] = [
     points: 10,
   },
   {
+    _id: "206",
     sentiment: Sentiment.Bullish,
     ticker: "BTCUSDT",
     instrument: Instruments.Crypto,
