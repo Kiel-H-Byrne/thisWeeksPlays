@@ -14,7 +14,7 @@ const CustomHead = ({title}: Props) => {
 
       <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0, minimal-ui"
+        content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86"
       />
       <meta name="format-detection" content="telephone=no" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />

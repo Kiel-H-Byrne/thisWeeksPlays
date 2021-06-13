@@ -87,8 +87,23 @@ const LeaderTable = ({ title, leaders }) => {
   // search all orders within last 3 weeks,
   // then create three arrays of objects for each category
   return (
-    <Table variant="simple" colorScheme="whiteAlpha" overflowX="auto" backgroundColor="whiteAlpha.100" borderRightColor="green.200" borderRightWidth="thin" borderRightStyle="dashed" /* borderBottomColor="green.200" borderBottomWidth="medium" */>
-      <TableCaption placement="top" fontSize="large" margin="0" color="green.400">
+    <Table
+      variant="simple"
+      colorScheme="whiteAlpha"
+      backgroundColor="whiteAlpha.100"
+      borderRightColor="green.200"
+      borderRightWidth="thin"
+      borderRightStyle="dashed"
+      minWidth={0}
+      overflowX="auto"
+      /* borderBottomColor="green.200" borderBottomWidth="medium" */
+    >
+      <TableCaption
+        placement="top"
+        fontSize="large"
+        margin="0"
+        color="green.400"
+      >
         {title}
       </TableCaption>
       <Thead>
@@ -102,7 +117,7 @@ const LeaderTable = ({ title, leaders }) => {
           return (
             <Tr key={name}>
               <Td>
-                <InteractiveUserName userName={name} uid={uid} />
+                <InteractiveUserName userName={name} uid={uid} showAvatar={true} />
               </Td>
               <Td isNumeric>{stat}</Td>
             </Tr>

@@ -3,7 +3,7 @@ import Link from "next/link";
 import {
   Box,
   Button,
-  // Container,
+  Container,
   Drawer,
   DrawerBody,
   DrawerContent,
@@ -34,11 +34,7 @@ const Layout = ({ children, title = "ThisWeeksPlays.com" }: Props) => {
   const { isOpen, onToggle, onClose } = useDisclosure();
 
   return (
-    <Flex
-    flexShrink={0}
-      direction="column"
-      m="0 auto"
-    >
+    <div>
       <CustomHead title={title} />
       <header>
         <Box display={{ base: "block", md: "none" }} onClick={onToggle}>
@@ -81,11 +77,9 @@ const Layout = ({ children, title = "ThisWeeksPlays.com" }: Props) => {
           </Box>
         </Grid>
       </header>
-      <Box flexShrink={0}>
-      {children}      
-      </Box>
+      <Box flexShrink={0}>{children}</Box>
       <MyFooter />
-    </Flex>
+    </div>
   );
 };
 

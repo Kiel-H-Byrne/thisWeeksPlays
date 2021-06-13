@@ -8,8 +8,8 @@ export const CommentCard = ({ uid, userName, comment}: Comment) => {
   return (
     <Flex key={uid} marginInline="3" direction="row">
       <VStack alignItems="flex-start" flexShrink={0}>
+        <InteractiveUserName {...{userName, uid}} showAvatar={true} />
         <Text>{comment}</Text>
-        <InteractiveUserName {...{userName, uid}} />
       </VStack>
     </Flex>
   );

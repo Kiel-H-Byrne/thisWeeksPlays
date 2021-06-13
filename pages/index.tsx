@@ -50,7 +50,7 @@ const IndexPage = () => {
       </Box>
       <FormModalButton />
       <LeaderBoard orders={data} />
-        <Flex padding="auto" overflowX="auto">
+        <Flex padding="auto" overflowX="auto" minWidth={0}>
           {Object.entries(ordersByInstrument).map((instrument) => (
             <Skeleton isLoaded={!!data} marginInline="3" key={instrument[0]}>
               <InstrumentPlays

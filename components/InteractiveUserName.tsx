@@ -24,9 +24,11 @@ import { fetchUser } from "../hooks";
 export const InteractiveUserName = ({
   userName,
   uid,
+  showAvatar
 }: {
   userName: string;
   uid: string;
+  showAvatar?: boolean;
 }) => {
   const user = uid ? fetchUser(uid) : null;
   return (
@@ -34,14 +36,14 @@ export const InteractiveUserName = ({
       <Popover placement="auto-end" trigger="hover">
         <PopoverTrigger>
           <Skeleton isLoaded={!!uid}>
-            <Flex >
-              <Avatar
-                src={`https://avatars.dicebear.com/api/bottts/${uid}.svg`}
-                size="xs"
-              ></Avatar>
-              <Text>
-                @{user?.profile?.userName || user?.name || userName}
-              </Text>
+            <Flex>
+              {showAvatar && (
+                <Avatar
+                  src={`https://avatars.dicebear.com/api/bottts/${uid}.svg`}
+                  size="xs"
+                ></Avatar>
+              )}
+              <Text>@{user?.profile?.userName || user?.name || userName}</Text>
             </Flex>
           </Skeleton>
         </PopoverTrigger>

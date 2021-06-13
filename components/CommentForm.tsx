@@ -63,7 +63,7 @@ const CommentForm = ({ oid, session }: Props) => {
             </Text>
           ) : null}
           {session ? (
-            <Button type="submit">Comment</Button>
+            <Button type="submit">Leave Comment</Button>
           ) : (
             <Button onClick={() => signIn()}>Login to Comment</Button>
           )}

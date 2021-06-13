@@ -7,6 +7,7 @@ import {
   Divider,
   Flex,
   useDisclosure,
+  Wrap,
 } from "@chakra-ui/react";
 import { CommentCard as CommentCard } from "./CommentCard";
 import VerifyField from "./form/VerifyField";
@@ -103,8 +104,9 @@ const PlayCard = ({
       borderColor={!tickerData ? "grey" : isWinning ? "green.600" : "red"}
       borderRadius={"3%"}
       width={"2xs"}
+      marginBlock={3}
     >
-      <Flex wrap="wrap" display="inline-flex" flexFlow="wrap">
+      <Wrap >
         <Flex marginRight={1} fontWeight="500" fontStyle="italic">
           <InteractiveUserName userName={userName} uid={uid} />
         </Flex>
@@ -136,7 +138,7 @@ const PlayCard = ({
             ? `They will ${exitStrategy}...`
             : `They will buy & hold...`}
         </Flex>
-      </Flex>
+      </Wrap>
       <Flex id="up-down-vote">
         <Flex fontSize="xs" color="grey" marginBlock="2" whiteSpace="nowrap">
           Submitted: {format(new Date(submitDate), "MM/dd/y")}
