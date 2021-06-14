@@ -1,10 +1,11 @@
 import type { AppProps /*, AppContext */ } from "next/app";
 import React from "react";
 import Head from "next/head";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Provider } from "next-auth/client";
 import { SWRConfig } from "swr";
 import fetcher from "@/lib/fetch";
+import { BRAND_THEME } from '@/util/sample-data'
 
 const swr_config_options = {
   refreshInterval: 0,
@@ -12,10 +13,13 @@ const swr_config_options = {
   fetcher: fetcher,
 };
 
+const theme = extendTheme(
+  BRAND_THEME
+)
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider session={pageProps.session}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Head>
           <title>Top 5 Plays</title>
         </Head>

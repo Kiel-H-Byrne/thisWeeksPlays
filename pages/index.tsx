@@ -20,7 +20,7 @@ import useSWR from "swr";
 
 const IndexPage = () => {
   const ordersByInstrument: { [key: string]: Order[] } = {};
-  let { data } = useSWR(`api/orders?from=${getDateThreeWeeksAgo}`, fetcher);
+  let { data } = useSWR(`/api/orders?from=${getDateThreeWeeksAgo}`, fetcher);
   data = data?.orders ? [...samplePlays, ...data.orders] : samplePlays;
   if (data) {
     for (const order in data) {

@@ -179,3 +179,22 @@ export const sampleComments: Comment[] = [
     comment: "some type of comment",
   },
 ]
+export enum BRAND_COLORS {
+  GREEN = "#00aa00"
+}
+export const BRAND_THEME = {
+  styles: {
+    global: {
+      "html, body": {
+        width: "100%",
+        overflowX: "hidden",
+      },
+    }
+  },
+  colors: {
+    brand: {
+      100: "#fff",
+      900: "#000"
+    }
+  }
+}
