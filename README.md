@@ -1,5 +1,5 @@
 # "This Week's Plays" 
-A Site to gather stock trades and follow traders.
+A Site to track fellow traders and their trades. Leaderboard tracks best trades of the quarter.
 ---
 
 <img width="80%" src="https://github.com/Kiel-H-Byrne/thisWeeksPlays/assets/955269/e87125eb-91a4-4102-90bf-33516c918e66" />
